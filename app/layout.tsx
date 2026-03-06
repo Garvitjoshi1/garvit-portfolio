@@ -1,7 +1,5 @@
 import "./globals.css"
 import { Providers } from "./providers"
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
 
 export default function RootLayout({
   children,
@@ -9,8 +7,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-white dark:bg-neutral-950">
         <Providers>{children}</Providers>
       </body>
     </html>
