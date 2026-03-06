@@ -3,7 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { motion } from "framer-motion"
 import ThemeToggle from "@/components/theme-toggle"
 import { Github, Linkedin, Mail, Database, BarChart3, Code } from "lucide-react"
-
+import { Analytics } from "@vercel/analytics/next"
 const projects = [
   {
     title: "PulseMetrics",
