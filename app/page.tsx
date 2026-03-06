@@ -1,65 +1,173 @@
-import Image from "next/image";
+"use client"
+
+import { motion } from "framer-motion"
+import ThemeToggle from "@/components/theme-toggle"
+import { Github, Linkedin, Mail, Database, BarChart3, Code } from "lucide-react"
+
+const projects = [
+  {
+    title: "PulseMetrics",
+    desc: "SaaS analytics platform measuring retention, churn, LTV and funnel performance.",
+    stack: "SQL • Python • Tableau",
+    img: "/pulsemetrics.png",
+    github: "https://github.com/Garvitjoshi1"
+  },
+  {
+    title: "CartScope",
+    desc: "E-commerce analytics with RFM segmentation and revenue insights.",
+    stack: "SQL • Python • Pandas",
+    img: "/cartscope.png",
+    github: "https://github.com/Garvitjoshi1"
+  },
+  {
+    title: "QueryForge",
+    desc: "SQL query performance experiments using indexing and execution plan analysis.",
+    stack: "SQL • MySQL",
+    img: "/queryforge.png",
+    github: "https://github.com/Garvitjoshi1"
+  }
+]
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen bg-white dark:bg-neutral-950 text-neutral-900 dark:text-white">
+
+      {/* NAV */}
+      <div className="max-w-6xl mx-auto px-6 py-6 flex justify-end">
+        <ThemeToggle />
+      </div>
+
+      {/* HERO */}
+      <section className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-10 items-center">
+
+        <div>
+
+          <motion.h1
+            initial={{opacity:0, y:20}}
+            animate={{opacity:1, y:0}}
+            className="text-5xl font-bold"
+          >
+            Garvit Joshi
+          </motion.h1>
+
+          <p className="mt-4 text-lg text-neutral-500">
+            Data Analyst • SQL • Product Analytics • BI
           </p>
+
+          <p className="mt-6 text-neutral-500 max-w-lg">
+            I build analytics systems that transform raw data into business
+            insights through SQL pipelines, dashboards and product analytics.
+          </p>
+
+          {/* social */}
+          <div className="flex gap-5 mt-8">
+
+            <a href="mailto:garvitjoshi46@gmail.com">
+              <Mail />
+            </a>
+
+            <a href="https://github.com/Garvitjoshi1">
+              <Github />
+            </a>
+
+            <a href="https://linkedin.com/in/garvitjoshi01">
+              <Linkedin />
+            </a>
+
+          </div>
+
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* PROFILE IMAGE */}
+        <motion.img
+          src="/profile.jpg"
+          initial={{opacity:0}}
+          animate={{opacity:1}}
+          className="rounded-xl w-full max-w-sm mx-auto"
+        />
+
+      </section>
+
+      {/* PROJECTS */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+
+        <h2 className="text-3xl font-semibold mb-10">
+          Projects
+        </h2>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {projects.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{opacity:0, y:40}}
+              whileInView={{opacity:1, y:0}}
+              transition={{delay:i * .1}}
+              className="rounded-xl border dark:border-neutral-800 overflow-hidden hover:shadow-xl transition"
+            >
+
+              <img
+                src={p.img}
+                className="h-48 w-full object-cover"
+              />
+
+              <div className="p-6">
+
+                <h3 className="font-semibold text-lg">
+                  {p.title}
+                </h3>
+
+                <p className="text-sm mt-2 text-neutral-500">
+                  {p.desc}
+                </p>
+
+                <p className="text-xs mt-4 text-neutral-400">
+                  {p.stack}
+                </p>
+
+                <a
+                  href={p.github}
+                  className="text-blue-500 text-sm mt-4 block"
+                >
+                  View Code →
+                </a>
+
+              </div>
+
+            </motion.div>
+          ))}
+
         </div>
-      </main>
+
+      </section>
+
+      {/* SKILLS */}
+      <section className="max-w-6xl mx-auto px-6 py-20">
+
+        <h2 className="text-3xl font-semibold mb-10">
+          Skills
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+          <Skill icon={<Database />} label="SQL" />
+          <Skill icon={<Code />} label="Python" />
+          <Skill icon={<BarChart3 />} label="Tableau" />
+          <Skill icon={<BarChart3 />} label="Power BI" />
+
+        </div>
+
+      </section>
+
+    </main>
+  )
+}
+
+function Skill({icon, label}:{icon:any, label:string}) {
+  return (
+    <div className="flex items-center gap-3 border rounded-lg p-4">
+      {icon}
+      {label}
     </div>
-  );
+  )
 }
