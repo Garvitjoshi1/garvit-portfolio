@@ -3,9 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Garvit Joshi | Interactive Feature</title>
+    <title>Garvit Joshi | Machine Learning Engineer</title>
 
-    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <!-- Meta tag for theme color switching -->
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#FAFAFA"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#050505"
+    />
+
+    <!-- Google Fonts: Inter & JetBrains Mono (Preconnected for speed) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,17 +28,38 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Theme Initialization Script (Must run before DOM load to prevent flash) -->
+    <script>
+      function getInitialTheme() {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme) {
+          return savedTheme;
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      }
+      if (getInitialTheme() === "dark") {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+
     <!-- Custom Tailwind Configuration -->
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
-              base: "#0A0A0F",
-              accent: "#00A6FF",
-              muted: "#8A8F9E",
-              surface: "#12121A",
-              line: "#2A2A35",
+              base: "var(--bg-base)",
+              content: "var(--text-main)",
+              accent: "var(--accent)",
+              muted: "var(--text-muted)",
+              surface: "var(--bg-surface)",
+              line: "var(--border-line)",
+              error: "var(--error)",
+              termbg: "var(--terminal-bg)",
+              termheader: "var(--terminal-header)",
             },
             fontFamily: {
               sans: ["Inter", "sans-serif"],
@@ -35,15 +68,21 @@
             animation: {
               marquee: "marquee 30s linear infinite",
               "fade-in": "fadeIn 0.5s ease-out forwards",
+              "glitch-anim": "glitch 2s linear infinite",
             },
             keyframes: {
               marquee: {
-                "0%": { transform: "translateX(100%)" },
-                "100%": { transform: "translateX(-100%)" },
+                "0%": { transform: "translateX(0)" },
+                "100%": { transform: "translateX(-50%)" },
               },
               fadeIn: {
                 "0%": { opacity: "0", transform: "translateY(10px)" },
                 "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              glitch: {
+                "2%, 64%": { transform: "translate(2px,0) skew(0deg)" },
+                "4%, 60%": { transform: "translate(-2px,0) skew(0deg)" },
+                "62%": { transform: "translate(0,0) skew(5deg)" },
               },
             },
           },
@@ -52,37 +91,95 @@
     </script>
 
     <style>
+      /* CSS Variables for Lightning-Fast Theme Switching */
+      :root {
+        --bg-base: #f4f4f5; /* Crisp, technical light grey background */
+        --text-main: #000000; /* Pure black for Ultra-HD clarity */
+        --text-muted: #52525b; /* Deep grey for readable secondary text */
+        --accent: #ff3300; /* Aggressive Tech Orange/Red for the "maniac" vibe */
+        --bg-surface: #ffffff; /* Pure white for popping cards */
+        --border-line: #a1a1aa; /* Stronger, schematic-like borders */
+        --error: #dc2626;
+        --terminal-bg: #fafafa;
+        --terminal-header: #e4e4e7;
+        --glow-shadow: rgba(255, 51, 0, 0.35); /* Vibrant orange glow */
+        --scanline-opacity: 0.08;
+      }
+
+      .dark {
+        --bg-base: #050505;
+        --text-main: #ffffff;
+        --text-muted: #8a8f9e;
+        --accent: #00ff41; /* Neon Terminal Green */
+        --bg-surface: #0a0a0f;
+        --border-line: #1f2937;
+        --error: #ff003c;
+        --terminal-bg: #050505;
+        --terminal-header: #1f2937;
+        --glow-shadow: rgba(0, 255, 65, 0.6);
+        --scanline-opacity: 0.3;
+      }
+
       body {
-        background-color: #0a0a0f;
-        color: #ffffff;
+        background-color: var(--bg-base);
+        color: var(--text-main);
         overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      /* Web Performance: Defer rendering of off-screen elements */
+      .render-optim {
+        content-visibility: auto;
+        contain-intrinsic-size: 1px 500px;
+      }
+
+      /* CRT Scanlines Overlay */
+      .scanlines {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background:
+          linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+          linear-gradient(
+            90deg,
+            rgba(255, 0, 0, 0.06),
+            rgba(0, 255, 0, 0.02),
+            rgba(0, 0, 255, 0.06)
+          );
+        background-size:
+          100% 4px,
+          3px 100%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: var(--scanline-opacity);
+        transition: opacity 0.3s ease;
       }
 
       /* Subtle Grid Background */
       .bg-grid {
         background-size: 40px 40px;
         background-image:
-          linear-gradient(
-            to right,
-            rgba(255, 255, 255, 0.03) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            to bottom,
-            rgba(255, 255, 255, 0.03) 1px,
-            transparent 1px
-          );
+          linear-gradient(to right, var(--border-line) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--border-line) 1px, transparent 1px);
+        opacity: 0.4;
       }
 
       /* Clean Editorial Hover */
       .article-card {
         transition:
           border-color 0.2s ease,
-          background-color 0.2s ease;
+          background-color 0.2s ease,
+          box-shadow 0.2s ease;
       }
       .article-card:hover {
-        border-color: #00a6ff;
-        background-color: #12121a;
+        border-color: var(--accent);
+        background-color: var(--bg-surface);
       }
 
       /* Minimal Link Underline */
@@ -98,7 +195,7 @@
         height: 1px;
         bottom: 0;
         left: 0;
-        background-color: #00a6ff;
+        background-color: var(--accent);
         transform-origin: bottom right;
         transition: transform 0.25s ease-out;
       }
@@ -107,89 +204,283 @@
         transform-origin: bottom left;
       }
 
+      /* YOLO Object Detection Bounding Box Hover */
+      .yolo-box {
+        position: relative;
+        transition: all 0.2s ease;
+      }
+      .yolo-box::before,
+      .yolo-box::after {
+        content: "";
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border: 2px solid var(--border-line);
+        transition: all 0.3s ease;
+        pointer-events: none;
+      }
+      .yolo-box::before {
+        top: -2px;
+        left: -2px;
+        border-right: none;
+        border-bottom: none;
+      }
+      .yolo-box::after {
+        bottom: -2px;
+        right: -2px;
+        border-left: none;
+        border-top: none;
+      }
+      .yolo-box:hover {
+        border-color: transparent;
+      }
+      .yolo-box:hover::before,
+      .yolo-box:hover::after {
+        width: calc(100% + 4px);
+        height: calc(100% + 4px);
+        border-color: var(--accent);
+        box-shadow: 0 0 10px var(--glow-shadow) inset;
+      }
+
+      /* Glitch Typography */
+      .glitch-layer {
+        position: relative;
+      }
+      .glitch-layer::before,
+      .glitch-layer::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+      }
+      .glitch-layer::before {
+        left: 2px;
+        text-shadow: -2px 0 var(--error);
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim 5s infinite linear alternate-reverse;
+      }
+      .glitch-layer::after {
+        left: -2px;
+        text-shadow: -2px 0 var(--accent);
+        clip: rect(44px, 450px, 56px, 0);
+        animation: glitch-anim 5s infinite linear alternate-reverse;
+        animation-delay: -2.5s;
+      }
+
+      /* Glowing Terminal Text */
+      .text-glow {
+        text-shadow: 0 0 8px var(--glow-shadow);
+      }
+
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 6px;
       }
       ::-webkit-scrollbar-track {
-        background: #0a0a0f;
+        background: var(--bg-base);
       }
       ::-webkit-scrollbar-thumb {
-        background: #2a2a35;
+        background: var(--border-line);
+        border-radius: 4px;
       }
       ::-webkit-scrollbar-thumb:hover {
-        background: #00a6ff;
+        background: var(--accent);
+      }
+
+      /* Prevent overflow on mobile */
+      @media (max-width: 768px) {
+        .scanlines {
+          opacity: 0.05;
+        } /* Minimize scanline interference on mobile */
       }
     </style>
   </head>
   <body
-    class="font-sans antialiased selection:bg-accent selection:text-base pb-16 bg-grid relative"
+    class="font-sans antialiased selection:bg-accent selection:text-base pb-16 relative"
   >
+    <!-- Grid Overlay -->
+    <div class="fixed inset-0 bg-grid -z-20 pointer-events-none"></div>
+
+    <!-- CRT Overlay -->
+    <div class="scanlines"></div>
+
     <!-- TICKER BAR -->
     <div
-      class="fixed top-0 left-0 w-full z-50 border-b border-line bg-base/90 backdrop-blur font-mono text-[10px] md:text-xs font-bold uppercase overflow-hidden h-8 flex items-center text-muted"
+      class="fixed top-0 left-0 w-full z-40 border-b border-line bg-base/90 backdrop-blur font-mono text-[10px] md:text-xs font-bold uppercase overflow-hidden h-8 flex items-center text-muted shadow-sm"
     >
-      <div class="flex whitespace-nowrap animate-marquee">
-        <span class="mx-6 text-accent">TRENDING NOW</span>
-        <span class="mx-6">Amazon ML Summer School Scholar</span>
+      <div
+        class="flex whitespace-nowrap animate-marquee w-[200%] md:w-[150%] lg:w-[100%]"
+      >
+        <!-- Group 1 -->
+        <span class="mx-6 text-accent text-glow">SYSTEM STATUS: OPTIMAL</span>
         <span class="mx-6 text-line">/</span>
-        <span class="mx-6">CodeKaze Top 17k</span>
+        <span class="mx-6 text-content">P95 Inference Latency: < 120ms</span>
         <span class="mx-6 text-line">/</span>
-        <span class="mx-6">AWS DeepRacer Top 10% India</span>
+        <span class="mx-6 text-content">Loss: 0.0412</span>
         <span class="mx-6 text-line">/</span>
-        <span class="mx-6">Certificate of Excellence from Coding Ninjas</span>
+        <span class="mx-6">Multi-Model Consensus & Vision</span>
         <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-accent">LATEST DISPATCH</span>
+        <span class="mx-6 text-accent text-glow">AVAILABLE FOR HIRE</span>
+        <!-- Group 2 (Duplicate for smooth scroll) -->
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6 text-accent text-glow">SYSTEM STATUS: OPTIMAL</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6 text-content">P95 Inference Latency: < 120ms</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6 text-content">Loss: 0.0412</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6">Multi-Model Consensus & Vision</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6 text-accent text-glow">AVAILABLE FOR HIRE</span>
+      </div>
+    </div>
+
+    <!-- THEME CONTROLLER -->
+    <div class="fixed top-12 right-4 md:right-8 z-50">
+      <div
+        class="bg-surface border border-line p-1 flex items-center gap-1 shadow-lg backdrop-blur-md"
+      >
+        <button
+          onclick="setTheme('light')"
+          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
+          title="Light Theme"
+          aria-label="Light Theme"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <circle cx="12" cy="12" r="5" />
+            <line x1="12" y1="1" x2="12" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="23" />
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+            <line x1="1" y1="12" x2="3" y2="12" />
+            <line x1="21" y1="12" x2="23" y2="12" />
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </svg>
+        </button>
+        <button
+          onclick="setTheme('dark')"
+          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
+          title="Dark Theme"
+          aria-label="Dark Theme"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        </button>
+        <button
+          onclick="setTheme('system')"
+          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
+          title="System Theme"
+          aria-label="System Theme"
+        >
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+        </button>
       </div>
     </div>
 
     <!-- MAIN EDITORIAL CONTAINER -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+    <main
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 relative"
+    >
+      <!-- Live Background Training Logs (Hidden on mobile for clarity and performance) -->
+      <div
+        id="bg-training-logs"
+        class="hidden md:block absolute top-32 right-0 w-full max-w-lg h-96 overflow-hidden font-mono text-[10px] text-accent/20 select-none pointer-events-none -z-10"
+        style="
+          mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            black 50%,
+            transparent 100%
+          );
+        "
+      ></div>
+
       <!-- HEADER -->
-      <header class="mb-16 border-b border-line pb-12 relative animate-fade-in">
+      <header
+        class="mb-12 md:mb-16 border-b border-line pb-8 md:pb-12 relative animate-fade-in"
+      >
         <div
-          class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8"
+          class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 md:mb-8"
         >
           <div class="flex items-center gap-4">
             <span
-              class="bg-accent text-base px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider"
-              >Breaking News</span
+              class="bg-accent text-base px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider text-glow text-white shadow-sm"
+              >Garvit Joshi</span
             >
-            <span
-              id="live-timestamp"
-              class="font-mono text-xs text-muted"
-            ></span>
+            <span class="font-mono text-xs text-muted flex items-center gap-2">
+              <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+              Open to ML Engineer Roles
+            </span>
           </div>
           <div
-            class="font-mono text-xs text-muted uppercase tracking-wider text-right"
+            class="font-mono text-xs text-muted uppercase tracking-wider md:text-right flex flex-wrap gap-4"
           >
-            Garvit Joshi <br />
-            ML Engineer / Explorer
+            <a href="#projects" class="hover:text-accent transition-colors"
+              >Case Studies</a
+            >
+            <a href="#metrics" class="hover:text-accent transition-colors"
+              >Architecture</a
+            >
           </div>
         </div>
 
         <h1
-          class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6"
+          class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4 md:mb-6 glitch-layer text-balance"
+          data-text="Machine Learning Engineer scaling predictive models & GenAI architectures."
         >
-          The <span id="dynamic-age" class="text-accent">--</span>-Year-Old
-          Turns His GitHub Projects Into an Immersive News Feature.
+          Machine Learning Engineer scaling
+          <span class="text-accent text-glow">predictive models</span> & GenAI
+          architectures.
         </h1>
 
         <p
-          class="text-xl md:text-2xl text-muted font-medium mb-10 max-w-4xl leading-relaxed"
+          class="text-lg md:text-2xl text-muted font-medium mb-8 md:mb-10 max-w-4xl leading-relaxed text-balance"
         >
-          <strong class="text-white"
-            >He builds AI that works in the real world.</strong
+          <strong class="text-content"
+            >Bridging the gap between Jupyter notebooks and production
+            servers.</strong
           >
-          From decoding government forms to rebalancing crypto portfolios—a
-          fresh graduate's journey to make AI practical, private, and impactful.
+          I design, train, and deploy ML systems—specializing in deep learning
+          for computer vision, tabular data pipelines, and highly-reliable
+          multi-model LLM consensus mechanisms.
         </p>
 
-        <div class="flex flex-wrap items-center gap-4">
-          <button
-            onclick="copyPressKit()"
-            id="press-kit-btn"
-            class="border border-line bg-surface hover:border-accent text-white px-6 py-3 font-mono text-sm transition-colors flex items-center gap-2"
+        <div
+          class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
+        >
+          <a
+            href="mailto:garvitjoshi46@gmail.com"
+            class="bg-accent text-white hover:bg-content hover:text-base px-6 md:px-8 py-3 md:py-4 font-mono text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_var(--glow-shadow)] w-full sm:w-auto"
           >
             <svg
               width="16"
@@ -200,18 +491,15 @@
               stroke-width="2"
             >
               <path
-                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
               ></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
-              <line x1="16" y1="17" x2="8" y2="17"></line>
-              <polyline points="10 9 9 9 8 9"></polyline>
+              <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
-            Copy Press Kit
-          </button>
+            Initialize Contact
+          </a>
           <button
-            onclick="shareStory()"
-            class="border border-transparent bg-white text-base hover:bg-accent hover:text-white px-6 py-3 font-mono text-sm font-bold transition-colors flex items-center gap-2"
+            onclick="downloadResume()"
+            class="border border-line bg-surface hover:border-accent text-content hover:text-accent px-6 py-3 md:py-4 font-mono text-sm transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
           >
             <svg
               width="16"
@@ -221,52 +509,202 @@
               stroke="currentColor"
               stroke-width="2"
             >
-              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
-              <polyline points="16 6 12 2 8 6" />
-              <line x1="12" y1="2" x2="12" y2="15" />
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
             </svg>
-            Share Story
+            Extract Weights (Resume)
           </button>
         </div>
       </header>
 
-      <div class="grid lg:grid-cols-12 gap-12">
-        <!-- MAIN FEATURE COLUMN (Projects) -->
-        <div class="lg:col-span-8 space-y-8">
-          <div class="flex items-center gap-4 mb-8">
-            <div class="w-2 h-2 bg-accent"></div>
-            <h2 class="text-2xl font-bold uppercase tracking-widest">
-              Feature Articles
+      <!-- CALL TO ACTION / HIRE ME SECTION (MOVED TO TOP) -->
+      <section
+        class="mb-12 md:mb-16 render-optim animate-fade-in"
+        style="animation-delay: 0.2s; animation-fill-mode: both"
+      >
+        <div
+          class="border border-accent bg-surface p-6 md:p-10 relative overflow-hidden group shadow-[0_0_20px_var(--glow-shadow)]"
+        >
+          <!-- Background accent glow -->
+          <div
+            class="absolute -right-20 -top-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-all pointer-events-none"
+          ></div>
+
+          <div
+            class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8"
+          >
+            <div class="max-w-3xl">
+              <h2
+                class="text-2xl md:text-3xl font-bold mb-4 text-content flex items-center gap-3"
+              >
+                <div
+                  class="w-3 h-3 bg-accent animate-pulse shadow-[0_0_8px_var(--glow-shadow)]"
+                ></div>
+                READY TO OVERFIT TO YOUR INFRASTRUCTURE
+              </h2>
+              <p
+                class="text-muted md:text-lg mb-8 leading-relaxed text-balance"
+              >
+                I am currently seeking
+                <strong class="text-content">Machine Learning Engineer</strong>
+                roles. If your team is tired of models that collapse the second
+                they see real-world data, let's converge. I build architectures
+                that survive production, handle tensor shape mismatches without
+                a stack trace panic, and I promise my gradients will never
+                vanish during a sprint planning meeting.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4 font-mono text-sm">
+                <a
+                  href="mailto:garvitjoshi46@gmail.com"
+                  class="inline-flex justify-center items-center gap-2 bg-accent text-white px-6 py-3 hover:opacity-90 transition-opacity font-bold shadow-[0_0_10px_var(--glow-shadow)]"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    ></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                  garvitjoshi46@gmail.com
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/garvitjoshi01"
+                  target="_blank"
+                  class="inline-flex justify-center items-center gap-2 border border-line bg-base px-6 py-3 text-content hover:border-accent hover:text-accent transition-colors"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                    ></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                  Backpropagate to my LinkedIn
+                </a>
+              </div>
+            </div>
+
+            <!-- Abstract visual element -->
+            <div
+              class="hidden md:flex flex-col gap-2 font-mono text-[10px] text-accent/60 text-right min-w-[200px]"
+            >
+              <span>> MODEL.STATUS == "AWAITING_GPU_ALLOCATION"</span>
+              <span>> BATCH_SIZE_FOR_INTERVIEWS = 1</span>
+              <span>> EARLY_STOPPING = FALSE</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid lg:grid-cols-12 gap-8 md:gap-12" id="projects">
+        <!-- MAIN FEATURE COLUMN (ML Case Studies) -->
+        <div class="lg:col-span-8 space-y-6 md:space-y-8">
+          <div class="flex items-center gap-4 mb-4 md:mb-8">
+            <div
+              class="w-3 h-3 bg-accent animate-pulse shadow-[0_0_8px_var(--glow-shadow)]"
+            ></div>
+            <h2 class="text-xl md:text-2xl font-bold uppercase tracking-widest">
+              ML Systems & Deployments
             </h2>
           </div>
 
-          <!-- Featured Project 1 -->
-          <article class="article-card border border-line p-6 md:p-8 relative">
-            <span
-              class="absolute top-0 right-0 bg-line text-muted font-mono text-[10px] px-2 py-1 uppercase"
-              >Cover Story</span
+          <!-- Case Study 1: Aegis Council -->
+          <article
+            class="article-card render-optim border border-line p-5 md:p-8 yolo-box bg-surface"
+          >
+            <div
+              class="hidden sm:block absolute top-0 right-0 bg-accent text-white font-mono text-[10px] px-2 py-1 uppercase font-bold shadow-sm"
             >
-            <div class="font-mono text-accent text-xs mb-3">
-              React / TypeScript / GovTech
+              Confidence: 99.8%
             </div>
-            <h3 class="text-2xl md:text-3xl font-bold mb-3">
-              Sahayak-Setu: The Digital Bridge Between Citizens and the State
+            <div
+              class="font-mono text-accent text-[10px] md:text-xs mb-3 flex flex-wrap gap-2 text-glow"
+            >
+              <span>GEN-AI ARCHITECTURE</span>
+              <span class="text-line hidden sm:inline">|</span>
+              <span>Python</span>
+              <span class="text-line hidden sm:inline">|</span>
+              <span>Consensus Engine</span>
+            </div>
+            <h3 class="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-balance">
+              Aegis Council: Multi-Model Consensus Engine
             </h3>
-            <p class="text-muted mb-6 leading-relaxed">
-              A multilingual platform empowering Indian citizens to navigate
-              complex government services via interactive wizards and a
-              privacy-first AI assistant.
+            <p class="text-muted mb-6 leading-relaxed text-sm md:text-base">
+              Designed a deterministic governance layer for Large Language
+              Models. Instead of relying on a single stochastic output, Aegis
+              Council utilizes multi-model polling and cross-verification to
+              guarantee rigid schema adherence and mitigate hallucination risk
+              in critical pipelines.
             </p>
-            <div class="border-l-2 border-accent pl-4 mb-6">
-              <p class="font-mono text-sm">
-                Key Metric: Privacy-first, multilingual, zero data retention.
+
+            <div
+              class="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6 font-mono text-[10px] md:text-xs"
+            >
+              <div class="bg-base border border-line p-3">
+                <span class="text-muted block mb-1">Architecture / Stack</span>
+                <span class="text-content font-semibold"
+                  >Python, LangChain, Polling, Pydantic</span
+                >
+              </div>
+              <div class="bg-base border border-line p-3">
+                <span class="text-muted block mb-1">System Objective</span>
+                <span class="text-accent font-bold"
+                  >100% Deterministic Output Governance</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="border-l-2 border-error pl-3 md:pl-4 mb-6 bg-error/5 p-3"
+            >
+              <h4
+                class="font-bold text-xs md:text-sm mb-2 text-content flex items-center gap-2"
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  class="text-error"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                  ></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                The Engineering Challenge:
+              </h4>
+              <p class="text-[11px] md:text-sm text-muted">
+                LLMs inherently hallucinate and break JSON structures, making
+                them dangerous for automated execution. Solved this by
+                engineering a "council" of varied temperature models that must
+                reach consensus on data structures before execution.
               </p>
             </div>
+
             <a
-              href="#"
-              class="text-white font-mono text-sm hover-underline inline-flex items-center gap-2"
+              href="https://github.com/Garvitjoshi1/Aegis_Council"
+              target="_blank"
+              class="text-content font-mono text-xs md:text-sm hover-underline inline-flex items-center gap-2 font-semibold"
             >
-              Read the full briefing
+              View Architecture Repository
               <svg
                 width="14"
                 height="14"
@@ -280,322 +718,323 @@
             </a>
           </article>
 
-          <div class="grid md:grid-cols-2 gap-8">
-            <!-- Featured Project 2 -->
-            <article
-              class="article-card border border-line p-6 relative flex flex-col"
+          <!-- Case Study 2: Defect Object Detection -->
+          <article
+            class="article-card render-optim border border-line p-5 md:p-8 yolo-box bg-surface"
+          >
+            <div
+              class="hidden sm:block absolute top-0 right-0 bg-accent text-white font-mono text-[10px] px-2 py-1 uppercase font-bold shadow-sm"
             >
-              <div class="font-mono text-accent text-xs mb-3">
-                Canvas / STEM / EdTech
+              Bounding Box Locked
+            </div>
+            <div
+              class="font-mono text-accent text-[10px] md:text-xs mb-3 flex flex-wrap gap-2 text-glow"
+            >
+              <span>COMPUTER VISION</span>
+              <span class="text-line hidden sm:inline">|</span>
+              <span>Deep Learning</span>
+              <span class="text-line hidden sm:inline">|</span>
+              <span>PyTorch</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-balance">
+              Automated Defect Detection System
+            </h3>
+            <p class="text-muted mb-6 leading-relaxed text-sm md:text-base">
+              Trained and deployed a robust object detection pipeline to
+              identify manufacturing anomalies. Managed end-to-end data
+              processing, data augmentation, and model fine-tuning to ensure
+              high mean Average Precision (mAP) on custom datasets.
+            </p>
+
+            <div
+              class="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6 font-mono text-[10px] md:text-xs"
+            >
+              <div class="bg-base border border-line p-3">
+                <span class="text-muted block mb-1">Core Tech</span>
+                <span class="text-content font-semibold"
+                  >Jupyter, PyTorch/TF, OpenCV, CNNs</span
+                >
               </div>
-              <h3 class="text-xl font-bold mb-3">
-                MathMania: Gamifying K-12 Math
-              </h3>
-              <p class="text-muted mb-6 text-sm flex-grow">
-                Interactive visual math lab with 3D simulations. Features
-                gamified missions and a "Predict-Interact-Master" learning
-                cycle.
-              </p>
-              <a
-                href="#"
-                class="text-white font-mono text-sm hover-underline inline-flex items-center gap-2 w-max"
+              <div class="bg-base border border-line p-3">
+                <span class="text-muted block mb-1">Optimization Goal</span>
+                <span class="text-content font-semibold"
+                  >High mAP + Reduced Inference Time</span
+                >
+              </div>
+            </div>
+
+            <div
+              class="border-l-2 border-error pl-3 md:pl-4 mb-6 bg-error/5 p-3"
+            >
+              <h4
+                class="font-bold text-xs md:text-sm mb-2 text-content flex items-center gap-2"
               >
-                Access lab
                 <svg
                   width="14"
                   height="14"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
+                  class="text-error"
                   stroke-width="2"
                 >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
+                  <path
+                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                  ></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
-              </a>
-            </article>
-
-            <!-- Featured Project 3 -->
-            <article
-              class="article-card border border-line p-6 relative flex flex-col"
-            >
-              <div class="font-mono text-accent text-xs mb-3">
-                GenAI / Privacy / Health
-              </div>
-              <h3 class="text-xl font-bold mb-3">
-                ZenithPath: Confidential GenAI for Teens
-              </h3>
-              <p class="text-muted mb-6 text-sm flex-grow">
-                An open-source generative AI platform offering empathetic
-                support for youth mental wellness. Built for privacy, designed
-                for hope.
+                The Engineering Challenge:
+              </h4>
+              <p class="text-[11px] md:text-sm text-muted">
+                Manufacturing imagery often suffers from extreme class imbalance
+                (few defects vs. many normal products). Mitigated this using
+                advanced augmentation techniques and focal loss implementation
+                to prevent the model from predicting the majority class blindly.
               </p>
-              <a
-                href="#"
-                class="text-white font-mono text-sm hover-underline inline-flex items-center gap-2 w-max"
-              >
-                View hackathon winner
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
-            </article>
-          </div>
+            </div>
 
-          <!-- Featured Project 4 & 5 -->
-          <article class="border-y border-line py-8">
-            <div class="grid md:grid-cols-2 gap-8">
-              <div>
-                <div class="font-mono text-accent text-xs mb-2">
-                  Python / LLMs / DeFi
+            <a
+              href="https://github.com/Garvitjoshi1/Defected-Object-Detection"
+              target="_blank"
+              class="text-content font-mono text-xs md:text-sm hover-underline inline-flex items-center gap-2 font-semibold"
+            >
+              Review Notebook & Pipeline
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </article>
+
+          <!-- Other Notable Projects (Compact Grid) -->
+          <article class="render-optim border-t border-line pt-8">
+            <h3
+              class="font-mono text-xs uppercase tracking-widest text-muted mb-6"
+            >
+              Predictive Modeling & Applied NLP
+            </h3>
+            <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
+              <div
+                class="group bg-surface p-5 border border-line hover:border-accent transition-colors"
+              >
+                <div class="font-mono text-accent text-[10px] md:text-xs mb-2">
+                  Tabular Data / Classic ML
                 </div>
-                <h3 class="text-lg font-bold mb-2">Auto-Defi Agent</h3>
-                <p class="text-muted text-sm mb-4">
-                  GPT on the Blockchain – Automated Crypto Rebalancing via
-                  intelligent portfolio managers.
+                <h3
+                  class="text-base md:text-lg font-bold mb-2 group-hover:text-accent transition-colors text-content"
+                >
+                  Clinical Stroke Prediction
+                </h3>
+                <p class="text-muted text-xs md:text-sm mb-4 line-clamp-3">
+                  Developed predictive pipelines using XGBoost, AdaBoost, and
+                  NNs. Handled severe medical data imbalance using SMOTE and
+                  optimized for high recall.
                 </p>
+                <a
+                  href="https://github.com/Garvitjoshi1/Stroke_Prediction"
+                  target="_blank"
+                  class="text-xs text-content font-bold underline decoration-line underline-offset-4 hover:text-accent transition-colors"
+                  >View Implementation</a
+                >
               </div>
-              <div>
-                <div class="font-mono text-accent text-xs mb-2">
-                  Kotlin / Android / AgTech
+              <div
+                class="group bg-surface p-5 border border-line hover:border-accent transition-colors"
+              >
+                <div class="font-mono text-accent text-[10px] md:text-xs mb-2">
+                  Applied NLP / GovTech
                 </div>
-                <h3 class="text-lg font-bold mb-2">KrishiLakshmi</h3>
-                <p class="text-muted text-sm mb-4">
-                  From Kotlin to Farmland – An Android App That Boosts Farmer
-                  Prosperity and crop yields.
+                <h3
+                  class="text-base md:text-lg font-bold mb-2 group-hover:text-accent transition-colors text-content"
+                >
+                  Sahayak-Setu RAG Engine
+                </h3>
+                <p class="text-muted text-xs md:text-sm mb-4 line-clamp-3">
+                  Multilingual AI assistant backend parsing dense government
+                  documents. Engineered custom semantic chunking logic to
+                  maintain accurate contextual retrieval.
                 </p>
+                <a
+                  href="https://github.com/Garvitjoshi1/Sahayak-Setu"
+                  target="_blank"
+                  class="text-xs text-content font-bold underline decoration-line underline-offset-4 hover:text-accent transition-colors"
+                  >View Repository</a
+                >
               </div>
             </div>
           </article>
         </div>
 
-        <!-- RIGHT SIDEBAR (Dispatch, Skills, Timeline) -->
-        <aside class="lg:col-span-4 space-y-12">
-          <!-- Data Science Dispatch -->
-          <div class="bg-surface border border-line p-6">
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-accent mb-6"
+        <!-- RIGHT SIDEBAR (Interactive Demo, Skills, Methodology) -->
+        <aside class="lg:col-span-4 space-y-8" id="metrics">
+          <!-- INTERACTIVE TERMINAL (Proof of Concept) -->
+          <div
+            class="bg-surface border border-accent p-1 shadow-[0_0_15px_var(--glow-shadow)] relative w-full overflow-hidden"
+          >
+            <div
+              class="absolute -top-3 -right-2 md:-right-3 bg-accent text-white px-2 py-0.5 font-mono text-[9px] md:text-[10px] font-bold z-10 shadow-sm"
             >
-              Data Science Dispatch
+              LIVE SESSION
+            </div>
+            <div
+              class="bg-termbg border border-line rounded-sm p-3 md:p-4 font-mono text-xs md:text-sm relative shadow-inner overflow-hidden h-[250px] md:h-[280px] flex flex-col"
+            >
+              <div
+                class="absolute top-0 left-0 w-full bg-termheader px-3 py-1.5 text-[9px] md:text-[10px] text-muted flex items-center justify-between"
+              >
+                <span>root@garvit-ml-node: ~</span>
+                <span class="flex gap-1.5">
+                  <div class="w-2.5 h-2.5 rounded-full bg-error"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
+                  <div class="w-2.5 h-2.5 rounded-full bg-accent"></div>
+                </span>
+              </div>
+
+              <div
+                id="terminal-output"
+                class="mt-8 text-content flex-grow overflow-y-auto pb-2 space-y-2 scroll-smooth pr-2"
+              >
+                <p class="text-accent font-bold text-glow">
+                  Booting ML Knowledge Base...
+                </p>
+                <p class="text-muted">Loading weights: [████████████] 100%</p>
+                <p>System ready. Query my architecture or constraints.</p>
+              </div>
+
+              <form
+                id="terminal-form"
+                class="mt-2 flex items-center border-t border-line pt-3"
+                onsubmit="handleTerminal(event)"
+              >
+                <span class="text-accent mr-2 font-bold text-glow">❯</span>
+                <input
+                  type="text"
+                  id="terminal-input"
+                  class="bg-transparent border-none outline-none text-content w-full text-xs md:text-sm placeholder-muted"
+                  placeholder="e.g., Explain Aegis Council"
+                  autocomplete="off"
+                />
+              </form>
+            </div>
+          </div>
+
+          <!-- Contextual Skills Section -->
+          <div class="render-optim">
+            <h3
+              class="font-mono text-xs uppercase tracking-widest text-accent font-bold text-glow mb-4 border-b border-line pb-2"
+            >
+              Machine Learning Stack
             </h3>
-            <ul class="space-y-4">
-              <li class="border-b border-line pb-4 group cursor-pointer">
-                <h4 class="font-bold group-hover:text-accent transition-colors">
-                  Aegis Council
-                </h4>
-                <p class="text-xs text-muted mt-1">
-                  Multi-model consensus with deterministic governance.
-                </p>
+            <div class="space-y-4 font-mono text-xs md:text-sm">
+              <div>
+                <span class="text-content font-bold block mb-1"
+                  >Deep Learning & Vision</span
+                >
+                <span class="text-muted leading-relaxed block"
+                  >PyTorch, TensorFlow, OpenCV. Designing CNN architectures,
+                  object detection pipelines, and optimizing tensor
+                  operations.</span
+                >
+              </div>
+              <div>
+                <span class="text-content font-bold block mb-1"
+                  >Predictive ML & NLP</span
+                >
+                <span class="text-muted leading-relaxed block"
+                  >XGBoost, Scikit-Learn, Pandas. Handling imbalanced tabular
+                  data, feature engineering, and deploying RAG pipelines.</span
+                >
+              </div>
+              <div>
+                <span class="text-content font-bold block mb-1"
+                  >MLOps & Inference</span
+                >
+                <span class="text-muted leading-relaxed block"
+                  >FastAPI, Docker, SQL. Containerizing models, managing async
+                  inference queues, and evaluating model drift in
+                  production.</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Engineering Philosophy -->
+          <div class="render-optim bg-surface border border-line p-5">
+            <h3
+              class="font-mono text-xs uppercase tracking-widest text-accent font-bold mb-4"
+            >
+              ML Philosophy
+            </h3>
+            <ul class="space-y-4 text-xs md:text-sm text-muted">
+              <li class="flex items-start gap-3">
+                <svg
+                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span
+                  ><strong class="text-content">Data > Algorithms.</strong> 80%
+                  of model performance comes from rigorous feature engineering,
+                  cleaning, and targeted augmentations.</span
+                >
               </li>
-              <li class="border-b border-line pb-4 group cursor-pointer">
-                <h4 class="font-bold group-hover:text-accent transition-colors">
-                  Invisi Studio
-                </h4>
-                <p class="text-xs text-muted mt-1">
-                  Advanced data visualisation at your fingertips (Kotlin).
-                </p>
+              <li class="flex items-start gap-3">
+                <svg
+                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span
+                  ><strong class="text-content"
+                    >Optimize for the right metric.</strong
+                  >
+                  Accuracy is misleading. In healthcare (Stroke Prediction), I
+                  prioritize Recall to avoid false negatives.</span
+                >
               </li>
-              <li class="border-b border-line pb-4 group cursor-pointer">
-                <h4 class="font-bold group-hover:text-accent transition-colors">
-                  Stroke Prediction Model
-                </h4>
-                <p class="text-xs text-muted mt-1">
-                  Predictive healthcare analytics utilizing structured clinical
-                  data.
-                </p>
-              </li>
-              <li class="group cursor-pointer">
-                <h4 class="font-bold group-hover:text-accent transition-colors">
-                  McDonald's India Nutrition
-                </h4>
-                <p class="text-xs text-muted mt-1">
-                  Exploratory data analysis and clustering of fast-food metrics.
-                </p>
+              <li class="flex items-start gap-3">
+                <svg
+                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span
+                  ><strong class="text-content">Deterministic GenAI.</strong>
+                  LLMs are stochastic; I build consensus logic (Aegis) to
+                  guarantee strict output schemas for production tasks.</span
+                >
               </li>
             </ul>
-          </div>
-
-          <!-- Skills Section -->
-          <div>
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-accent mb-6 border-b border-line pb-2"
-            >
-              Technical Proficiency
-            </h3>
-            <div class="grid grid-cols-2 gap-4 font-mono text-xs">
-              <!-- Column 1 -->
-              <div class="space-y-3">
-                <div
-                  class="text-white font-bold mb-4 underline decoration-line underline-offset-4"
-                >
-                  Core AI/ML
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Python (PyTorch, TF)
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Graph Neural Networks
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Temporal Fusion Tx
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Large Language Models
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Agentic AI
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Time Series & MILP
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Bioinformatics
-                </div>
-              </div>
-              <!-- Column 2 -->
-              <div class="space-y-3">
-                <div
-                  class="text-white font-bold mb-4 underline decoration-line underline-offset-4"
-                >
-                  MLOps & Eng
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  SQL & Postgres
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Git & Version Control
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  AWS Infrastructure
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  Docker Containers
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  FastAPI
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  CI/CD Pipelines
-                </div>
-                <div
-                  class="hover:text-accent transition-colors cursor-default w-max"
-                >
-                  MLflow Tracking
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Achievements Timeline -->
-          <div>
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-accent mb-6 border-b border-line pb-2"
-            >
-              Career Milestones
-            </h3>
-            <div class="relative border-l border-line ml-2 space-y-6 pb-2">
-              <div class="relative pl-6">
-                <div
-                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
-                ></div>
-                <h4 class="font-bold text-sm">Amazon ML Summer School</h4>
-                <p class="text-xs text-muted mt-1 font-mono">
-                  Top 5% of 63,000+ applicants
-                </p>
-              </div>
-              <div class="relative pl-6">
-                <div
-                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
-                ></div>
-                <h4 class="font-bold text-sm">CodeKaze Excellence</h4>
-                <p class="text-xs text-muted mt-1 font-mono">
-                  Ranked Top 17k / 150k participants
-                </p>
-              </div>
-              <div class="relative pl-6">
-                <div
-                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
-                ></div>
-                <h4 class="font-bold text-sm">AWS DeepRacer</h4>
-                <p class="text-xs text-muted mt-1 font-mono">
-                  Top 10% in India Region
-                </p>
-              </div>
-              <div class="relative pl-6">
-                <div
-                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
-                ></div>
-                <h4 class="font-bold text-sm">B.Tech CSE (Data Science)</h4>
-                <p class="text-xs text-muted mt-1 font-mono">
-                  CGPA: 7.61 | Fresh Graduate
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Newsletter Mock -->
-          <div class="bg-surface border border-line p-6 mt-8">
-            <h3 class="font-bold mb-2">Get the Briefing</h3>
-            <p class="text-xs text-muted mb-4">
-              Subscribe for updates on my latest ML deployments and
-              architectural research.
-            </p>
-            <form
-              id="mock-form"
-              onsubmit="handleSubscribe(event)"
-              class="flex gap-2"
-            >
-              <input
-                type="email"
-                placeholder="email@address.com"
-                class="bg-base border border-line text-sm px-3 py-2 w-full focus:outline-none focus:border-accent text-white"
-                required
-              />
-              <button
-                type="submit"
-                class="bg-white text-base px-4 font-bold text-sm hover:bg-accent transition-colors"
-              >
-                JOIN
-              </button>
-            </form>
-            <p
-              id="mock-status"
-              class="text-xs text-accent mt-3 hidden font-mono"
-            >
-              Subscription confirmed.
-            </p>
           </div>
         </aside>
       </div>
@@ -603,31 +1042,33 @@
 
     <!-- FOOTER -->
     <footer
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 pt-8 border-t border-line flex flex-col md:flex-row justify-between items-center gap-6"
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24 pt-8 border-t border-line flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left"
     >
       <div class="font-mono text-xs text-muted">
         <p>
-          For media & hiring inquiries:
+          Ready to deploy scalable ML architectures.
+          <br class="block md:hidden" />
           <a
             href="mailto:garvitjoshi46@gmail.com"
-            class="text-white hover:text-accent transition-colors"
+            class="text-content hover:text-accent transition-colors font-bold md:ml-1"
             >garvitjoshi46@gmail.com</a
           >
         </p>
-        <p class="mt-1">
-          Last updated: <span id="dynamic-date" class="text-white"></span>
+        <p class="mt-2">
+          System Time:
+          <span id="dynamic-date" class="text-content font-semibold"></span>
         </p>
       </div>
-      <div class="flex gap-6">
+      <div class="flex gap-6 justify-center">
         <a
           href="https://github.com/Garvitjoshi1"
           target="_blank"
-          class="text-muted hover:text-white transition-colors"
+          class="text-muted hover:text-content focus:text-content transition-colors"
           aria-label="GitHub"
         >
           <svg
-            width="20"
-            height="20"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -641,12 +1082,12 @@
         <a
           href="https://www.linkedin.com/in/garvitjoshi01"
           target="_blank"
-          class="text-muted hover:text-white transition-colors"
+          class="text-muted hover:text-content focus:text-content transition-colors"
           aria-label="LinkedIn"
         >
           <svg
-            width="20"
-            height="20"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -662,12 +1103,12 @@
         <a
           href="https://leetcode.com/u/Garvit46/"
           target="_blank"
-          class="text-muted hover:text-white transition-colors"
+          class="text-muted hover:text-content focus:text-content transition-colors"
           aria-label="LeetCode"
         >
           <svg
-            width="20"
-            height="20"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -680,12 +1121,12 @@
         <a
           href="https://www.kaggle.com/garvit46"
           target="_blank"
-          class="text-muted hover:text-white transition-colors"
+          class="text-muted hover:text-content focus:text-content transition-colors"
           aria-label="Kaggle"
         >
           <svg
-            width="20"
-            height="20"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -701,157 +1142,172 @@
       </div>
     </footer>
 
-    <!-- EASTER EGG OVERLAY (Ctrl+B) -->
-    <div
-      id="easter-egg-modal"
-      class="fixed inset-0 bg-base/95 backdrop-blur z-[100] hidden flex-col items-center justify-center p-6 text-center"
-    >
-      <div
-        class="max-w-2xl bg-surface border border-accent p-8 text-left font-mono shadow-[0_0_40px_rgba(0,166,255,0.15)]"
-      >
-        <div class="flex items-center gap-3 border-b border-line pb-4 mb-6">
-          <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-          <h2 class="text-white font-bold uppercase tracking-widest">
-            System Alert: Classified Intercept
-          </h2>
-        </div>
-
-        <p class="text-muted mb-2">> Parsing global repository metrics...</p>
-        <p class="text-muted mb-4">> Analyzing Sahayak-Setu impact...</p>
-
-        <div class="bg-accent/10 border-l-4 border-accent p-4 mb-8">
-          <p class="text-white font-bold uppercase">Flash Bulletin:</p>
-          <p class="text-accent mt-2">
-            Garvit Joshi's Sahayak-Setu cited as a structural model for
-            privacy-first Digital Public Infrastructure. Implementation metrics
-            exceed baseline expectations.
-          </p>
-        </div>
-
-        <button
-          onclick="
-            document.getElementById('easter-egg-modal').classList.add('hidden')
-          "
-          class="border border-line text-muted px-6 py-2 hover:bg-white hover:text-base w-full transition-colors uppercase text-xs tracking-widest"
-        >
-          Acknowledge & Close Terminal
-        </button>
-      </div>
-    </div>
-
     <!-- Scripts -->
     <script>
-      // 1. Calculate Age Dynamically (DOB: 01-Sep-2004)
-      function calculateAge() {
-        const dob = new Date("2004-09-01");
-        const today = new Date();
-        let age = today.getFullYear() - dob.getFullYear();
-        const m = today.getMonth() - dob.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
-          age--;
+      // 0. Theme Switching Logic
+      function setTheme(theme) {
+        const root = document.documentElement;
+        if (theme === "system") {
+          localStorage.removeItem("theme");
+          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            root.classList.add("dark");
+          } else {
+            root.classList.remove("dark");
+          }
+        } else if (theme === "dark") {
+          root.classList.add("dark");
+          localStorage.setItem("theme", "dark");
+        } else {
+          root.classList.remove("dark");
+          localStorage.setItem("theme", "light");
         }
-        document.getElementById("dynamic-age").innerText = age;
       }
-      calculateAge();
 
-      // 2. Dynamic Timestamps
-      function updateTime() {
-        const now = new Date();
-        const options = {
-          weekday: "short",
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          timeZoneName: "short",
-        };
-        document.getElementById("live-timestamp").innerText = now
-          .toLocaleDateString("en-US", options)
-          .toUpperCase();
-      }
-      setInterval(updateTime, 1000);
-      updateTime();
-
-      document.getElementById("dynamic-date").innerText =
-        new Date().toLocaleDateString("en-US", {
-          month: "long",
-          day: "numeric",
-          year: "numeric",
+      // Listen for system theme changes if set to system
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+          if (!localStorage.getItem("theme")) {
+            if (e.matches) {
+              document.documentElement.classList.add("dark");
+            } else {
+              document.documentElement.classList.remove("dark");
+            }
+          }
         });
 
-      // 3. Mock Newsletter Submit
-      function handleSubscribe(e) {
+      // 1. Live Training Log Generator (Optimized for performance)
+      const logsContainer = document.getElementById("bg-training-logs");
+      let epoch = 1;
+      let logTimeout;
+
+      function generateLog() {
+        // Pause animation if user is not on tab to save CPU on mobile
+        if (document.hidden || !logsContainer || window.innerWidth < 768) {
+          logTimeout = setTimeout(generateLog, 2000);
+          return;
+        }
+
+        const loss = (Math.random() * 0.5 + 0.01).toFixed(4);
+        const valLoss = (parseFloat(loss) + Math.random() * 0.05).toFixed(4);
+        const time = Math.floor(Math.random() * 120 + 20);
+
+        const logLine = document.createElement("div");
+        logLine.className = "whitespace-nowrap transition-all duration-300";
+        logLine.innerText = `[INFO] Epoch ${epoch.toString().padStart(4, "0")}/5000 | loss: ${loss} - val_loss: ${valLoss} - time: ${time}ms - lr: 1e-4`;
+
+        if (Math.random() > 0.8) {
+          logLine.classList.add("text-accent", "text-glow", "font-bold");
+          logLine.innerText += " --> [VAL_LOSS DECREASED, SAVING TENSORS]";
+        }
+
+        logsContainer.appendChild(logLine);
+
+        if (logsContainer.children.length > 15) {
+          logsContainer.removeChild(logsContainer.firstChild);
+        }
+
+        epoch++;
+        logTimeout = setTimeout(generateLog, Math.random() * 1000 + 400);
+      }
+
+      // Start logs with slight delay
+      setTimeout(generateLog, 1500);
+
+      // 2. Dynamic Timestamps
+      document.getElementById("dynamic-date").innerText =
+        new Date().toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+      // 3. Download Resume (Placeholder action)
+      function downloadResume() {
+        alert("Action: Download Garvit_Joshi_MLE_Resume.pdf");
+      }
+
+      // 4. Interactive Terminal Logic
+      const terminalOutput = document.getElementById("terminal-output");
+      const terminalInput = document.getElementById("terminal-input");
+
+      const knowledgeBase = [
+        {
+          keys: ["imbalanced", "smote", "class"],
+          response:
+            "For imbalanced datasets, I rely on techniques like SMOTE for oversampling, and apply focal loss or class weights during training rather than standard cross-entropy.",
+        },
+        {
+          keys: ["vision", "cv", "object", "image"],
+          response:
+            "In Computer Vision, I've built Defect Detection pipelines using CNNs/PyTorch. A major challenge is augmentation strategy and thresholding NMS to ensure high mAP without tanking FPS.",
+        },
+        {
+          keys: ["consensus", "aegis", "hallucination", "llm"],
+          response:
+            "Aegis Council is my solution to LLM hallucinations. By querying models at varied temperatures and enforcing Pydantic schemas, I create a deterministic consensus gate.",
+        },
+        {
+          keys: ["hire", "work", "job", "role"],
+          response:
+            "I'm looking for Machine Learning Engineer roles to build and scale predictive models. Initialize contact at garvitjoshi46@gmail.com.",
+        },
+        {
+          keys: ["stack", "tech", "tools"],
+          response:
+            "Core ML stack: PyTorch, XGBoost, Scikit-Learn. I also write backend code in FastAPI to serve models, and containerize them using Docker.",
+        },
+        {
+          keys: ["metric", "accuracy", "evaluate"],
+          response:
+            "Accuracy is often a trap. Depending on the domain, I focus on Recall (e.g. healthcare), Precision (finance), or mAP (object detection).",
+        },
+      ];
+
+      function handleTerminal(e) {
         e.preventDefault();
-        const input = e.target.querySelector("input");
-        const btn = e.target.querySelector("button");
-        const status = document.getElementById("mock-status");
+        const query = terminalInput.value.trim();
+        if (!query) return;
 
-        input.disabled = true;
-        btn.innerText = "DONE";
-        status.classList.remove("hidden");
-      }
+        addTerminalLine(`❯ ${query}`, "text-content font-bold");
+        terminalInput.value = "";
 
-      // 4. Press Kit Generator
-      function copyPressKit() {
-        const bio = `Garvit Joshi | Data Scientist & ML Engineer
-Contact: garvitjoshi46@gmail.com | +91-7534865942
+        const thinkId = addTerminalLine(
+          "Running inference...",
+          "text-muted animate-pulse",
+        );
 
-Garvit Joshi is an AI engineer specializing in building practical, privacy-first machine learning solutions. A fresh B.Tech CSE Data Science graduate (CGPA: 7.61), Garvit has developed systems ranging from multilingual government service bridges (Sahayak-Setu) to GPT-powered DeFi rebalancing agents. 
+        setTimeout(() => {
+          document.getElementById(thinkId).remove();
 
-Recognized as a top 5% Amazon ML Summer School scholar and ranking in the top 10% for AWS DeepRacer in India, Garvit excels in bridging the gap between theoretical architectures (Graph Neural Networks, Temporal Fusion Transformers, LLMs) and high-impact real-world deployments.`;
+          let response =
+            "I'm an ML agent. Ask about 'imbalanced data', 'vision', 'consensus/LLMs', or my 'stack'.";
+          const queryLower = query.toLowerCase();
 
-        // Use the modern clipboard API
-        if (navigator.clipboard && window.isSecureContext) {
-          navigator.clipboard.writeText(bio).then(() => {
-            const btn = document.getElementById("press-kit-btn");
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff66" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied to Clipboard`;
-            setTimeout(() => {
-              btn.innerHTML = originalText;
-            }, 3000);
-          });
-        } else {
-          // Fallback for non-secure contexts (e.g. some iframe previews)
-          const textArea = document.createElement("textarea");
-          textArea.value = bio;
-          document.body.appendChild(textArea);
-          textArea.select();
-          try {
-            document.execCommand("copy");
-            const btn = document.getElementById("press-kit-btn");
-            const originalText = btn.innerHTML;
-            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff66" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied to Clipboard`;
-            setTimeout(() => {
-              btn.innerHTML = originalText;
-            }, 3000);
-          } catch (err) {
-            console.error("Fallback: Oops, unable to copy", err);
+          for (let item of knowledgeBase) {
+            if (item.keys.some((key) => queryLower.includes(key))) {
+              response = item.response;
+              break;
+            }
           }
-          document.body.removeChild(textArea);
-        }
+
+          addTerminalLine(response, "text-accent text-glow font-medium");
+          terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }, 600);
       }
 
-      // 5. Share Functionality
-      function shareStory() {
-        const tweetText = encodeURIComponent(
-          "This grad built a portfolio that feels like a Wired feature – check out his AI for citizen services and mental health. Meet Garvit Joshi:",
-        );
-        const url = encodeURIComponent(window.location.href);
-        window.open(
-          `https://twitter.com/intent/tweet?text=${tweetText}&url=${url}`,
-          "_blank",
-        );
+      function addTerminalLine(text, className) {
+        const id = "line-" + Date.now();
+        const p = document.createElement("p");
+        p.id = id;
+        p.className = `mt-1.5 ${className} leading-relaxed`;
+        p.innerText = text;
+        terminalOutput.appendChild(p);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        return id;
       }
-
-      // 6. "Ctrl + B" Easter Egg
-      window.addEventListener("keydown", (e) => {
-        if (e.ctrlKey && e.key.toLowerCase() === "b") {
-          e.preventDefault(); // Prevent opening bookmarks bar
-          document
-            .getElementById("easter-egg-modal")
-            .classList.remove("hidden");
-          document.getElementById("easter-egg-modal").classList.add("flex");
-        }
-      });
     </script>
   </body>
 </html>
