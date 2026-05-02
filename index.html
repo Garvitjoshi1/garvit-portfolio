@@ -1,0 +1,857 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Garvit Joshi | Interactive Feature</title>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Custom Tailwind Configuration -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              base: "#0A0A0F",
+              accent: "#00A6FF",
+              muted: "#8A8F9E",
+              surface: "#12121A",
+              line: "#2A2A35",
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+            },
+            animation: {
+              marquee: "marquee 30s linear infinite",
+              "fade-in": "fadeIn 0.5s ease-out forwards",
+            },
+            keyframes: {
+              marquee: {
+                "0%": { transform: "translateX(100%)" },
+                "100%": { transform: "translateX(-100%)" },
+              },
+              fadeIn: {
+                "0%": { opacity: "0", transform: "translateY(10px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        background-color: #0a0a0f;
+        color: #ffffff;
+        overflow-x: hidden;
+      }
+
+      /* Subtle Grid Background */
+      .bg-grid {
+        background-size: 40px 40px;
+        background-image:
+          linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+          );
+      }
+
+      /* Clean Editorial Hover */
+      .article-card {
+        transition:
+          border-color 0.2s ease,
+          background-color 0.2s ease;
+      }
+      .article-card:hover {
+        border-color: #00a6ff;
+        background-color: #12121a;
+      }
+
+      /* Minimal Link Underline */
+      .hover-underline {
+        position: relative;
+        text-decoration: none;
+      }
+      .hover-underline::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: #00a6ff;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+      .hover-underline:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #0a0a0f;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2a2a35;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #00a6ff;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased selection:bg-accent selection:text-base pb-16 bg-grid relative"
+  >
+    <!-- TICKER BAR -->
+    <div
+      class="fixed top-0 left-0 w-full z-50 border-b border-line bg-base/90 backdrop-blur font-mono text-[10px] md:text-xs font-bold uppercase overflow-hidden h-8 flex items-center text-muted"
+    >
+      <div class="flex whitespace-nowrap animate-marquee">
+        <span class="mx-6 text-accent">TRENDING NOW</span>
+        <span class="mx-6">Amazon ML Summer School Scholar</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6">CodeKaze Top 17k</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6">AWS DeepRacer Top 10% India</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6">Certificate of Excellence from Coding Ninjas</span>
+        <span class="mx-6 text-line">/</span>
+        <span class="mx-6 text-accent">LATEST DISPATCH</span>
+      </div>
+    </div>
+
+    <!-- MAIN EDITORIAL CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24">
+      <!-- HEADER -->
+      <header class="mb-16 border-b border-line pb-12 relative animate-fade-in">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8"
+        >
+          <div class="flex items-center gap-4">
+            <span
+              class="bg-accent text-base px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider"
+              >Breaking News</span
+            >
+            <span
+              id="live-timestamp"
+              class="font-mono text-xs text-muted"
+            ></span>
+          </div>
+          <div
+            class="font-mono text-xs text-muted uppercase tracking-wider text-right"
+          >
+            Garvit Joshi <br />
+            ML Engineer / Explorer
+          </div>
+        </div>
+
+        <h1
+          class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6"
+        >
+          The <span id="dynamic-age" class="text-accent">--</span>-Year-Old
+          Turns His GitHub Projects Into an Immersive News Feature.
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl text-muted font-medium mb-10 max-w-4xl leading-relaxed"
+        >
+          <strong class="text-white"
+            >He builds AI that works in the real world.</strong
+          >
+          From decoding government forms to rebalancing crypto portfolios—a
+          fresh graduate's journey to make AI practical, private, and impactful.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <button
+            onclick="copyPressKit()"
+            id="press-kit-btn"
+            class="border border-line bg-surface hover:border-accent text-white px-6 py-3 font-mono text-sm transition-colors flex items-center gap-2"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            Copy Press Kit
+          </button>
+          <button
+            onclick="shareStory()"
+            class="border border-transparent bg-white text-base hover:bg-accent hover:text-white px-6 py-3 font-mono text-sm font-bold transition-colors flex items-center gap-2"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+              <polyline points="16 6 12 2 8 6" />
+              <line x1="12" y1="2" x2="12" y2="15" />
+            </svg>
+            Share Story
+          </button>
+        </div>
+      </header>
+
+      <div class="grid lg:grid-cols-12 gap-12">
+        <!-- MAIN FEATURE COLUMN (Projects) -->
+        <div class="lg:col-span-8 space-y-8">
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-2 h-2 bg-accent"></div>
+            <h2 class="text-2xl font-bold uppercase tracking-widest">
+              Feature Articles
+            </h2>
+          </div>
+
+          <!-- Featured Project 1 -->
+          <article class="article-card border border-line p-6 md:p-8 relative">
+            <span
+              class="absolute top-0 right-0 bg-line text-muted font-mono text-[10px] px-2 py-1 uppercase"
+              >Cover Story</span
+            >
+            <div class="font-mono text-accent text-xs mb-3">
+              React / TypeScript / GovTech
+            </div>
+            <h3 class="text-2xl md:text-3xl font-bold mb-3">
+              Sahayak-Setu: The Digital Bridge Between Citizens and the State
+            </h3>
+            <p class="text-muted mb-6 leading-relaxed">
+              A multilingual platform empowering Indian citizens to navigate
+              complex government services via interactive wizards and a
+              privacy-first AI assistant.
+            </p>
+            <div class="border-l-2 border-accent pl-4 mb-6">
+              <p class="font-mono text-sm">
+                Key Metric: Privacy-first, multilingual, zero data retention.
+              </p>
+            </div>
+            <a
+              href="#"
+              class="text-white font-mono text-sm hover-underline inline-flex items-center gap-2"
+            >
+              Read the full briefing
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </article>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <!-- Featured Project 2 -->
+            <article
+              class="article-card border border-line p-6 relative flex flex-col"
+            >
+              <div class="font-mono text-accent text-xs mb-3">
+                Canvas / STEM / EdTech
+              </div>
+              <h3 class="text-xl font-bold mb-3">
+                MathMania: Gamifying K-12 Math
+              </h3>
+              <p class="text-muted mb-6 text-sm flex-grow">
+                Interactive visual math lab with 3D simulations. Features
+                gamified missions and a "Predict-Interact-Master" learning
+                cycle.
+              </p>
+              <a
+                href="#"
+                class="text-white font-mono text-sm hover-underline inline-flex items-center gap-2 w-max"
+              >
+                Access lab
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </article>
+
+            <!-- Featured Project 3 -->
+            <article
+              class="article-card border border-line p-6 relative flex flex-col"
+            >
+              <div class="font-mono text-accent text-xs mb-3">
+                GenAI / Privacy / Health
+              </div>
+              <h3 class="text-xl font-bold mb-3">
+                ZenithPath: Confidential GenAI for Teens
+              </h3>
+              <p class="text-muted mb-6 text-sm flex-grow">
+                An open-source generative AI platform offering empathetic
+                support for youth mental wellness. Built for privacy, designed
+                for hope.
+              </p>
+              <a
+                href="#"
+                class="text-white font-mono text-sm hover-underline inline-flex items-center gap-2 w-max"
+              >
+                View hackathon winner
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </article>
+          </div>
+
+          <!-- Featured Project 4 & 5 -->
+          <article class="border-y border-line py-8">
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <div class="font-mono text-accent text-xs mb-2">
+                  Python / LLMs / DeFi
+                </div>
+                <h3 class="text-lg font-bold mb-2">Auto-Defi Agent</h3>
+                <p class="text-muted text-sm mb-4">
+                  GPT on the Blockchain – Automated Crypto Rebalancing via
+                  intelligent portfolio managers.
+                </p>
+              </div>
+              <div>
+                <div class="font-mono text-accent text-xs mb-2">
+                  Kotlin / Android / AgTech
+                </div>
+                <h3 class="text-lg font-bold mb-2">KrishiLakshmi</h3>
+                <p class="text-muted text-sm mb-4">
+                  From Kotlin to Farmland – An Android App That Boosts Farmer
+                  Prosperity and crop yields.
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- RIGHT SIDEBAR (Dispatch, Skills, Timeline) -->
+        <aside class="lg:col-span-4 space-y-12">
+          <!-- Data Science Dispatch -->
+          <div class="bg-surface border border-line p-6">
+            <h3
+              class="font-mono text-xs uppercase tracking-widest text-accent mb-6"
+            >
+              Data Science Dispatch
+            </h3>
+            <ul class="space-y-4">
+              <li class="border-b border-line pb-4 group cursor-pointer">
+                <h4 class="font-bold group-hover:text-accent transition-colors">
+                  Aegis Council
+                </h4>
+                <p class="text-xs text-muted mt-1">
+                  Multi-model consensus with deterministic governance.
+                </p>
+              </li>
+              <li class="border-b border-line pb-4 group cursor-pointer">
+                <h4 class="font-bold group-hover:text-accent transition-colors">
+                  Invisi Studio
+                </h4>
+                <p class="text-xs text-muted mt-1">
+                  Advanced data visualisation at your fingertips (Kotlin).
+                </p>
+              </li>
+              <li class="border-b border-line pb-4 group cursor-pointer">
+                <h4 class="font-bold group-hover:text-accent transition-colors">
+                  Stroke Prediction Model
+                </h4>
+                <p class="text-xs text-muted mt-1">
+                  Predictive healthcare analytics utilizing structured clinical
+                  data.
+                </p>
+              </li>
+              <li class="group cursor-pointer">
+                <h4 class="font-bold group-hover:text-accent transition-colors">
+                  McDonald's India Nutrition
+                </h4>
+                <p class="text-xs text-muted mt-1">
+                  Exploratory data analysis and clustering of fast-food metrics.
+                </p>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Skills Section -->
+          <div>
+            <h3
+              class="font-mono text-xs uppercase tracking-widest text-accent mb-6 border-b border-line pb-2"
+            >
+              Technical Proficiency
+            </h3>
+            <div class="grid grid-cols-2 gap-4 font-mono text-xs">
+              <!-- Column 1 -->
+              <div class="space-y-3">
+                <div
+                  class="text-white font-bold mb-4 underline decoration-line underline-offset-4"
+                >
+                  Core AI/ML
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Python (PyTorch, TF)
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Graph Neural Networks
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Temporal Fusion Tx
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Large Language Models
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Agentic AI
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Time Series & MILP
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Bioinformatics
+                </div>
+              </div>
+              <!-- Column 2 -->
+              <div class="space-y-3">
+                <div
+                  class="text-white font-bold mb-4 underline decoration-line underline-offset-4"
+                >
+                  MLOps & Eng
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  SQL & Postgres
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Git & Version Control
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  AWS Infrastructure
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  Docker Containers
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  FastAPI
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  CI/CD Pipelines
+                </div>
+                <div
+                  class="hover:text-accent transition-colors cursor-default w-max"
+                >
+                  MLflow Tracking
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Achievements Timeline -->
+          <div>
+            <h3
+              class="font-mono text-xs uppercase tracking-widest text-accent mb-6 border-b border-line pb-2"
+            >
+              Career Milestones
+            </h3>
+            <div class="relative border-l border-line ml-2 space-y-6 pb-2">
+              <div class="relative pl-6">
+                <div
+                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
+                ></div>
+                <h4 class="font-bold text-sm">Amazon ML Summer School</h4>
+                <p class="text-xs text-muted mt-1 font-mono">
+                  Top 5% of 63,000+ applicants
+                </p>
+              </div>
+              <div class="relative pl-6">
+                <div
+                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
+                ></div>
+                <h4 class="font-bold text-sm">CodeKaze Excellence</h4>
+                <p class="text-xs text-muted mt-1 font-mono">
+                  Ranked Top 17k / 150k participants
+                </p>
+              </div>
+              <div class="relative pl-6">
+                <div
+                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
+                ></div>
+                <h4 class="font-bold text-sm">AWS DeepRacer</h4>
+                <p class="text-xs text-muted mt-1 font-mono">
+                  Top 10% in India Region
+                </p>
+              </div>
+              <div class="relative pl-6">
+                <div
+                  class="absolute -left-[5px] top-1.5 w-2 h-2 bg-base border border-white rounded-full"
+                ></div>
+                <h4 class="font-bold text-sm">B.Tech CSE (Data Science)</h4>
+                <p class="text-xs text-muted mt-1 font-mono">
+                  CGPA: 7.61 | Fresh Graduate
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter Mock -->
+          <div class="bg-surface border border-line p-6 mt-8">
+            <h3 class="font-bold mb-2">Get the Briefing</h3>
+            <p class="text-xs text-muted mb-4">
+              Subscribe for updates on my latest ML deployments and
+              architectural research.
+            </p>
+            <form
+              id="mock-form"
+              onsubmit="handleSubscribe(event)"
+              class="flex gap-2"
+            >
+              <input
+                type="email"
+                placeholder="email@address.com"
+                class="bg-base border border-line text-sm px-3 py-2 w-full focus:outline-none focus:border-accent text-white"
+                required
+              />
+              <button
+                type="submit"
+                class="bg-white text-base px-4 font-bold text-sm hover:bg-accent transition-colors"
+              >
+                JOIN
+              </button>
+            </form>
+            <p
+              id="mock-status"
+              class="text-xs text-accent mt-3 hidden font-mono"
+            >
+              Subscription confirmed.
+            </p>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-24 pt-8 border-t border-line flex flex-col md:flex-row justify-between items-center gap-6"
+    >
+      <div class="font-mono text-xs text-muted">
+        <p>
+          For media & hiring inquiries:
+          <a
+            href="mailto:garvitjoshi46@gmail.com"
+            class="text-white hover:text-accent transition-colors"
+            >garvitjoshi46@gmail.com</a
+          >
+        </p>
+        <p class="mt-1">
+          Last updated: <span id="dynamic-date" class="text-white"></span>
+        </p>
+      </div>
+      <div class="flex gap-6">
+        <a
+          href="https://github.com/Garvitjoshi1"
+          target="_blank"
+          class="text-muted hover:text-white transition-colors"
+          aria-label="GitHub"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/garvitjoshi01"
+          target="_blank"
+          class="text-muted hover:text-white transition-colors"
+          aria-label="LinkedIn"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+            ></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+        <a
+          href="https://leetcode.com/u/Garvit46/"
+          target="_blank"
+          class="text-muted hover:text-white transition-colors"
+          aria-label="LeetCode"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <polyline points="16 18 22 12 16 6"></polyline>
+            <polyline points="8 6 2 12 8 18"></polyline>
+          </svg>
+        </a>
+        <a
+          href="https://www.kaggle.com/garvit46"
+          target="_blank"
+          class="text-muted hover:text-white transition-colors"
+          aria-label="Kaggle"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+            ></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </a>
+      </div>
+    </footer>
+
+    <!-- EASTER EGG OVERLAY (Ctrl+B) -->
+    <div
+      id="easter-egg-modal"
+      class="fixed inset-0 bg-base/95 backdrop-blur z-[100] hidden flex-col items-center justify-center p-6 text-center"
+    >
+      <div
+        class="max-w-2xl bg-surface border border-accent p-8 text-left font-mono shadow-[0_0_40px_rgba(0,166,255,0.15)]"
+      >
+        <div class="flex items-center gap-3 border-b border-line pb-4 mb-6">
+          <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+          <h2 class="text-white font-bold uppercase tracking-widest">
+            System Alert: Classified Intercept
+          </h2>
+        </div>
+
+        <p class="text-muted mb-2">> Parsing global repository metrics...</p>
+        <p class="text-muted mb-4">> Analyzing Sahayak-Setu impact...</p>
+
+        <div class="bg-accent/10 border-l-4 border-accent p-4 mb-8">
+          <p class="text-white font-bold uppercase">Flash Bulletin:</p>
+          <p class="text-accent mt-2">
+            Garvit Joshi's Sahayak-Setu cited as a structural model for
+            privacy-first Digital Public Infrastructure. Implementation metrics
+            exceed baseline expectations.
+          </p>
+        </div>
+
+        <button
+          onclick="
+            document.getElementById('easter-egg-modal').classList.add('hidden')
+          "
+          class="border border-line text-muted px-6 py-2 hover:bg-white hover:text-base w-full transition-colors uppercase text-xs tracking-widest"
+        >
+          Acknowledge & Close Terminal
+        </button>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // 1. Calculate Age Dynamically (DOB: 01-Sep-2004)
+      function calculateAge() {
+        const dob = new Date("2004-09-01");
+        const today = new Date();
+        let age = today.getFullYear() - dob.getFullYear();
+        const m = today.getMonth() - dob.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < dob.getDate())) {
+          age--;
+        }
+        document.getElementById("dynamic-age").innerText = age;
+      }
+      calculateAge();
+
+      // 2. Dynamic Timestamps
+      function updateTime() {
+        const now = new Date();
+        const options = {
+          weekday: "short",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          timeZoneName: "short",
+        };
+        document.getElementById("live-timestamp").innerText = now
+          .toLocaleDateString("en-US", options)
+          .toUpperCase();
+      }
+      setInterval(updateTime, 1000);
+      updateTime();
+
+      document.getElementById("dynamic-date").innerText =
+        new Date().toLocaleDateString("en-US", {
+          month: "long",
+          day: "numeric",
+          year: "numeric",
+        });
+
+      // 3. Mock Newsletter Submit
+      function handleSubscribe(e) {
+        e.preventDefault();
+        const input = e.target.querySelector("input");
+        const btn = e.target.querySelector("button");
+        const status = document.getElementById("mock-status");
+
+        input.disabled = true;
+        btn.innerText = "DONE";
+        status.classList.remove("hidden");
+      }
+
+      // 4. Press Kit Generator
+      function copyPressKit() {
+        const bio = `Garvit Joshi | Data Scientist & ML Engineer
+Contact: garvitjoshi46@gmail.com | +91-7534865942
+
+Garvit Joshi is an AI engineer specializing in building practical, privacy-first machine learning solutions. A fresh B.Tech CSE Data Science graduate (CGPA: 7.61), Garvit has developed systems ranging from multilingual government service bridges (Sahayak-Setu) to GPT-powered DeFi rebalancing agents. 
+
+Recognized as a top 5% Amazon ML Summer School scholar and ranking in the top 10% for AWS DeepRacer in India, Garvit excels in bridging the gap between theoretical architectures (Graph Neural Networks, Temporal Fusion Transformers, LLMs) and high-impact real-world deployments.`;
+
+        // Use the modern clipboard API
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(bio).then(() => {
+            const btn = document.getElementById("press-kit-btn");
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff66" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied to Clipboard`;
+            setTimeout(() => {
+              btn.innerHTML = originalText;
+            }, 3000);
+          });
+        } else {
+          // Fallback for non-secure contexts (e.g. some iframe previews)
+          const textArea = document.createElement("textarea");
+          textArea.value = bio;
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand("copy");
+            const btn = document.getElementById("press-kit-btn");
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00ff66" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied to Clipboard`;
+            setTimeout(() => {
+              btn.innerHTML = originalText;
+            }, 3000);
+          } catch (err) {
+            console.error("Fallback: Oops, unable to copy", err);
+          }
+          document.body.removeChild(textArea);
+        }
+      }
+
+      // 5. Share Functionality
+      function shareStory() {
+        const tweetText = encodeURIComponent(
+          "This grad built a portfolio that feels like a Wired feature – check out his AI for citizen services and mental health. Meet Garvit Joshi:",
+        );
+        const url = encodeURIComponent(window.location.href);
+        window.open(
+          `https://twitter.com/intent/tweet?text=${tweetText}&url=${url}`,
+          "_blank",
+        );
+      }
+
+      // 6. "Ctrl + B" Easter Egg
+      window.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key.toLowerCase() === "b") {
+          e.preventDefault(); // Prevent opening bookmarks bar
+          document
+            .getElementById("easter-egg-modal")
+            .classList.remove("hidden");
+          document.getElementById("easter-egg-modal").classList.add("flex");
+        }
+      });
+    </script>
+  </body>
+</html>
