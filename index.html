@@ -3,2199 +3,965 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
-  <title>Garvit Joshi | The Overfit — A Netflix Original Series</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>Garvit Joshi | Machine Learning Engineer & Designer</title>
 
-  <!-- Theme colors for native UI -->
-  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0A0A" />
-  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAF8" />
+  <!-- Native platform themes -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF8F5" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0A0C" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
 
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Canvas Confetti -->
+  <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
+  <!-- Custom Tailwind Configuration -->
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            // Dark mode (Netflix)
-            netflixBlack: '#0A0A0A',
-            netflixDark: '#141414',
-            netflixCard: '#1A1A1A',
-            netflixRed: '#E50914',
-            netflixGold: '#F5C518',
-            netflixWhite: '#F5F5F1',
-            netflixMuted: '#A8A8A8',
-            // Light mode (Cinema Lights On)
-            cinemaCream: '#FAFAF8',
-            cinemaWhite: '#FFFFFF',
-            cinemaCharcoal: '#1A1A1A',
-            cinemaMuted: '#6B6B6B',
-            cinemaBorder: '#E8E6E3',
+            labBase: "var(--color-bg)",
+            labText: "var(--color-text)",
+            labMuted: "var(--color-muted)",
+            labBorder: "var(--color-border)",
+            labAccent: "var(--color-accent)",
+            labSecondary: "var(--color-secondary)",
+            labSurface: "var(--color-surface)",
           },
           fontFamily: {
-            serif: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Playfair Display", "serif"],
+            mono: ["JetBrains Mono", "monospace"],
           },
           boxShadow: {
-            netflix: '0 8px 40px rgba(0,0,0,0.8)',
-            netflixGlow: '0 0 60px rgba(229, 9, 20, 0.25)',
-            cinema: '0 8px 40px rgba(0,0,0,0.08)',
-          },
-        },
-      },
+            brutalist: "var(--shadow-offset)",
+            brutalistHover: "var(--shadow-offset-hover)",
+          }
+        }
+      }
     }
   </script>
 
   <style>
-    /* ===== CSS VARIABLES FOR THEME SWITCHING ===== */
     :root {
-      /* Dark mode defaults (Netflix) */
-      --bg-primary: #0A0A0A;
-      --bg-secondary: #141414;
-      --bg-card: #1A1A1A;
-      --bg-card-hover: #222222;
-      --text-primary: #F5F5F1;
-      --text-secondary: #A8A8A8;
-      --text-muted: rgba(255, 255, 255, 0.4);
-      --border-color: rgba(255, 255, 255, 0.06);
-      --border-hover: rgba(229, 9, 20, 0.4);
-      --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.8);
-      --shadow-glow: 0 0 60px rgba(229, 9, 20, 0.15);
-      --overlay-gradient: rgba(10, 10, 10, 0.92);
-      --hero-overlay: rgba(10, 10, 10, 0.6);
-      --scrollbar-track: #0A0A0A;
-      --scrollbar-thumb: #E50914;
-      --cursor-border: rgba(245, 245, 241, 0.35);
-      --cursor-dot: rgba(245, 245, 241, 0.6);
-      --toast-bg: #1A1A1A;
-      --toast-border: rgba(255, 255, 255, 0.08);
-      --input-bg: rgba(255, 255, 255, 0.05);
+      --color-bg: #FAF8F5;
+      --color-text: #111113;
+      --color-muted: #4B4B54;
+      --color-border: #111113;
+      --color-accent: #2563EB;
+      --color-secondary: #EF4444;
+      --color-surface: #FFFFFF;
+      --shadow-offset: 6px 6px 0px 0px #111113;
+      --shadow-offset-hover: 2px 2px 0px 0px #111113;
     }
 
-    /* Light mode (Cinema Lights On) */
-    html:not(.dark) {
-      --bg-primary: #FAFAF8;
-      --bg-secondary: #F5F3F0;
-      --bg-card: #FFFFFF;
-      --bg-card-hover: #F8F6F4;
-      --text-primary: #1A1A1A;
-      --text-secondary: #6B6B6B;
-      --text-muted: rgba(0, 0, 0, 0.35);
-      --border-color: rgba(0, 0, 0, 0.08);
-      --border-hover: rgba(229, 9, 20, 0.3);
-      --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.08);
-      --shadow-glow: 0 0 60px rgba(229, 9, 20, 0.08);
-      --overlay-gradient: rgba(255, 255, 255, 0.95);
-      --hero-overlay: rgba(255, 255, 255, 0.5);
-      --scrollbar-track: #FAFAF8;
-      --scrollbar-thumb: #E50914;
-      --cursor-border: rgba(26, 26, 26, 0.3);
-      --cursor-dot: rgba(26, 26, 26, 0.5);
-      --toast-bg: #FFFFFF;
-      --toast-border: rgba(0, 0, 0, 0.08);
-      --input-bg: rgba(0, 0, 0, 0.04);
-    }
-
-    /* ===== BASE ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    .dark {
+      --color-bg: #0A0A0C;
+      --color-text: #F9FAFB;
+      --color-muted: #9CA3AF;
+      --color-border: #374151;
+      --color-accent: #60A5FA;
+      --color-secondary: #F87171;
+      --color-surface: #1E1E24;
+      --shadow-offset: 6px 6px 0px 0px #374151;
+      --shadow-offset-hover: 2px 2px 0px 0px #374151;
     }
 
     body {
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       overflow-x: hidden;
-      cursor: default;
-      transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-        color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-      min-height: 100vh;
-      min-height: 100dvh;
     }
 
-    /* ===== SCROLLBAR ===== */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--scrollbar-track);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--scrollbar-thumb);
-      border-radius: 3px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: #F5C518;
-    }
-
-    /* ===== CURSOR (desktop only) ===== */
-    #netflix-cursor {
-      position: fixed;
-      pointer-events: none;
-      z-index: 9999;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1.5px solid var(--cursor-border);
-      background: transparent;
-      transform: translate3d(-50%, -50%, 0);
-      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-        height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-        background 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      display: none;
-      will-change: transform;
-    }
-
-    #netflix-cursor .dot {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--cursor-dot);
-      transition: background 0.25s ease, width 0.25s ease, height 0.25s ease;
-    }
-
-    #netflix-cursor.expanded {
-      width: 52px;
-      height: 52px;
-      border-color: #E50914;
-      background: rgba(229, 9, 20, 0.08);
-    }
-
-    #netflix-cursor.expanded .dot {
-      background: #E50914;
-      width: 6px;
-      height: 6px;
-    }
-
+    /* Desktop customized viewfinder cursor */
     @media (min-width: 1024px) {
       body {
         cursor: none;
       }
-
-      #netflix-cursor {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
     }
 
-    @media (max-width: 1023px) {
-      #netflix-cursor {
-        display: none !important;
-      }
-    }
-
-    /* ===== SCROLL PROGRESS ===== */
-    #scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: #E50914;
-      z-index: 100;
-      width: 0%;
-      transition: width 0.1s linear;
-      box-shadow: 0 0 30px rgba(229, 9, 20, 0.3);
-    }
-
-    /* ===== HERO ===== */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-    }
-
-    .hero-bg .gradient-overlay {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      background: linear-gradient(to right, var(--bg-primary) 0%, var(--bg-primary) 20%, transparent 70%);
-    }
-
-    .hero-bg .gradient-overlay-bottom {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      background: linear-gradient(to top, var(--bg-primary) 0%, transparent 60%);
-    }
-
-    .hero-bg .accent-glow {
-      position: absolute;
-      inset: 0;
-      z-index: 5;
-      background: radial-gradient(ellipse at 70% 50%, rgba(229, 9, 20, 0.15) 0%, transparent 70%);
-      transition: opacity 0.5s ease;
-    }
-
-    html:not(.dark) .hero-bg .accent-glow {
-      opacity: 0.3;
-    }
-
-    .hero-bg img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      opacity: 0.35;
-      transition: opacity 0.5s ease;
-    }
-
-    html:not(.dark) .hero-bg img {
-      opacity: 0.12;
-    }
-
-    /* ===== EPISODE ROW ===== */
-    .episode-row {
-      display: flex;
-      gap: 16px;
-      overflow-x: auto;
-      overflow-y: visible;
-      padding: 12px 4px 24px 4px;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scroll-snap-type: x proximity;
-    }
-
-    .episode-row::-webkit-scrollbar {
-      height: 4px;
-    }
-
-    .episode-row::-webkit-scrollbar-track {
-      background: var(--border-color);
-      border-radius: 2px;
-    }
-
-    .episode-row::-webkit-scrollbar-thumb {
-      background: #E50914;
-      border-radius: 2px;
-    }
-
-    .episode-card {
-      flex: 0 0 260px;
-      background: var(--bg-card);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-        border-color 0.3s ease,
-        background 0.4s ease;
-      border: 1px solid var(--border-color);
-      cursor: pointer;
+    #lab-viewfinder {
       will-change: transform;
-      position: relative;
-      scroll-snap-align: start;
+      transform: translate3d(-50%, -50%, 0);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .episode-card:hover {
-      transform: scale(1.04) translateY(-6px);
-      border-color: #E50914;
-      box-shadow: var(--shadow-card), 0 0 40px rgba(229, 9, 20, 0.12);
-      z-index: 10;
-      background: var(--bg-card-hover);
-    }
-
-    @media (max-width: 480px) {
-      .episode-card {
-        flex: 0 0 200px;
-      }
-
-      .episode-card .card-thumb {
-        height: 110px !important;
-      }
-
-      .episode-card .card-body h3 {
-        font-size: 15px !important;
-      }
-
-      .episode-card .card-body p {
-        font-size: 11px !important;
-        -webkit-line-clamp: 2 !important;
-        line-clamp: 2 !important;
-      }
-    }
-
-    @media (min-width: 481px) and (max-width: 768px) {
-      .episode-card {
-        flex: 0 0 220px;
-      }
-
-      .episode-card .card-thumb {
-        height: 130px !important;
-      }
-    }
-
-    .episode-card .card-thumb {
-      width: 100%;
-      height: 150px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 42px;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.4s ease;
-    }
-
-    .episode-card .card-thumb .episode-number {
+    /* Tactile floating badges config */
+    .sticker {
+      cursor: grab;
+      user-select: none;
+      will-change: transform, left, top;
+      touch-action: none;
       position: absolute;
-      bottom: 8px;
-      right: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: var(--text-muted);
-      letter-spacing: 2px;
-      font-weight: 700;
     }
 
-    .episode-card .card-thumb .play-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s ease;
+    .sticker:active {
+      cursor: grabbing;
     }
 
-    .episode-card:hover .card-thumb .play-overlay {
-      opacity: 1;
+    /* Dot matrix decorative system layer */
+    .dot-matrix {
+      background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.15;
     }
 
-    .episode-card .card-thumb .play-overlay svg {
-      width: 44px;
-      height: 44px;
-      fill: #E50914;
-      filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.5));
-      transform: scale(0.8);
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* Elastic bouncy transition properties */
+    .elastic-button {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .episode-card:hover .card-thumb .play-overlay svg {
-      transform: scale(1);
+    .elastic-button:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-offset);
     }
 
-    .episode-card .card-body {
-      padding: 14px 16px 16px;
-    }
-
-    .episode-card .card-body .match-score {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: #F5C518;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .episode-card .card-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 17px;
-      font-weight: 700;
-      margin-top: 4px;
-      line-height: 1.2;
-      transition: color 0.3s ease;
-      color: var(--text-primary);
-    }
-
-    .episode-card:hover .card-body h3 {
-      color: #E50914;
-    }
-
-    .episode-card .card-body p {
-      font-size: 12px;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      margin-top: 4px;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .episode-card .card-body .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 4px;
-      margin-top: 8px;
-    }
-
-    .episode-card .card-body .tags span {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 7px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 2px 8px;
-      background: var(--input-bg);
-      border-radius: 4px;
-      color: var(--text-secondary);
-      border: 1px solid var(--border-color);
-    }
-
-    /* ===== MODAL ===== */
-    #screenplay-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      background: var(--overlay-gradient);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      overscroll-behavior: contain;
-    }
-
-    #screenplay-modal.active {
-      display: flex;
-    }
-
-    @keyframes modalFadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.95) translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    #screenplay-modal .modal-content {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: 20px;
-      max-width: 1000px;
-      width: 100%;
-      max-height: 90vh;
-      max-height: 90dvh;
-      overflow-y: auto;
-      box-shadow: var(--shadow-card);
-      position: relative;
-      transition: background 0.4s ease, border-color 0.4s ease;
-    }
-
-    #screenplay-modal .modal-content::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    #screenplay-modal .modal-content::-webkit-scrollbar-thumb {
-      background: #E50914;
-      border-radius: 2px;
-    }
-
-    .modal-header {
-      padding: 16px 20px;
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      background: var(--bg-secondary);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 10;
-      border-radius: 20px 20px 0 0;
-      transition: background 0.4s ease;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .modal-header .episode-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: #E50914;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      background: rgba(229, 9, 20, 0.12);
-      padding: 4px 14px;
-      border-radius: 100px;
-      border: 1px solid rgba(229, 9, 20, 0.2);
-      white-space: nowrap;
-    }
-
-    .modal-header .modal-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text-primary);
-      flex: 1;
-      min-width: 120px;
-    }
-
-    .modal-header .close-btn {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 26px;
-      cursor: pointer;
-      transition: color 0.2s ease, transform 0.2s ease;
-      font-family: 'Inter', sans-serif;
-      line-height: 1;
-      padding: 4px 8px;
-    }
-
-    .modal-header .close-btn:hover {
-      color: #E50914;
-      transform: rotate(90deg);
-    }
-
-    .modal-body {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-    }
-
-    @media (max-width: 768px) {
-      .modal-body {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 16px;
-      }
-
-      .modal-header .modal-title {
-        font-size: 16px;
-      }
-
-      .modal-header {
-        padding: 12px 16px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      #screenplay-modal {
-        padding: 8px;
-      }
-
-      .modal-body {
-        padding: 12px;
-        gap: 16px;
-      }
-
-      .modal-header .episode-badge {
-        font-size: 8px;
-        padding: 3px 10px;
-      }
-
-      .modal-header .modal-title {
-        font-size: 14px;
-      }
-    }
-
-    .modal-body .script-section {
-      font-family: 'Inter', sans-serif;
-    }
-
-    .modal-body .script-section .scene-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: #E50914;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      display: block;
-    }
-
-    .modal-body .script-section .script-line {
-      font-size: 13px;
-      line-height: 1.8;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .modal-body .script-section .script-line .character {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      color: #F5C518;
-      font-style: italic;
-    }
-
-    .modal-body .script-section .script-line .action {
-      font-style: italic;
-      color: var(--text-secondary);
-      font-size: 12px;
-    }
-
-    .modal-body .script-section .divider {
-      border: none;
-      border-top: 1px solid var(--border-color);
-      margin: 12px 0;
-    }
-
-    .modal-body .production-notes {
-      background: var(--input-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 16px;
-      height: fit-content;
-      transition: background 0.4s ease, border-color 0.4s ease;
-    }
-
-    .modal-body .production-notes h4 {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--text-secondary);
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    .modal-body .production-notes .note-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 7px 0;
-      border-bottom: 1px solid var(--border-color);
-      font-size: 12px;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .modal-body .production-notes .note-item:last-child {
-      border-bottom: none;
-    }
-
-    .modal-body .production-notes .note-item .label {
-      color: var(--text-secondary);
-      flex-shrink: 0;
-    }
-
-    .modal-body .production-notes .note-item .value {
-      color: var(--text-primary);
-      font-weight: 600;
-      text-align: right;
-      word-break: break-word;
-    }
-
-    .modal-body .production-notes .note-item .value.accent {
-      color: #E50914;
-    }
-
-    .modal-body .production-notes .note-item .value.gold {
-      color: #F5C518;
-    }
-
-    .modal-footer-actions {
-      padding: 14px 20px 20px;
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    @media (max-width: 480px) {
-      .modal-footer-actions {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 10px;
-        padding: 12px 16px 16px;
-      }
-
-      .modal-footer-actions .github-link {
-        justify-content: center;
-      }
-
-      .modal-footer-actions .greenlight-btn {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-
-    .modal-footer-actions .greenlight-btn {
-      background: #E50914;
-      color: white;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .modal-footer-actions .greenlight-btn:hover {
-      background: #F5C518;
-      color: #0A0A0A;
-      transform: scale(1.02);
-    }
-
-    .modal-footer-actions .github-link {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      transition: color 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .modal-footer-actions .github-link:hover {
-      color: var(--text-primary);
-    }
-
-    /* ===== BUTTONS ===== */
-    .netflix-btn {
-      background: #E50914;
-      color: white;
-      border: none;
-      padding: 12px 32px;
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      touch-action: manipulation;
-    }
-
-    .netflix-btn:hover {
-      background: #F5C518;
-      color: #0A0A0A;
-      transform: scale(1.02);
-      box-shadow: 0 0 40px rgba(229, 9, 20, 0.3);
-    }
-
-    .netflix-btn:active {
-      transform: scale(0.97);
-    }
-
-    .netflix-btn-outline {
-      background: transparent;
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      padding: 12px 32px;
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      touch-action: manipulation;
-    }
-
-    .netflix-btn-outline:hover {
-      border-color: #E50914;
-      color: #E50914;
-      transform: scale(1.02);
-    }
-
-    .netflix-btn-outline:active {
-      transform: scale(0.97);
-    }
-
-    @media (max-width: 480px) {
-
-      .netflix-btn,
-      .netflix-btn-outline {
-        padding: 10px 20px;
-        font-size: 10px;
-        gap: 8px;
-        width: 100%;
-        justify-content: center;
-      }
-
-      .flex-wrap.gap-4 {
-        gap: 10px;
-      }
-    }
-
-    /* ===== CREDITS ROLL ===== */
-    @keyframes creditsScroll {
-      0% {
-        transform: translateY(20%);
-      }
-
-      100% {
-        transform: translateY(-100%);
-      }
-    }
-
-    .credits-roll {
-      animation: creditsScroll 50s linear infinite;
-      will-change: transform;
-    }
-
-    .credits-roll:hover {
-      animation-play-state: paused;
-    }
-
-    /* ===== TOAST ===== */
-    #toast-container {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      pointer-events: none;
-      max-width: 90vw;
-    }
-
-    @media (max-width: 480px) {
-      #toast-container {
-        bottom: 16px;
-        right: 16px;
-        left: 16px;
-        max-width: 100%;
-      }
-    }
-
-    .toast-item {
-      background: var(--toast-bg);
-      border: 1px solid var(--toast-border);
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--text-primary);
-      box-shadow: var(--shadow-card);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      pointer-events: auto;
-      animation: toastIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      max-width: 380px;
-      transition: background 0.4s ease, border-color 0.4s ease;
-    }
-
-    .toast-item .toast-icon {
-      color: #E50914;
-      font-size: 14px;
-      flex-shrink: 0;
-    }
-
-    .toast-item .toast-close {
-      background: none;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 14px;
-      cursor: pointer;
-      padding: 0 4px;
-      flex-shrink: 0;
-      transition: color 0.2s ease;
-    }
-
-    .toast-item .toast-close:hover {
-      color: #E50914;
-    }
-
-    @keyframes toastIn {
-      from {
-        opacity: 0;
-        transform: translateX(40px) scale(0.95);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0) scale(1);
-      }
-    }
-
-    /* ===== HEADER ===== */
-    .site-header {
-      background: var(--bg-primary);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      transition: background 0.4s ease, border-color 0.4s ease;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 50;
-      padding: 10px 16px;
-    }
-
-    @media (min-width: 768px) {
-      .site-header {
-        padding: 12px 32px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .site-header {
-        padding: 8px 12px;
-      }
-
-      .site-header .brand {
-        font-size: 16px !important;
-      }
-
-      .site-header .brand .season-tag {
-        font-size: 8px !important;
-      }
-
-      .site-header .header-actions button {
-        font-size: 8px !important;
-        padding: 4px 10px !important;
-      }
-
-      .site-header .header-actions .status-badge {
-        display: none !important;
-      }
-    }
-
-    .site-header .brand {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      font-weight: 900;
-      color: #E50914;
-      text-decoration: none;
-      transition: transform 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .site-header .brand:hover {
-      transform: scale(1.04);
-    }
-
-    .site-header .brand .season-tag {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: var(--text-secondary);
-      font-weight: 400;
-      letter-spacing: 2px;
-    }
-
-    .site-header .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .site-header .header-actions .status-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .site-header .header-actions .status-badge .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #10B981;
-      animation: pulse 2s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0.3;
-      }
-    }
-
-    .site-header .header-actions button {
-      background: var(--input-bg);
-      color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      padding: 5px 14px;
-      border-radius: 6px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      touch-action: manipulation;
-      white-space: nowrap;
-    }
-
-    .site-header .header-actions button:hover {
-      background: #E50914;
-      color: white;
-      border-color: #E50914;
-    }
-
-    .site-header .header-actions button:active {
-      transform: scale(0.95);
-    }
-
-    /* ===== RESPONSIVE HELPERS ===== */
-    .container-padding {
-      padding-left: 16px;
-      padding-right: 16px;
-    }
-
-    @media (min-width: 640px) {
-      .container-padding {
-        padding-left: 24px;
-        padding-right: 24px;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .container-padding {
-        padding-left: 48px;
-        padding-right: 48px;
-      }
-    }
-
-    /* ===== SECTION TITLES ===== */
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      color: var(--text-primary);
-      transition: color 0.4s ease;
-    }
-
-    .section-subtitle {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: #E50914;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 700;
-    }
-
-    /* ===== CARDS (experience/education) ===== */
-    .info-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-      transition: all 0.3s ease, background 0.4s ease, border-color 0.4s ease;
-    }
-
-    .info-card:hover {
-      border-color: rgba(229, 9, 20, 0.3);
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-card);
-    }
-
-    @media (max-width: 480px) {
-      .info-card {
-        padding: 16px;
-      }
-
-      .info-card h3 {
-        font-size: 18px !important;
-      }
-    }
-
-    /* ===== SEASON FINALE CTA ===== */
-    .cta-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 24px;
-      padding: 32px 24px;
-      position: relative;
-      overflow: hidden;
-      transition: background 0.4s ease, border-color 0.4s ease;
-    }
-
-    @media (min-width: 768px) {
-      .cta-box {
-        padding: 48px 64px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .cta-box {
-        padding: 24px 16px;
-        border-radius: 16px;
-      }
-
-      .cta-box h2 {
-        font-size: 28px !important;
-      }
-    }
-
-    .cta-box .glow-1 {
-      position: absolute;
-      top: -80px;
-      right: -80px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: rgba(229, 9, 20, 0.05);
-      pointer-events: none;
-      filter: blur(60px);
-      transition: opacity 0.4s ease;
-    }
-
-    .cta-box .glow-2 {
-      position: absolute;
-      bottom: -80px;
-      left: -80px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background: rgba(245, 197, 24, 0.04);
-      pointer-events: none;
-      filter: blur(60px);
-      transition: opacity 0.4s ease;
-    }
-
-    html:not(.dark) .cta-box .glow-1,
-    html:not(.dark) .cta-box .glow-2 {
-      opacity: 0.3;
-    }
-
-    /* ===== FOOTER CREDITS ===== */
-    .credits-container {
-      height: 280px;
-      overflow: hidden;
-      position: relative;
-      border-top: 1px solid var(--border-color);
-      background: var(--bg-primary);
-      transition: background 0.4s ease, border-color 0.4s ease;
-    }
-
-    @media (max-width: 480px) {
-      .credits-container {
-        height: 200px;
-      }
-
-      .credits-container .credits-roll {
-        font-size: 8px !important;
-      }
-
-      .credits-container .credits-roll>div {
-        font-size: 8px !important;
-      }
-
-      .credits-container .credits-roll .credits-title {
-        font-size: 11px !important;
-      }
-
-      .credits-container .credits-roll .credits-label {
-        font-size: 10px !important;
-      }
-    }
-
-    .credits-container .credits-roll {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      animation: creditsScroll 45s linear infinite;
-      will-change: transform;
-      padding: 20px 0;
-    }
-
-    .credits-container .credits-roll:hover {
-      animation-play-state: paused;
-    }
-
-    .credits-container .credits-roll .credits-title {
-      color: #E50914;
-      font-weight: 900;
-      font-size: 14px;
-      letter-spacing: 3px;
-    }
-
-    .credits-container .credits-roll .credits-label {
-      color: var(--text-primary);
-      font-weight: 700;
-      font-size: 12px;
-      display: block;
-      margin-bottom: 4px;
-      letter-spacing: 2px;
-    }
-
-    .credits-container .credits-roll .credits-item {
-      margin-bottom: 20px;
-    }
-
-    /* ===== MODAL OVERLAY SCROLL LOCK ===== */
-    body.modal-open {
-      overflow: hidden;
-      padding-right: var(--scrollbar-width, 0px);
-    }
-
-    /* ===== SAFE AREA PADDING ===== */
-    @supports (padding: max(0px)) {
-      .safe-area-bottom {
-        padding-bottom: max(16px, env(safe-area-inset-bottom));
-      }
-
-      .safe-area-top {
-        padding-top: max(16px, env(safe-area-inset-top));
-      }
+    .elastic-button:active {
+      transform: translate(2px, 2px);
+      box-shadow: var(--shadow-offset-hover);
     }
   </style>
 </head>
 
-<body>
+<body class="font-sans antialiased selection:bg-labAccent selection:text-white relative min-h-screen overflow-x-hidden">
 
-  <!-- ===== CURSOR ===== -->
-  <div id="netflix-cursor" aria-hidden="true">
-    <span class="dot"></span>
+  <!-- Custom Viewfinder Cursor (Hidden on Touch Devices) -->
+  <div id="lab-viewfinder"
+    class="fixed w-8 h-8 pointer-events-none z-50 hidden lg:flex items-center justify-center mix-blend-difference">
+    <div class="absolute w-full h-full border border-white rounded-full scale-100 transition-transform duration-300">
+    </div>
+    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
   </div>
 
-  <!-- ===== SCROLL PROGRESS ===== -->
-  <div id="scroll-progress"></div>
+  <!-- Background Grid Decorator -->
+  <div class="fixed inset-0 dot-matrix -z-20 pointer-events-none"></div>
 
-  <!-- ===== HEADER ===== -->
-  <header class="site-header">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <a href="#" class="brand">
-        THE OVERFIT
-        <span class="season-tag">[ S01 ]</span>
+  <header
+    class="fixed top-0 left-0 w-full z-40 bg-labBase/80 backdrop-blur border-b border-labBorder py-3.5 px-4 sm:px-6 md:px-12 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <a href="#"
+        class="font-serif font-extrabold text-base sm:text-lg md:text-xl tracking-tight text-labAccent hover:scale-105 transition-transform flex items-center gap-2">
+        GARVIT.JOSHI <span class="hidden xs:inline font-mono text-[9px] sm:text-[10px] text-labMuted uppercase">[ // ML
+          ENGINEER ]</span>
       </a>
+    </div>
 
-      <div class="header-actions">
-        <span class="status-badge">
-          <span class="dot"></span>
-          <span class="hidden sm:inline">Latent Space OK</span>
-        </span>
+    <div class="flex items-center gap-3 sm:gap-6">
+      <div class="hidden md:flex items-center gap-2 font-mono text-[10px] text-labMuted uppercase tracking-widest">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>SYSTEM ACTIVE</span>
+      </div>
 
-        <button onclick="showToast('🎬 OVERTURE', 'Cinematic score activated. Bass at 110Hz.')"
-          aria-label="Play overture">
-          ▶ OVERTURE
-        </button>
-
-        <button onclick="toggleLights()" id="lights-toggle" aria-label="Toggle cinema lights">
-          <span id="lights-label">LIGHTS OFF</span>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <span id="lab-clock"
+          class="hidden sm:inline font-mono text-[10px] sm:text-[11px] text-labMuted bg-labSurface border border-labBorder px-2 py-1 rounded">DEHRADUN,
+          IN</span>
+        <button onclick="toggleLaboratoryLights()"
+          class="bg-labSurface text-labText border border-labBorder px-2.5 py-1.5 rounded font-mono text-[9px] sm:text-[10px] tracking-wider uppercase hover:bg-labText hover:text-labBase transition-colors font-bold whitespace-nowrap">
+          <span id="lights-label">Lights Out</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
-    <!-- Background -->
-    <div class="hero-bg">
-      <div class="gradient-overlay"></div>
-      <div class="gradient-overlay-bottom"></div>
-      <div class="accent-glow"></div>
-      <img src="Linkedin.png" alt="Garvit Joshi" onerror="this.style.display='none'" loading="lazy" />
-    </div>
+  <!-- MAIN EDITORIAL DISPLAY PORTFOLIO -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-24 sm:pt-28 pb-16 relative overflow-hidden">
 
-    <div class="relative z-20 max-w-7xl mx-auto container-padding w-full py-12 md:py-20">
-      <div class="max-w-3xl space-y-5 md:space-y-6">
-        <div class="flex flex-wrap items-center gap-2 md:gap-3 font-mono text-[9px] md:text-[10px]">
-          <span class="bg-netflixRed text-white px-2.5 py-0.5 font-bold tracking-widest rounded-sm uppercase">Netflix
-            Original</span>
-          <span class="text-secondary" style="color:var(--text-secondary);">Series Premiere</span>
-          <span class="text-muted" style="color:var(--text-muted);">•</span>
-          <span class="text-netflixGold font-bold tracking-wider uppercase">★ Top 5% Amazon ML</span>
+    <div class="grid lg:grid-cols-12 gap-8 items-start mb-12 sm:mb-16">
+      <div class="lg:col-span-8 space-y-4 sm:space-y-6">
+        <div
+          class="inline-flex items-center flex-wrap gap-2 font-mono text-[9px] sm:text-[10px] bg-labAccent/10 text-labAccent border border-labAccent/20 px-3 py-1 rounded-full uppercase tracking-wider">
+          <span>🚀 AWS DEEPRACER TOP 10%</span>
+          <span>•</span>
+          <span>AMAZON ML SELECTION</span>
         </div>
 
-        <h1 class="font-serif font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-[1.05]">
-          <span class="text-netflixRed">GARVIT</span>
-          <span class="text-primary" style="color:var(--text-primary);">JOSHI</span>
+        <h1
+          class="font-serif font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-none text-balance">
+          Building systems that <span class="text-labAccent italic font-normal">converge</span>.
         </h1>
 
-        <p class="font-serif italic text-xl sm:text-2xl md:text-3xl" style="color:var(--text-secondary);">
-          "One engineer. Six projects. A trillion parameters."
+        <p class="text-base sm:text-lg md:text-xl text-labMuted max-w-2xl leading-relaxed font-sans text-balance">
+          I am Garvit Joshi, a Machine Learning Engineer balancing the precision of mathematical models with premium
+          interactive interface architecture. Bridging the gap between raw research kernels and production-grade
+          runtimes.
         </p>
 
-        <p class="text-sm sm:text-base md:text-lg max-w-xl leading-relaxed" style="color:var(--text-secondary);">
-          In a world where deep architectures collapse and neural networks run amok, one engineer battles vanishing
-          gradients, data leakage, and production latency — building systems that survive the ultimate pipeline test.
-        </p>
-
-        <div class="flex flex-wrap gap-3 md:gap-4 pt-2">
-          <button onclick="document.getElementById('episodes-section').scrollIntoView({behavior:'smooth'})"
-            class="netflix-btn">
-            <span>▶</span> WATCH NOW
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a href="mailto:garvitjoshi46@gmail.com"
+            class="elastic-button w-full sm:w-auto bg-labAccent text-white border border-labBorder px-5 py-3 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
+            Deploy Connection (Email)
+          </a>
+          <button onclick="extractWeights()"
+            class="elastic-button w-full sm:w-auto bg-labSurface text-labText border border-labBorder px-5 py-3 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
+            Extract Weights (Resume)
           </button>
-          <a href="mailto:garvitjoshi46@gmail.com" class="netflix-btn-outline">
-            Contact Executive Producer
-          </a>
         </div>
+      </div>
 
-        <!-- Hero stats -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 pt-4 md:pt-6 max-w-3xl border-t border-border"
-          style="border-color:var(--border-color);">
-          <div class="font-mono text-[9px] md:text-[10px]">
-            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Station</span>
-            <span class="font-bold" style="color:var(--text-primary);">Dehradun, IN</span>
+      <!-- Touch-optimized Portrait Card -->
+      <div class="lg:col-span-4 flex justify-center lg:justify-end w-full">
+        <div class="relative group cursor-pointer w-full max-w-[280px]" onclick="triggerStickerConfetti()">
+          <div
+            class="absolute inset-0 bg-labSecondary rounded-2xl transform translate-x-2.5 translate-y-2.5 transition-transform group-hover:translate-x-3.5 group-hover:translate-y-3.5">
           </div>
-          <div class="font-mono text-[9px] md:text-[10px]">
-            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Model Integrity</span>
-            <span class="text-netflixRed font-bold">0.92 mAP</span>
+
+          <div
+            class="relative bg-labSurface border-2 border-labBorder p-3 rounded-2xl shadow-brutalist transition-all duration-300 transform group-hover:-translate-y-1">
+            <img src="Linkedin.png" alt="Garvit Joshi"
+              class="w-full h-72 sm:h-80 object-cover rounded-xl filter grayscale group-hover:grayscale-0 transition-all duration-500"
+              onerror="this.onerror=null; this.src='https://placehold.co/256x320/000000/ffffff?text=Garvit+Joshi'" />
+
+            <div
+              class="mt-3 flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-labMuted uppercase">
+              <span>[ STAGE PORTRAIT ]</span>
+              <span class="text-labSecondary font-bold">CLICK ME</span>
+            </div>
           </div>
-          <div class="font-mono text-[9px] md:text-[10px]">
-            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Inference</span>
-            <span class="font-bold" style="color:var(--text-primary);">&lt;100ms</span>
-          </div>
-          <div class="font-mono text-[9px] md:text-[10px]">
-            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Compiler</span>
-            <span class="text-netflixGold font-bold">PyTorch Pro</span>
+
+          <div
+            class="absolute -top-3 -left-3 bg-labAccent text-white font-mono text-[8px] sm:text-[9px] tracking-widest px-2 py-1 rounded uppercase border border-labBorder transform -rotate-6 shadow-sm">
+            LATENT VECTOR LOCKED
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Scroll indicator -->
-    <div
-      class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 md:gap-2 font-mono text-[8px] md:text-[9px] tracking-widest uppercase animate-bounce"
-      style="color:var(--text-muted);">
-      <span>Scroll to binge</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M12 5v14M5 12l7 7 7-7" />
-      </svg>
-    </div>
-  </section>
+    <section
+      class="border-2 border-labBorder bg-labSurface rounded-2xl p-4 sm:p-6 shadow-brutalist mb-12 sm:mb-16 relative overflow-hidden">
+      <div class="absolute inset-0 dot-matrix opacity-10 pointer-events-none"></div>
 
-  <!-- ===== EPISODES ===== -->
-  <section id="episodes-section" class="py-12 md:py-20 container-padding relative z-10">
-    <div class="max-w-7xl mx-auto">
       <div
-        class="flex flex-col md:flex-row md:items-end justify-between gap-3 md:gap-4 border-b border-border pb-4 md:pb-6 mb-6 md:mb-8"
-        style="border-color:var(--border-color);">
+        class="z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-labBorder/10 pb-4 mb-4">
         <div>
-          <span class="section-subtitle">Season 01</span>
-          <h2 class="section-title text-2xl md:text-4xl lg:text-5xl">Binge the Episodes</h2>
+          <span class="font-mono text-[9px] sm:text-[10px] text-labSecondary tracking-widest uppercase font-bold">[
+            PHYSICAL CANVAS ]</span>
+          <h2 class="font-serif text-xl sm:text-2xl font-extrabold mt-1">Interactive Sticker Deck</h2>
         </div>
-        <span class="font-mono text-[9px] md:text-[10px] uppercase tracking-widest" style="color:var(--text-muted);">6
-          episodes · 1 season</span>
-      </div>
-
-      <!-- Horizontal scroll row -->
-      <div class="episode-row" id="episode-row">
-
-        <!-- Episode 1 -->
-        <div class="episode-card" onclick="openModal(1)">
-          <div class="card-thumb" style="background: linear-gradient(145deg, #1a0a0a, #2a1a1a);">
-            <span style="font-size:40px;">🏛️</span>
-            <div class="play-overlay">
-              <svg viewBox="0 0 24 24">
-                <polygon points="5,3 19,12 5,21" />
-              </svg>
-            </div>
-            <span class="episode-number">S01E01</span>
-          </div>
-          <div class="card-body">
-            <div class="flex items-center justify-between">
-              <span class="match-score">★ 98% MATCH</span>
-              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">45 min</span>
-            </div>
-            <h3>The Council of Models</h3>
-            <p>When one LLM hallucinates, four vote for the truth. A democratic polling framework that filters outputs
-              across multiple transformers.</p>
-            <div class="tags">
-              <span>Transformers</span>
-              <span>LLMs</span>
-              <span>Python</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Episode 2 -->
-        <div class="episode-card" onclick="openModal(2)">
-          <div class="card-thumb" style="background: linear-gradient(145deg, #0a1a0a, #1a2a1a);">
-            <span style="font-size:40px;">🏭</span>
-            <div class="play-overlay">
-              <svg viewBox="0 0 24 24">
-                <polygon points="5,3 19,12 5,21" />
-              </svg>
-            </div>
-            <span class="episode-number">S01E02</span>
-          </div>
-          <div class="card-body">
-            <div class="flex items-center justify-between">
-              <span class="match-score">★ 96% MATCH</span>
-              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">38 min</span>
-            </div>
-            <h3>The Defect Detector</h3>
-            <p>Deep within erratic factory lights, standard sensors fail. Garvit deploys YOLOv8 with CLAHE preprocessing
-              to spot anomalies.</p>
-            <div class="tags">
-              <span>YOLOv8</span>
-              <span>PyTorch</span>
-              <span>ONNX</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Episode 3 -->
-        <div class="episode-card" onclick="openModal(3)">
-          <div class="card-thumb" style="background: linear-gradient(145deg, #0a0a1a, #1a1a2a);">
-            <span style="font-size:40px;">🧠</span>
-            <div class="play-overlay">
-              <svg viewBox="0 0 24 24">
-                <polygon points="5,3 19,12 5,21" />
-              </svg>
-            </div>
-            <span class="episode-number">S01E03</span>
-          </div>
-          <div class="card-body">
-            <div class="flex items-center justify-between">
-              <span class="match-score">★ 94% MATCH</span>
-              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">42 min</span>
-            </div>
-            <h3>NeuroGuard</h3>
-            <p>Predicting strokes before they strike. XGBoost meets SMOTE in a clinical pipeline that raises high-risk
-              recall by 12%.</p>
-            <div class="tags">
-              <span>XGBoost</span>
-              <span>Scikit-Learn</span>
-              <span>SMOTE</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Episode 4 -->
-        <div class="episode-card" onclick="openModal(4)">
-          <div class="card-thumb" style="background: linear-gradient(145deg, #1a1a0a, #2a2a1a);">
-            <span style="font-size:40px;">👨‍🏫</span>
-            <div class="play-overlay">
-              <svg viewBox="0 0 24 24">
-                <polygon points="5,3 19,12 5,21" />
-              </svg>
-            </div>
-            <span class="episode-number">S01E04</span>
-          </div>
-          <div class="card-body">
-            <div class="flex items-center justify-between">
-              <span class="match-score">★ 92% MATCH</span>
-              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">30 min</span>
-            </div>
-            <h3>The Mentor</h3>
-            <p>Flashback episode. Garvit leads 60+ students through MicroPython robotics, turning hardware confusion
-              into algorithmic clarity.</p>
-            <div class="tags">
-              <span>MicroPython</span>
-              <span>Robotics</span>
-              <span>STEM</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Episode 5 -->
-        <div class="episode-card" onclick="openModal(5)">
-          <div class="card-thumb" style="background: linear-gradient(145deg, #1a0a1a, #2a1a2a);">
-            <span style="font-size:40px;">🎓</span>
-            <div class="play-overlay">
-              <svg viewBox="0 0 24 24">
-                <polygon points="5,3 19,12 5,21" />
-              </svg>
-            </div>
-            <span class="episode-number">S01E05</span>
-          </div>
-          <div class="card-body">
-            <div class="flex items-center justify-between">
-              <span class="match-score">★ 90% MATCH</span>
-              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">28 min</span>
-            </div>
-            <h3>The Origin</h3>
-            <p>Lovely Professional University. From first arrays to Amazon ML Summer School selection — the origin story
-              of an ML engineer.</p>
-            <div class="tags">
-              <span>Academics</span>
-              <span>LPU</span>
-              <span>CGPA 7.61</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Episode 6 -->
-        <div class="episode-card" onclick="openModal(6)">
-          <div class="card-thumb" style="background: linear-gradient(145deg, #1a0a0a, #2a0a0a);">
-            <span style="font-size:40px;">🚀</span>
-            <div class="play-overlay">
-              <svg viewBox="0 0 24 24">
-                <polygon points="5,3 19,12 5,21" />
-              </svg>
-            </div>
-            <span class="episode-number">S01E06</span>
-          </div>
-          <div class="card-body">
-            <div class="flex items-center justify-between">
-              <span class="match-score">★ 99% MATCH</span>
-              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">35 min</span>
-            </div>
-            <h3>The Final Gradient</h3>
-            <p>Season finale. The model has converged. The pipeline is stable. Will you greenlight Season 02 and build
-              the next chapter together?</p>
-            <div class="tags">
-              <span>Convergence</span>
-              <span>Collaboration</span>
-              <span>Recruitment</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== MORE LIKE THIS ===== -->
-  <section class="py-10 md:py-16 container-padding relative z-10 border-t border-border"
-    style="border-color:var(--border-color);">
-    <div class="max-w-7xl mx-auto">
-      <div
-        class="flex flex-col md:flex-row md:items-end justify-between gap-3 md:gap-4 border-b border-border pb-4 md:pb-6 mb-6 md:mb-8"
-        style="border-color:var(--border-color);">
-        <div>
-          <span class="section-subtitle" style="color:#F5C518;">More Like This</span>
-          <h2 class="section-title text-2xl md:text-4xl">Behind the Scenes</h2>
-        </div>
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4 md:gap-6">
-        <!-- Experience -->
-        <div class="info-card">
-          <span class="font-mono text-[9px] text-netflixRed tracking-widest uppercase font-bold">Flashback
-            Episode</span>
-          <h3 class="font-serif text-xl md:text-2xl font-bold mt-1" style="color:var(--text-primary);">Technical
-            Educator — Robotics</h3>
-          <span class="font-mono text-[9px] md:text-[10px] block" style="color:var(--text-muted);">Moonpreneur · Oct
-            2024 – May 2025</span>
-          <ul class="mt-3 space-y-1.5 text-sm"
-            style="color:var(--text-secondary);list-style-type:disc;padding-left:18px;line-height:1.6;">
-            <li>Mentored 60+ students in Python debugging and embedded MicroPython algorithms.</li>
-            <li>Conducted 15+ practical sessions covering sensory automation and microprocessor loops.</li>
-            <li>Directed obstacle avoidance arrays using BBC micro:bit embedded parameters.</li>
-          </ul>
-        </div>
-
-        <!-- Education -->
-        <div class="info-card">
-          <span class="font-mono text-[9px] text-netflixGold tracking-widest uppercase font-bold">Origin Story</span>
-          <h3 class="font-serif text-xl md:text-2xl font-bold mt-1" style="color:var(--text-primary);">B.Tech in
-            Computer Science</h3>
-          <span class="font-mono text-[9px] md:text-[10px] block" style="color:var(--text-muted);">Lovely Professional
-            University · Graduated Jul 2025</span>
-          <div class="mt-3 flex flex-wrap gap-2">
-            <span class="font-mono text-[9px] px-3 py-1 rounded"
-              style="background:var(--input-bg);color:var(--text-secondary);border:1px solid var(--border-color);">AI &
-              ML Specialization</span>
-            <span class="font-mono text-[9px] px-3 py-1 rounded"
-              style="background:var(--input-bg);color:var(--text-secondary);border:1px solid var(--border-color);">CGPA:
-              7.61</span>
-          </div>
-          <div class="mt-4 pt-4 border-t border-border space-y-2" style="border-color:var(--border-color);">
-            <div class="flex justify-between font-mono text-[9px] md:text-[10px]">
-              <span style="color:var(--text-secondary);">Amazon ML Summer School</span>
-              <span class="text-netflixGold font-bold">Top 5% Selection</span>
-            </div>
-            <div class="flex justify-between font-mono text-[9px] md:text-[10px]">
-              <span style="color:var(--text-secondary);">AWS DeepRacer League</span>
-              <span class="text-netflixGold font-bold">Top 10% India</span>
-            </div>
-            <div class="flex justify-between font-mono text-[9px] md:text-[10px]">
-              <span style="color:var(--text-secondary);">CodeKaze Global</span>
-              <span class="text-netflixGold font-bold">Top 11% Worldwide</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== SEASON FINALE ===== -->
-  <section class="py-12 md:py-20 container-padding relative z-10">
-    <div class="max-w-4xl mx-auto">
-      <div class="cta-box text-center">
-        <div class="glow-1"></div>
-        <div class="glow-2"></div>
-
-        <span
-          class="font-mono text-[9px] md:text-[10px] text-netflixRed tracking-widest uppercase font-bold block mb-3 md:mb-4">Season
-          Finale</span>
-        <h2 class="font-serif font-black text-3xl md:text-5xl lg:text-6xl tracking-tight mb-4 md:mb-6"
-          style="color:var(--text-primary);">Greenlight Season 02</h2>
-        <p class="font-mono text-[10px] md:text-xs max-w-xl mx-auto mb-8 md:mb-10 uppercase tracking-widest leading-relaxed"
-          style="color:var(--text-secondary);">
-          The model has converged. The pipeline is stable. Ready to build the next generation of systems together?
+        <p class="font-mono text-[9px] sm:text-[10px] text-labMuted uppercase">
+          GRAB, THROW, AND BOUNDS-CONTROLLED BADGES
         </p>
-
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
-          <a href="mailto:garvitjoshi46@gmail.com" class="netflix-btn">
-            <span>▶</span> Execute Training Pipeline
-          </a>
-          <a href="https://www.linkedin.com/in/garvitjoshi01" target="_blank" class="netflix-btn-outline">
-            Backpropagate (LinkedIn)
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CREDITS ===== -->
-  <div class="credits-container">
-    <div class="max-w-7xl mx-auto container-padding h-full flex items-center justify-center">
-      <div class="relative w-full max-w-lg text-center h-full overflow-hidden py-4">
-        <div class="credits-roll">
-          <div class="credits-item">
-            <div class="credits-title">GARVIT JOSHI · THE OVERFIT · SEASON 01</div>
-          </div>
-
-          <div class="credits-item">
-            <span class="credits-label">PRODUCED &amp; DIRECTED BY</span>
-            Garvit Joshi
-          </div>
-
-          <div class="credits-item">
-            <span class="credits-label">SCREENPLAY WRITTEN BY</span>
-            Garvit Joshi
-          </div>
-
-          <div class="credits-item">
-            <span class="credits-label">EXECUTIVE PRODUCERS</span>
-            PyTorch · Scikit-Learn · YOLOv8
-          </div>
-
-          <div class="credits-item">
-            <span class="credits-label">KEY COLLABORATORS</span>
-            Amazon ML Summer School · AWS DeepRacer · LPU Faculty
-          </div>
-
-          <div class="credits-item">
-            <span class="credits-label">INFRASTRUCTURE</span>
-            FastAPI · ONNX Runtime · Docker
-          </div>
-
-          <div class="credits-item">
-            <div class="credits-title" style="font-size:12px;">COMING SOON: SEASON 02</div>
-          </div>
-
-          <div class="credits-item" style="font-size:8px;opacity:0.4;">
-            All model coefficients optimized. Zero hallucinations detected.
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== MODAL ===== -->
-  <div id="screenplay-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="flex items-center gap-3 flex-wrap">
-          <span class="episode-badge" id="modal-episode-badge">S01E01</span>
-          <span class="modal-title" id="modal-episode-title">The Council of Models</span>
-        </div>
-        <button class="close-btn" onclick="closeModal()" aria-label="Close modal">✕</button>
       </div>
 
-      <div class="modal-body">
-        <div class="script-section">
-          <span class="scene-label">🎬 Screenplay Script</span>
-          <div id="modal-script-content"></div>
+      <!-- Draggable Stickers Playground Boundary Box -->
+      <div class="relative w-full h-[180px] bg-labBase/30 rounded-xl overflow-hidden" id="sticker-container">
+
+        <div
+          class="sticker bg-amber-100 text-amber-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          🔥 Top 5% Amazon ML
         </div>
 
-        <div class="production-notes">
-          <h4>📋 Production Notes</h4>
-          <div id="modal-notes-content"></div>
+        <div
+          class="sticker bg-blue-100 text-blue-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          👾 AWS DeepRacer Top 10%
         </div>
+
+        <div
+          class="sticker bg-green-100 text-green-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          ⚡ CUDA Optimized
+        </div>
+
+        <div
+          class="sticker bg-purple-100 text-purple-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          🧠 PyTorch Professional
+        </div>
+
+        <div
+          class="sticker bg-red-100 text-red-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          ☄️ CodeKaze Elite
+        </div>
+
       </div>
+    </section>
 
-      <div class="modal-footer-actions">
-        <a href="#" target="_blank" id="modal-github-link" class="github-link" rel="noopener noreferrer">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.15 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.62.24 2.85.12 3.15.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-          </svg>
-          View Repository
-        </a>
-        <button onclick="greenlightAction()" class="greenlight-btn">
-          ★ Greenlight Season 02
-        </button>
-      </div>
-    </div>
-  </div>
+    <section class="grid lg:grid-cols-12 gap-6 md:gap-8 items-stretch mb-12 sm:mb-16">
+      <div
+        class="lg:col-span-4 bg-labSurface border-2 border-labBorder p-4 sm:p-6 rounded-2xl shadow-brutalist flex flex-col justify-between">
+        <div class="space-y-3">
+          <span class="font-mono text-[9px] sm:text-[10px] text-labAccent tracking-widest uppercase font-bold">[ LIVE
+            COMPILATION ]</span>
+          <h3 class="font-serif text-2xl sm:text-3xl font-extrabold">Active Latent Field</h3>
+          <p class="text-xs sm:text-sm text-labMuted leading-relaxed">
+            An interactive 2D graph node simulation running live vector physics. Click inside the viewport to inject
+            custom anchors, drag nodes, or trigger global parameter convergence.
+          </p>
+        </div>
 
-  <!-- ===== TOAST ===== -->
-  <div id="toast-container"></div>
-
-  <!-- ===== SCRIPT ===== -->
-  <script>
-      (function () {
-        'use strict';
-
-        // ============================================================
-        // DATA
-        // ============================================================
-        const episodeData = {
-          1: {
-            title: 'The Council of Models',
-            badge: 'S01E01',
-            github: 'https://github.com/Garvitjoshi1/Aegis_Council',
-            script: `
-              <p class="script-line"><span class="character">SCENE:</span> Aegis Council Consensus Chamber</p>
-              <p class="script-line"><span class="character">INT:</span> THE CLOUD DATA PIPELINE — NIGHT</p>
-              <p class="script-line"><span class="action">A rogue 7B transformer model outputs a broken JSON payload, triggering a validation failure loop.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">GARVIT (V.O.)</span></p>
-              <p class="script-line">"If one language model hallucinates, the system breaks. But when they are forced to vote under a schema strict gate, mathematical consensus wins."</p>
-              <p class="script-line"><span class="action">Garvit constructs four diverse temperature models, tying them under Pydantic routing logic.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">THE COUNCIL</span></p>
-              <p class="script-line">"Schema checked. Outputs aligned. Validation pass compiled."</p>
-            `,
-            notes: `
-              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">-18% Hallucination Rate</span></div>
-              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">Python, Transformers, FastAPI, Pydantic</span></div>
-              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Stochastic model drift in JSON pipelines</span></div>
-              <div class="note-item"><span class="label">Runtime</span><span class="value">45 minutes</span></div>
-              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 98%</span></div>
-            `
-          },
-          2: {
-            title: 'The Defect Detector',
-            badge: 'S01E02',
-            github: 'https://github.com/Garvitjoshi1/Defected-Object-Detection',
-            script: `
-              <p class="script-line"><span class="character">SCENE:</span> Assembly Floor Detection Node</p>
-              <p class="script-line"><span class="character">INT:</span> HIGH-SPEED MANUFACTURING LINE — DAWN</p>
-              <p class="script-line"><span class="action">The conveyor belt rushes past. Normal components overwhelm optical inputs. Flickering light triggers shadow illusions.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">GARVIT</span></p>
-              <p class="script-line">"Our models can't blindly generalize over erratic exposure levels. We need structural pixel-level contrast mapping."</p>
-              <p class="script-line"><span class="action">Garvit injects CLAHE pre-filtering mechanisms and runs YOLOv8 through an ONNX compilation optimizer.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">SYSTEM LOGS</span></p>
-              <p class="script-line">"[2× speed inference compiled. 0.92 mAP anomaly logged. Safety gate locked.]"</p>
-            `,
-            notes: `
-              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">0.92 mAP Precision</span></div>
-              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">PyTorch, YOLOv8, OpenCV, ONNX Runtime</span></div>
-              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Erratic lighting + class imbalance</span></div>
-              <div class="note-item"><span class="label">Runtime</span><span class="value">38 minutes</span></div>
-              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 96%</span></div>
-            `
-          },
-          3: {
-            title: 'NeuroGuard Stroke Predictor',
-            badge: 'S01E03',
-            github: 'https://github.com/Garvitjoshi1/Stroke_Prediction',
-            script: `
-              <p class="script-line"><span class="character">SCENE:</span> Diagnostic Inference Deck</p>
-              <p class="script-line"><span class="character">INT:</span> THE HOSPITAL CLINICAL NETWORK — MIDNIGHT</p>
-              <p class="script-line"><span class="action">Thousands of benign patient files cataloged. A silent high-risk cardiovascular anomaly lies undetected inside minority sample rows.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">RECRUITER</span></p>
-              <p class="script-line">"Standard accuracy reports 98%. So our engine is optimal?"</p>
-              <p class="script-line"><span class="character">GARVIT</span></p>
-              <p class="script-line">"Accuracy is a trap when diagnostic lives are at stake. 98% accuracy can hide 100% false negatives for minority anomalies. We target pure F1 recall sensitivity."</p>
-              <p class="script-line"><span class="action">Garvit executes SMOTE balancing routines, raising high-risk recall by 12%.</span></p>
-            `,
-            notes: `
-              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">87% F1 Score</span></div>
-              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">Scikit-Learn, XGBoost, SMOTE, FastAPI</span></div>
-              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Extreme clinical class imbalance</span></div>
-              <div class="note-item"><span class="label">Runtime</span><span class="value">42 minutes</span></div>
-              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 94%</span></div>
-            `
-          },
-          4: {
-            title: 'The Mentor',
-            badge: 'S01E04',
-            github: 'https://github.com/Garvitjoshi1',
-            script: `
-              <p class="script-line"><span class="character">SCENE:</span> Creative Robotics Arena</p>
-              <p class="script-line"><span class="character">INT:</span> MOONPRENEUR SYSTEM CLINIC — DAY</p>
-              <p class="script-line"><span class="action">Dozens of junior robotics enthusiasts stare at static micro:bit modules. Broken wiring and infinite sensor loops fill the tables.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">GARVIT</span></p>
-              <p class="script-line">"Don't worry about the raw registers. Let's trace the flow of electrical logic step-by-step together."</p>
-              <p class="script-line"><span class="action">Garvit breaks complex hardware interfaces into modular MicroPython functions.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">STUDENT</span></p>
-              <p class="script-line">"The logic parsed! Obstacle avoidance compiled successfully!"</p>
-            `,
-            notes: `
-              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">60+ Students Mentored</span></div>
-              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">MicroPython, BBC micro:bit, STEM Robotics</span></div>
-              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Novice hardware comprehension</span></div>
-              <div class="note-item"><span class="label">Runtime</span><span class="value">30 minutes</span></div>
-              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 92%</span></div>
-            `
-          },
-          5: {
-            title: 'The Origin Story',
-            badge: 'S01E05',
-            github: 'https://github.com/Garvitjoshi1',
-            script: `
-              <p class="script-line"><span class="character">SCENE:</span> Academic Arena Training Ground</p>
-              <p class="script-line"><span class="character">INT:</span> LOVELY PROFESSIONAL UNIVERSITY — DAY</p>
-              <p class="script-line"><span class="action">Vast compute nodes process tabular math algorithms. Over 63,000 national competitors register for elite ML credentials.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">AMAZON SELECTION PANEL</span></p>
-              <p class="script-line">"Verify candidates with elite execution capabilities, neural comprehension, and mathematical integrity."</p>
-              <p class="script-line"><span class="action">Garvit scores top metrics, securing select national admission inside the Amazon ML Summer School curriculum.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">NARRATOR</span></p>
-              <p class="script-line">"And so began the journey from student to architect."</p>
-            `,
-            notes: `
-              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">7.61 CGPA</span></div>
-              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">LPU, Data Science, Amazon ML School</span></div>
-              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">63,000+ competitors globally</span></div>
-              <div class="note-item"><span class="label">Runtime</span><span class="value">28 minutes</span></div>
-              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 90%</span></div>
-            `
-          },
-          6: {
-            title: 'The Final Gradient',
-            badge: 'S01E06',
-            github: 'https://github.com/Garvitjoshi1',
-            script: `
-              <p class="script-line"><span class="character">SCENE:</span> The Executive Convergence Room</p>
-              <p class="script-line"><span class="character">INT:</span> YOUR TEAM CHATROOM — PRESENT</p>
-              <p class="script-line"><span class="action">The recruiter reviews the portfolio metrics. Standard code options have failed. They look for genuine machine learning capabilities.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">GARVIT</span></p>
-              <p class="script-line">"The code is compiled, the model validated. The decision matrix is simple. Let's greenlight Season 02 and construct stellar systems together."</p>
-              <p class="script-line"><span class="action">The "Greenlight" interface glows with a warm crimson, awaiting the final execution click.</span></p>
-              <hr class="divider" />
-              <p class="script-line"><span class="character">SYSTEM</span></p>
-              <p class="script-line">"[CONVERGENCE COMPLETE. READY FOR SEASON 02.]"</p>
-            `,
-            notes: `
-              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">Optimal Convergence</span></div>
-              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">PyTorch, Docker, Production Architecture</span></div>
-              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Recruiter bias toward API-wrappers</span></div>
-              <div class="note-item"><span class="label">Runtime</span><span class="value">35 minutes</span></div>
-              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 99%</span></div>
-            `
-          }
-        };
-
-        // ============================================================
-        // CURSOR
-        // ============================================================
-        (function initCursor() {
-          const cursor = document.getElementById('netflix-cursor');
-          if (!cursor) return;
-
-          let cx = window.innerWidth / 2,
-            cy = window.innerHeight / 2;
-          let mx = cx,
-            my = cy;
-          let active = false;
-
-          if (window.innerWidth >= 1024) {
-            active = true;
-            cursor.style.display = 'flex';
-          }
-
-          document.addEventListener('mousemove', function (e) {
-            mx = e.clientX;
-            my = e.clientY;
-          }, { passive: true });
-
-          function tick() {
-            if (!active) { requestAnimationFrame(tick); return; }
-            cx += (mx - cx) * 0.16;
-            cy += (my - cy) * 0.16;
-            cursor.style.transform = 'translate3d(' + cx + 'px, ' + cy + 'px, 0)';
-            requestAnimationFrame(tick);
-          }
-          tick();
-
-          document.querySelectorAll('a, button, .episode-card, [onclick]').forEach(function (el) {
-            el.addEventListener('mouseenter', function () {
-              cursor.classList.add('expanded');
-            });
-            el.addEventListener('mouseleave', function () {
-              cursor.classList.remove('expanded');
-            });
-          });
-
-          // Handle window resize
-          window.addEventListener('resize', function () {
-            if (window.innerWidth >= 1024) {
-              active = true;
-              cursor.style.display = 'flex';
-            } else {
-              active = false;
-              cursor.style.display = 'none';
-            }
-          });
-        })();
-
-        // ============================================================
-        // SCROLL PROGRESS
-        // ============================================================
-        (function initScrollProgress() {
-          const bar = document.getElementById('scroll-progress');
-          if (!bar) return;
-
-          window.addEventListener('scroll', function () {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            bar.style.width = progress + '%';
-          }, { passive: true });
-        })();
-
-        // ============================================================
-        // MODAL
-        // ============================================================
-        const modal = document.getElementById('screenplay-modal');
-
-        window.openModal = function (episodeId) {
-          const data = episodeData[episodeId];
-          if (!data) return;
-
-          document.getElementById('modal-episode-badge').textContent = data.badge;
-          document.getElementById('modal-episode-title').textContent = data.title;
-          document.getElementById('modal-script-content').innerHTML = data.script;
-          document.getElementById('modal-notes-content').innerHTML = data.notes;
-          document.getElementById('modal-github-link').href = data.github;
-
-          modal.classList.add('active');
-          document.body.classList.add('modal-open');
-
-          // Calculate scrollbar width to prevent layout shift
-          const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-          document.body.style.paddingRight = scrollbarWidth + 'px';
-
-          if (typeof confetti !== 'undefined') {
-            confetti({
-              particleCount: 25,
-              spread: 35,
-              colors: ['#E50914', '#F5C518', '#FFFFFF'],
-              origin: { y: 0.6 }
-            });
-          }
-
-          showToast('NOW PLAYING', data.badge + ' — ' + data.title);
-        };
-
-        window.closeModal = function () {
-          modal.classList.remove('active');
-          document.body.classList.remove('modal-open');
-          document.body.style.paddingRight = '';
-        };
-
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-          }
-        });
-
-        modal.addEventListener('click', function (e) {
-          if (e.target === modal) closeModal();
-        });
-
-        // ============================================================
-        // TOAST
-        // ============================================================
-        let toastTimeout;
-
-        window.showToast = function (title, message) {
-          const container = document.getElementById('toast-container');
-          if (!container) return;
-
-          const toast = document.createElement('div');
-          toast.className = 'toast-item';
-          toast.innerHTML = `
-            <span class="toast-icon">▶</span>
-            <div style="flex:1;min-width:0;">
-              <div style="font-weight:700;font-size:10px;color:var(--text-primary);letter-spacing:0.5px;">${title}</div>
-              <div style="font-size:10px;color:var(--text-secondary);font-weight:400;margin-top:2px;">${message}</div>
+        <!-- Simulation parameter controllers -->
+        <div class="space-y-4 pt-4 mt-4 border-t border-labBorder/10">
+          <div class="space-y-1.5 font-mono text-[11px] sm:text-xs">
+            <div class="flex justify-between">
+              <span>CONVERGENCE SPEED</span>
+              <span id="lr-val" class="text-labAccent font-bold">0.05</span>
             </div>
-            <button class="toast-close" onclick="this.closest('.toast-item').remove()" aria-label="Dismiss">✕</button>
-          `;
+            <input type="range" id="lr-slider" min="0.01" max="0.3" step="0.01" value="0.05"
+              oninput="adjustLearningRate(this.value)"
+              class="w-full accent-labAccent cursor-pointer bg-labBase h-1 rounded" />
+          </div>
 
-          container.appendChild(toast);
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="triggerConvergence()"
+              class="bg-labAccent text-white border border-labBorder px-2 py-2 rounded font-mono text-[9px] uppercase font-bold hover:opacity-90 active:scale-95 transition-all text-center">
+              CONVERGE
+            </button>
+            <button onclick="clearNeurons()"
+              class="bg-labBase text-labText border border-labBorder px-2 py-2 rounded font-mono text-[9px] uppercase font-bold hover:bg-labBorder hover:text-labBase active:scale-95 transition-all text-center">
+              CLEAR FIELD
+            </button>
+          </div>
+        </div>
+      </div>
 
-          clearTimeout(toastTimeout);
-          toastTimeout = setTimeout(function () {
-            if (toast.parentElement) {
-              toast.style.opacity = '0';
-              toast.style.transform = 'translateX(20px)';
-              setTimeout(function () {
-                if (toast.parentElement) toast.remove();
-              }, 300);
-            }
-          }, 4000);
-        };
+      <!-- Responsive HTML Canvas container -->
+      <div
+        class="lg:col-span-8 border-2 border-labBorder bg-labSurface rounded-2xl overflow-hidden relative min-h-[280px] sm:min-h-[350px]">
+        <canvas id="neural-canvas" class="block w-full h-full bg-labSurface transition-colors"></canvas>
+        <div
+          class="absolute bottom-3 left-3 pointer-events-none bg-labBase/95 border border-labBorder px-2.5 py-1 rounded font-mono text-[8px] sm:text-[9px] tracking-widest text-labMuted uppercase">
+          MATRIX: <span id="canvas-telemetry">0x0</span>
+        </div>
+      </div>
+    </section>
 
-        // ============================================================
-        // LIGHTS TOGGLE (Bright Light Mode)
-        // ============================================================
-        let lightsOn = false;
+    <section class="space-y-6 sm:space-y-8 mb-12 sm:mb-16" id="architecture-row">
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-labBorder pb-4 gap-2">
+        <div>
+          <span class="font-mono text-[9px] sm:text-[10px] text-labSecondary tracking-widest uppercase font-bold">[
+            COMPILED PIPELINES ]</span>
+          <h2 class="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold mt-1">Featured Case Studies</h2>
+        </div>
+        <span class="font-mono text-[9px] sm:text-[10px] text-labMuted uppercase max-w-xs">
+          DETERMINISTIC SYSTEMS ARCHITECTED AND DEPLOYED FOR PRODUCTION FEEDS
+        </span>
+      </div>
 
-        window.toggleLights = function () {
-          const html = document.documentElement;
-          const label = document.getElementById('lights-label');
+      <!-- Project 1: Aegis Council -->
+      <article
+        class="bg-labSurface border-2 border-labBorder rounded-2xl p-4 sm:p-6 md:p-8 shadow-brutalist hover:shadow-brutalistHover transition-all duration-300">
+        <div class="grid md:grid-cols-12 gap-6 items-start">
+          <div class="md:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-2 font-mono text-[9px] sm:text-[10px]">
+              <span class="bg-labAccent/10 text-labAccent px-2.5 py-0.5 rounded uppercase font-bold">GenAI
+                Infrastructure</span>
+              <span class="text-labMuted">•</span>
+              <span class="text-labMuted">Python // Transformers // FastAPI</span>
+            </div>
+            <h3
+              class="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold hover:text-labAccent transition-colors">
+              Aegis Council: Multi-Model AI Inference System
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-labMuted leading-relaxed">
+              Created a multi-model inference framework aggregating responses from LLMs, reducing hallucination errors
+              by 18%. Implemented weighted voting and configurable routing strategies to compare outputs across 4+
+              transformer models.
+            </p>
 
-          if (lightsOn) {
-            // Go dark
-            html.classList.add('dark');
-            html.classList.remove('light');
-            label.textContent = 'LIGHTS OFF';
-            showToast('🎬 CINEMA MODE', 'Dark theater restored. Netflix noir active.');
-            lightsOn = false;
-          } else {
-            // Go bright
-            html.classList.remove('dark');
-            html.classList.add('light');
-            label.textContent = 'LIGHTS ON';
-            showToast('☀️ CINEMA LIGHTS', 'Bright mode activated. Warm cream & charcoal palette.');
-            lightsOn = true;
+            <div class="border-l-2 border-labSecondary bg-labSecondary/5 p-3 rounded-r">
+              <span
+                class="font-mono text-[9px] sm:text-[10px] text-labSecondary uppercase font-black block mb-0.5">SYSTEM
+                CONFLICT DEFEATED</span>
+              <p class="text-[11px] sm:text-xs text-labMuted leading-relaxed">
+                Stochastic model drift inside structured data pipelines breaks downstream arrays. Defeated by executing
+                deterministic consensus parameters before output delivery.
+              </p>
+            </div>
+          </div>
 
-            // Confetti celebration for turning on the lights
-            if (typeof confetti !== 'undefined') {
-              confetti({
-                particleCount: 40,
-                spread: 50,
-                colors: ['#F5C518', '#FAFAF8', '#E50914'],
-                origin: { y: 0.3 }
-              });
-            }
+          <div
+            class="md:col-span-4 h-full flex flex-col justify-between gap-4 md:text-right border-t md:border-t-0 md:border-l border-labBorder/10 pt-4 md:pt-0 md:pl-6">
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Reduction Score</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-labAccent">-18% HALLUCINATIONS</span>
+            </div>
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Model Polling</span>
+              <span class="text-sm sm:text-base font-bold text-labText">4+ Concurrent LLMs</span>
+            </div>
+            <div class="pt-2">
+              <a href="https://github.com/Garvitjoshi1/Aegis_Council" target="_blank"
+                class="inline-flex items-center gap-2 font-mono text-xs text-labText hover:text-labAccent hover-underline font-bold">
+                <span>View Repository</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: Industrial Defect Detection -->
+      <article
+        class="bg-labSurface border-2 border-labBorder rounded-2xl p-4 sm:p-6 md:p-8 shadow-brutalist hover:shadow-brutalistHover transition-all duration-300">
+        <div class="grid md:grid-cols-12 gap-6 items-start">
+          <div class="md:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-2 font-mono text-[9px] sm:text-[10px]">
+              <span class="bg-labAccent/10 text-labAccent px-2.5 py-0.5 rounded uppercase font-bold">Computer
+                Vision</span>
+              <span class="text-labMuted">•</span>
+              <span class="text-labMuted">PyTorch // YOLOv8 // OpenCV // ONNX</span>
+            </div>
+            <h3
+              class="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold hover:text-labAccent transition-colors">
+              Industrial Defect Detection Pipeline
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-labMuted leading-relaxed">
+              Architected a computer vision pipeline for automated manufacturing anomaly classification, achieving a
+              0.92 mean Average Precision (mAP) on production-grade validation streams. Optimized models via ONNX
+              Runtime engine, generating 2× faster frame inference with negligible accuracy loss.
+            </p>
+
+            <div class="border-l-2 border-labSecondary bg-labSecondary/5 p-3 rounded-r">
+              <span
+                class="font-mono text-[9px] sm:text-[10px] text-labSecondary uppercase font-black block mb-0.5">SYSTEM
+                CONFLICT DEFEATED</span>
+              <p class="text-[11px] sm:text-xs text-labMuted leading-relaxed">
+                Erratic assembly floor lighting levels caused extreme class imbalance predictions. Solved via CLAHE
+                contrast maps and multi-scale Mosaic pre-augmentations.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="md:col-span-4 h-full flex flex-col justify-between gap-4 md:text-right border-t md:border-t-0 md:border-l border-labBorder/10 pt-4 md:pt-0 md:pl-6">
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Validation Precision</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-labAccent">0.92 mAP DETECTOR</span>
+            </div>
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Inference Delta</span>
+              <span class="text-sm sm:text-base font-bold text-labText">2x Speed Improvement</span>
+            </div>
+            <div class="pt-2">
+              <a href="https://github.com/Garvitjoshi1/Defected-Object-Detection" target="_blank"
+                class="inline-flex items-center gap-2 font-mono text-xs text-labText hover:text-labAccent hover-underline font-bold">
+                <span>View Pipeline</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3: NeuroGuard -->
+      <article
+        class="bg-labSurface border-2 border-labBorder rounded-2xl p-4 sm:p-6 md:p-8 shadow-brutalist hover:shadow-brutalistHover transition-all duration-300">
+        <div class="grid md:grid-cols-12 gap-6 items-start">
+          <div class="md:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-2 font-mono text-[9px] sm:text-[10px]">
+              <span class="bg-labAccent/10 text-labAccent px-2.5 py-0.5 rounded uppercase font-bold">Predictive
+                Modeling</span>
+              <span class="text-labMuted">•</span>
+              <span class="text-labMuted">Scikit-Learn // XGBoost // FastAPI // SMOTE</span>
+            </div>
+            <h3
+              class="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold hover:text-labAccent transition-colors">
+              NeuroGuard: Cerebrovascular Stroke Predictor
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-labMuted leading-relaxed">
+              Engineered a comprehensive predictive machine learning pipeline for clinical diagnostic stroke prediction,
+              scoring an 87% F1 score on testing splits. Evaluated and tuned XGBoost, AdaBoost, and classical estimators
+              with SMOTE class balancing.
+            </p>
+
+            <div class="border-l-2 border-labSecondary bg-labSecondary/5 p-3 rounded-r">
+              <span
+                class="font-mono text-[9px] sm:text-[10px] text-labSecondary uppercase font-black block mb-0.5">SYSTEM
+                CONFLICT DEFEATED</span>
+              <p class="text-[11px] sm:text-xs text-labMuted leading-relaxed">
+                Extreme clinical diagnostic class imbalances hid high-risk stroke patients. Fixed using synthetic
+                minority oversampling to bias model weights toward safety margins.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="md:col-span-4 h-full flex flex-col justify-between gap-4 md:text-right border-t md:border-t-0 md:border-l border-labBorder/10 pt-4 md:pt-0 md:pl-6">
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Model F1 Accuracy</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-labAccent">87% SCORE ACHIEVED</span>
+            </div>
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">High-Risk Recall</span>
+              <span class="text-sm sm:text-base font-bold text-labText">+12% Recall Elevation</span>
+            </div>
+            <div class="pt-2">
+              <a href="https://github.com/Garvitjoshi1/Stroke_Prediction" target="_blank"
+                class="inline-flex items-center gap-2 font-mono text-xs text-labText hover:text-labAccent hover-underline font-bold">
+                <span>View Script</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid lg:grid-cols-12 gap-8 items-start mb-12 sm:mb-16">
+
+      <!-- Experience Block -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="border-b border-labBorder pb-4">
+          <span class="font-mono text-[9px] sm:text-[10px] text-labAccent tracking-widest uppercase font-bold">[ CAREER
+            INTEGRATION ]</span>
+          <h3 class="font-serif text-2xl sm:text-3xl font-extrabold mt-1">Professional Logs</h3>
+        </div>
+
+        <div class="relative pl-6 border-l-2 border-labBorder space-y-8">
+          <div class="relative">
+            <div
+              class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-2 border-labBorder bg-labBase transition-colors">
+            </div>
+
+            <span class="font-mono text-[9px] text-labSecondary font-bold uppercase block tracking-widest">Oct 2024 –
+              May 2025</span>
+            <h4 class="font-serif text-lg sm:text-xl font-extrabold text-labText">Technical Educator – Robotics</h4>
+            <span class="font-mono text-xs text-labMuted uppercase block">Moonpreneur</span>
+
+            <ul class="mt-3 space-y-2 text-xs text-labMuted list-disc pl-4 leading-relaxed">
+              <li>Mentored 60+ students in structured Python debugging and embedded MicroPython algorithms.</li>
+              <li>Conducted 15+ practical developer sessions covering sensory automation and microprocessor loops.</li>
+              <li>Directed obstacle avoidance arrays using BBC micro:bit embedded parameters.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Academic and Accreditations Block -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="border-b border-labBorder pb-4">
+          <span class="font-mono text-[9px] sm:text-[10px] text-labSecondary tracking-widest uppercase font-bold">[
+            CREDENTIAL STATS ]</span>
+          <h3 class="font-serif text-2xl sm:text-3xl font-extrabold mt-1">Scholastic Standings</h3>
+        </div>
+
+        <div class="space-y-6">
+          <div class="bg-labSurface border-2 border-labBorder p-4 sm:p-5 rounded-2xl shadow-brutalist">
+            <span class="font-mono text-[9px] text-labAccent font-bold uppercase tracking-widest block mb-1">Graduation
+              Jul 2025</span>
+            <h4 class="font-serif text-lg sm:text-xl font-extrabold">B.Tech in Computer Science</h4>
+            <span class="font-mono text-xs text-labMuted block uppercase mt-1">Lovely Professional University</span>
+            <div
+              class="mt-4 flex flex-wrap gap-2 justify-between items-center pt-3 border-t border-labBorder/10 font-mono text-xs">
+              <span>Specialization: Data Science (AI & ML)</span>
+              <span class="text-labAccent font-bold">CGPA: 7.61</span>
+            </div>
+          </div>
+
+          <div class="bg-labSurface border-2 border-labBorder p-4 sm:p-5 rounded-2xl shadow-brutalist space-y-4">
+            <span class="font-mono text-[9px] text-labSecondary font-bold uppercase tracking-widest block">[
+              ACCREDITATIONS ]</span>
+
+            <div class="space-y-3 font-mono text-xs text-labMuted">
+              <div class="flex justify-between items-center border-b border-labBorder/10 pb-2">
+                <span>Amazon ML Summer School</span>
+                <span class="text-labText font-bold">Top 5% Selection</span>
+              </div>
+              <div class="flex justify-between items-center border-b border-labBorder/10 pb-2">
+                <span>AWS DeepRacer League</span>
+                <span class="text-labText font-bold">Top 10% India</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>GFG CodeKaze Score</span>
+                <span class="text-labText font-bold">Top 11% Global</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section
+      class="border-2 border-labBorder bg-labSurface p-6 sm:p-8 md:p-16 rounded-2xl text-center relative overflow-hidden shadow-brutalist">
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-labAccent/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-labSecondary/5 rounded-full blur-3xl pointer-events-none">
+      </div>
+
+      <span class="font-mono text-xs text-labAccent tracking-widest uppercase font-bold block mb-3">[ TERMINAL
+        CONVERGENCE ]</span>
+      <h2
+        class="font-serif font-extrabold text-3xl sm:text-5xl md:text-6xl text-labText tracking-tight mb-4 text-balance">
+        Initialize Collaboration?
+      </h2>
+      <p class="font-mono text-[10px] sm:text-xs text-labMuted max-w-xl mx-auto mb-8 uppercase tracking-widest">
+        The models are converged. The pipelines are stable. Ready to deploy high-throughput solutions together.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="mailto:garvitjoshi46@gmail.com"
+          class="elastic-button w-full sm:w-auto bg-labSecondary text-white border border-labBorder px-6 py-3.5 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
+          Execute Training Pipeline
+        </a>
+        <a href="https://www.linkedin.com/in/garvitjoshi01" target="_blank"
+          class="elastic-button w-full sm:w-auto bg-labSurface text-labText border border-labBorder px-6 py-3.5 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
+          Backpropagate (LinkedIn)
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer
+    class="border-t border-labBorder py-8 sm:py-12 px-4 sm:px-6 md:px-12 bg-labSurface relative z-20 text-center font-mono text-[10px] sm:text-[11px] text-labMuted">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="space-y-1 md:text-left">
+        <p>© 2026 Garvit Joshi. Optimized for all viewports.</p>
+        <p class="text-[9px] sm:text-[10px]">Made with fluid structural grids, zero horizontal overflow.</p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 sm:gap-4 justify-center text-[9px] sm:text-[10px]">
+        <a href="https://github.com/Garvitjoshi1" target="_blank"
+          class="hover:text-labAccent transition-colors">GITHUB</a>
+        <span>•</span>
+        <a href="https://www.linkedin.com/in/garvitjoshi01" target="_blank"
+          class="hover:text-labAccent transition-colors">LINKEDIN</a>
+        <span>•</span>
+        <a href="https://leetcode.com/u/Garvit46/" target="_blank"
+          class="hover:text-labAccent transition-colors">LEETCODE</a>
+        <span>•</span>
+        <a href="https://www.kaggle.com/garvit46" target="_blank"
+          class="hover:text-labAccent transition-colors">KAGGLE</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom toast element -->
+  <div id="lab-toast"
+    class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 z-50 bg-labSurface border-2 border-labBorder p-4 rounded-xl shadow-brutalist translate-y-24 opacity-0 transition-all duration-300 pointer-events-none sm:max-w-sm">
+    <div class="flex items-start gap-3">
+      <span class="text-labAccent font-bold font-mono">❯</span>
+      <div>
+        <h4 class="font-mono text-xs font-bold text-labText uppercase" id="toast-title">SYSTEM EVENT</h4>
+        <p class="text-[11px] sm:text-xs text-labMuted mt-1" id="toast-body">Configuration optimized successfully.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let learningRate = 0.05;
+    let physicsNodes = [];
+    const canvas = document.getElementById("neural-canvas");
+    const ctx = canvas.getContext("2d");
+
+    // System live clock script
+    function updateLiveClock() {
+      const date = new Date();
+      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const clockEl = document.getElementById("lab-clock");
+      if (clockEl) {
+        clockEl.innerText = `DEHRADUN, IN | ${date.toLocaleTimeString('en-US', options)}`;
+      }
+    }
+    setInterval(updateLiveClock, 1000);
+    updateLiveClock();
+
+    // Custom Viewfinder setup for Desktop
+    const viewfinder = document.getElementById("lab-viewfinder");
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = window.innerWidth / 2;
+    let currentY = window.innerHeight / 2;
+
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateCursor() {
+      const dx = mouseX - currentX;
+      const dy = mouseY - currentY;
+      currentX += dx * 0.15;
+      currentY += dy * 0.15;
+
+      if (viewfinder) {
+        viewfinder.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      }
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Viewfinder dynamic scaling trackers
+    const dynamicTargets = document.querySelectorAll("a, button, input, [role='button'], .sticker");
+    dynamicTargets.forEach(elem => {
+      elem.addEventListener("pointerenter", () => {
+        if (viewfinder) {
+          const innerDiv = viewfinder.querySelector("div");
+          innerDiv.classList.remove("scale-100");
+          innerDiv.classList.add("scale-150", "border-labAccent", "bg-labAccent/10");
+        }
+      });
+      elem.addEventListener("pointerleave", () => {
+        if (viewfinder) {
+          const innerDiv = viewfinder.querySelector("div");
+          innerDiv.classList.remove("scale-150", "border-labAccent", "bg-labAccent/10");
+          innerDiv.classList.add("scale-100");
+        }
+      });
+    });
+
+    const stickers = document.querySelectorAll(".sticker");
+    const stickerContainer = document.getElementById("sticker-container");
+
+    function initializeStickerPositions() {
+      if (!stickerContainer) return;
+      const containerWidth = stickerContainer.clientWidth;
+      const containerHeight = stickerContainer.clientHeight;
+
+      stickers.forEach((sticker) => {
+        // Programmatically scale placement margins dynamically to keep inside container bounds
+        const maxLeft = containerWidth - sticker.clientWidth - 16;
+        const maxTop = containerHeight - sticker.clientHeight - 16;
+
+        // Uniform pseudo-randomized coordinates safely distributed
+        const randomLeft = Math.max(8, Math.floor(Math.random() * maxLeft));
+        const randomTop = Math.max(8, Math.floor(Math.random() * maxTop));
+        const randTilt = Math.floor(Math.random() * 16) - 8;
+
+        sticker.style.left = `${randomLeft}px`;
+        sticker.style.top = `${randomTop}px`;
+        sticker.style.transform = `scale(1) rotate(${randTilt}deg)`;
+      });
+    }
+
+    stickers.forEach((sticker) => {
+      let isDragging = false;
+      let startX, startY, origLeft, origTop;
+
+      sticker.addEventListener("pointerdown", (e) => {
+        isDragging = true;
+        sticker.style.zIndex = "100";
+        startX = e.clientX;
+        startY = e.clientY;
+        origLeft = sticker.offsetLeft;
+        origTop = sticker.offsetTop;
+        sticker.setPointerCapture(e.pointerId);
+        sticker.style.transform = "scale(1.05) rotate(0deg)";
+      });
+
+      sticker.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        let targetLeft = origLeft + dx;
+        let targetTop = origTop + dy;
+
+        // Boundary bounds clamping to lock stickers safely inside the card
+        const containerWidth = stickerContainer.clientWidth;
+        const containerHeight = stickerContainer.clientHeight;
+        const maxLeft = containerWidth - sticker.clientWidth;
+        const maxTop = containerHeight - sticker.clientHeight;
+
+        targetLeft = Math.max(0, Math.min(targetLeft, maxLeft));
+        targetTop = Math.max(0, Math.min(targetTop, maxTop));
+
+        sticker.style.left = `${targetLeft}px`;
+        sticker.style.top = `${targetTop}px`;
+      });
+
+      sticker.addEventListener("pointerup", (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        sticker.releasePointerCapture(e.pointerId);
+        const randTilt = Math.floor(Math.random() * 16) - 8;
+        sticker.style.transform = `scale(1) rotate(${randTilt}deg)`;
+        sticker.style.zIndex = "";
+        triggerToast("STICKER INTEGRATED", "Badge coordinates clamped securely within viewport boundaries.");
+      });
+    });
+
+    // Toast system script
+    let toastTimeout;
+    function triggerToast(title, body) {
+      const toast = document.getElementById("lab-toast");
+      if (!toast) return;
+      document.getElementById("toast-title").innerText = title;
+      document.getElementById("toast-body").innerText = body;
+
+      toast.classList.remove("translate-y-24", "opacity-0", "pointer-events-none");
+      toast.classList.add("translate-y-0", "opacity-100");
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add("translate-y-24", "opacity-0", "pointer-events-none");
+        toast.classList.remove("translate-y-0", "opacity-100");
+      }, 3000);
+    }
+
+    function extractWeights() {
+      triggerToast("WEIGHTS EXPORTED", "Garvit_Joshi_MLE_CV.pdf initialized. Output streaming stable.");
+      setTimeout(() => {
+        window.open("https://github.com/Garvitjoshi1", "_blank");
+      }, 1200);
+    }
+
+    function getCanvasColors() {
+      const isDark = document.documentElement.classList.contains("dark");
+      return {
+        accent: isDark ? "#60A5FA" : "#2563EB",
+        secondary: isDark ? "#F87171" : "#EF4444",
+        line: isDark ? "rgba(96, 165, 250, 0.28)" : "rgba(37, 99, 235, 0.22)",
+        dotGrid: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.05)"
+      };
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      const container = canvas.parentElement;
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight || 350;
+      document.getElementById("canvas-telemetry").innerText = `${canvas.width}x${canvas.height}`;
+
+      // Ensure resizing bounds existing vector nodes inside viewport limits
+      physicsNodes.forEach(node => {
+        if (node.x > canvas.width) node.x = canvas.width - 10;
+        if (node.y > canvas.height) node.y = canvas.height - 10;
+      });
+    }
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      initializeStickerPositions();
+    });
+
+    class Neuron {
+      constructor(x, y, fixed = false) {
+        this.x = x || Math.random() * canvas.width;
+        this.y = y || Math.random() * canvas.height;
+        this.vx = fixed ? 0 : (Math.random() - 0.5) * 2;
+        this.vy = fixed ? 0 : (Math.random() - 0.5) * 2;
+        this.radius = Math.random() * 3 + 2;
+        this.fixed = fixed;
+      }
+
+      update() {
+        if (this.fixed) return;
+        this.x += this.vx * (learningRate * 10);
+        this.y += this.vy * (learningRate * 10);
+
+        // Bounce limits inside canvas frame
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw(colors) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.fixed ? colors.secondary : colors.accent;
+        ctx.fill();
+      }
+    }
+
+    function initNeurons() {
+      physicsNodes = [];
+      const count = Math.min(45, Math.floor(canvas.width / 15));
+      for (let i = 0; i < count; i++) {
+        physicsNodes.push(new Neuron());
+      }
+    }
+
+    canvas.addEventListener("click", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      physicsNodes.push(new Neuron(x, y, true));
+      triggerToast("ANCHOR INJECTED", `Static validation node set at [${Math.floor(x)}, ${Math.floor(y)}].`);
+    });
+
+    function clearNeurons() {
+      initNeurons();
+      triggerToast("FIELD RESET", "Cleared custom anchor variables. Baseline physical field restored.");
+    }
+
+    function triggerConvergence() {
+      physicsNodes.forEach(node => {
+        node.vx = (canvas.width / 2 - node.x) * 0.02;
+        node.vy = (canvas.height / 2 - node.y) * 0.02;
+      });
+      triggerToast("CONVERGENCE ORDERED", "Global parameter weights directed inward towards coordinate center.");
+    }
+
+    function adjustLearningRate(val) {
+      learningRate = parseFloat(val);
+      document.getElementById("lr-val").innerText = learningRate.toFixed(2);
+    }
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const colors = getCanvasColors();
+
+      for (let i = 0; i < physicsNodes.length; i++) {
+        for (let j = i + 1; j < physicsNodes.length; j++) {
+          const dx = physicsNodes[i].x - physicsNodes[j].x;
+          const dy = physicsNodes[i].y - physicsNodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(physicsNodes[i].x, physicsNodes[i].y);
+            ctx.lineTo(physicsNodes[j].x, physicsNodes[j].y);
+            ctx.strokeStyle = colors.line;
+            ctx.lineWidth = 1.2 * (1 - dist / 100);
+            ctx.stroke();
           }
-        };
+        }
+      }
 
-        // ============================================================
-        // GREENLIGHT ACTION
-        // ============================================================
-        window.greenlightAction = function () {
-          if (typeof confetti !== 'undefined') {
-            confetti({
-              particleCount: 150,
-              spread: 80,
-              colors: ['#E50914', '#F5C518', '#FFFFFF', '#10B981'],
-              origin: { y: 0.5 }
-            });
-          }
-          showToast('🚀 GREENLIT!', 'Season 02 approved. Redirecting to executive producer.');
-          setTimeout(function () {
-            window.location.href = 'mailto:garvitjoshi46@gmail.com?subject=Greenlighting Season 02 — ML Collaboration';
-          }, 1200);
-        };
+      physicsNodes.forEach(node => {
+        node.update();
+        node.draw(colors);
+      });
 
-        // ============================================================
-        // KEYBOARD NAVIGATION: Arrow keys to scroll episodes
-        // ============================================================
-        (function initKeyboardNav() {
-          const row = document.getElementById('episode-row');
-          if (!row) return;
+      requestAnimationFrame(renderCanvas);
+    }
 
-          document.addEventListener('keydown', function (e) {
-            if (modal.classList.contains('active')) return;
-            if (e.key === 'ArrowRight') {
-              row.scrollBy({ left: 280, behavior: 'smooth' });
-              e.preventDefault();
-            } else if (e.key === 'ArrowLeft') {
-              row.scrollBy({ left: -280, behavior: 'smooth' });
-              e.preventDefault();
-            }
-          });
-        })();
+    // Lights out toggle switch
+    function toggleLaboratoryLights() {
+      const html = document.documentElement;
+      const label = document.getElementById("lights-label");
+      if (html.classList.contains("dark")) {
+        html.classList.remove("dark");
+        label.innerText = "Lights Out";
+        triggerToast("THEME CONVERTED", "Aesthetic converted to Light Cream Lookbook.");
+      } else {
+        html.classList.add("dark");
+        label.innerText = "Lights On";
+        triggerToast("THEME CONVERTED", "Aesthetic converted to Darkroom Environment.");
+      }
+    }
 
-        // ============================================================
-        // TOUCH / SWIPE SUPPORT FOR EPISODE ROW
-        // ============================================================
-        (function initTouchScroll() {
-          const row = document.getElementById('episode-row');
-          if (!row) return;
+    // Confetti trigger module
+    function triggerStickerConfetti() {
+      confetti({
+        particleCount: 65,
+        spread: 55,
+        origin: { y: 0.8 },
+        colors: ['#2563EB', '#EF4444', '#F4C542', '#10B981']
+      });
+      triggerToast("METRIC COMPILED", "Confetti explosion dispatched safely to layout layer.");
+    }
 
-          let startX = 0;
-          let startScroll = 0;
-          let isSwiping = false;
-
-          row.addEventListener('touchstart', function (e) {
-            startX = e.touches[0].pageX;
-            startScroll = row.scrollLeft;
-            isSwiping = true;
-          }, { passive: true });
-
-          row.addEventListener('touchmove', function (e) {
-            if (!isSwiping) return;
-            const deltaX = e.touches[0].pageX - startX;
-            row.scrollLeft = startScroll - deltaX;
-          }, { passive: true });
-
-          row.addEventListener('touchend', function () {
-            isSwiping = false;
-          }, { passive: true });
-        })();
-
-        // ============================================================
-        // INITIAL TOAST
-        // ============================================================
-        setTimeout(function () {
-          showToast('SERIES PREMIERE', 'Season 01 loaded. Ready to binge.');
-        }, 800);
-
-        // ============================================================
-        // HANDLE RESIZE FOR MODAL PADDING
-        // ============================================================
-        window.addEventListener('resize', function () {
-          if (modal.classList.contains('active')) {
-            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-            document.body.style.paddingRight = scrollbarWidth + 'px';
-          }
-        });
-
-        // ============================================================
-        // DARK MODE DETECTION FOR INITIAL STATE
-        // ============================================================
-        // If system prefers light, we respect it but default to dark
-        // The user can toggle with the button
-
-      })();
+    window.onload = function () {
+      resizeCanvas();
+      initNeurons();
+      renderCanvas();
+      setTimeout(initializeStickerPositions, 200);
+    }
   </script>
-
 </body>
 
 </html>
