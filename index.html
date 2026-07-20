@@ -1,1313 +1,967 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Garvit Joshi | Machine Learning Engineer</title>
+<html lang="en" class="scroll-smooth dark">
 
-    <!-- Meta tag for theme color switching -->
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: light)"
-      content="#FAFAFA"
-    />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="#050505"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>Garvit Joshi | Machine Learning Engineer & Designer</title>
 
-    <!-- Google Fonts: Inter & JetBrains Mono (Preconnected for speed) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Native platform themes -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAF8F5" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0A0C" />
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
 
-    <!-- Theme Initialization Script (Must run before DOM load to prevent flash) -->
-    <script>
-      function getInitialTheme() {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-          return savedTheme;
-        }
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-      }
-      if (getInitialTheme() === "dark") {
-        document.documentElement.classList.add("dark");
-      }
-    </script>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Custom Tailwind Configuration -->
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              base: "var(--bg-base)",
-              content: "var(--text-main)",
-              accent: "var(--accent)",
-              muted: "var(--text-muted)",
-              surface: "var(--bg-surface)",
-              line: "var(--border-line)",
-              error: "var(--error)",
-              termbg: "var(--terminal-bg)",
-              termheader: "var(--terminal-header)",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-              mono: ["JetBrains Mono", "monospace"],
-            },
-            animation: {
-              marquee: "marquee 30s linear infinite",
-              "fade-in": "fadeIn 0.5s ease-out forwards",
-              "glitch-anim": "glitch 2s linear infinite",
-            },
-            keyframes: {
-              marquee: {
-                "0%": { transform: "translateX(0)" },
-                "100%": { transform: "translateX(-50%)" },
-              },
-              fadeIn: {
-                "0%": { opacity: "0", transform: "translateY(10px)" },
-                "100%": { opacity: "1", transform: "translateY(0)" },
-              },
-              glitch: {
-                "2%, 64%": { transform: "translate(2px,0) skew(0deg)" },
-                "4%, 60%": { transform: "translate(-2px,0) skew(0deg)" },
-                "62%": { transform: "translate(0,0) skew(5deg)" },
-              },
-            },
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            labBase: "var(--color-bg)",
+            labText: "var(--color-text)",
+            labMuted: "var(--color-muted)",
+            labBorder: "var(--color-border)",
+            labAccent: "var(--color-accent)",
+            labSecondary: "var(--color-secondary)",
+            labSurface: "var(--color-surface)",
           },
-        },
-      };
-    </script>
-
-    <style>
-      /* CSS Variables for Lightning-Fast Theme Switching */
-      :root {
-        --bg-base: #f4f4f5; /* Crisp, technical light grey background */
-        --text-main: #000000; /* Pure black for Ultra-HD clarity */
-        --text-muted: #52525b; /* Deep grey for readable secondary text */
-        --accent: #ff3300; /* Aggressive Tech Orange/Red for the "maniac" vibe */
-        --bg-surface: #ffffff; /* Pure white for popping cards */
-        --border-line: #a1a1aa; /* Stronger, schematic-like borders */
-        --error: #dc2626;
-        --terminal-bg: #fafafa;
-        --terminal-header: #e4e4e7;
-        --glow-shadow: rgba(255, 51, 0, 0.35); /* Vibrant orange glow */
-        --scanline-opacity: 0.08;
+          fontFamily: {
+            sans: ["Plus Jakarta Sans", "sans-serif"],
+            serif: ["Playfair Display", "serif"],
+            mono: ["JetBrains Mono", "monospace"],
+          },
+          boxShadow: {
+            brutalist: "var(--shadow-offset)",
+            brutalistHover: "var(--shadow-offset-hover)",
+          }
+        }
       }
+    }
+  </script>
 
-      .dark {
-        --bg-base: #050505;
-        --text-main: #ffffff;
-        --text-muted: #8a8f9e;
-        --accent: #00ff41; /* Neon Terminal Green */
-        --bg-surface: #0a0a0f;
-        --border-line: #1f2937;
-        --error: #ff003c;
-        --terminal-bg: #050505;
-        --terminal-header: #1f2937;
-        --glow-shadow: rgba(0, 255, 65, 0.6);
-        --scanline-opacity: 0.3;
-      }
+  <style>
+    :root {
+      --color-bg: #FAF8F5;
+      --color-text: #111113;
+      --color-muted: #4B4B54;
+      --color-border: #111113;
+      --color-accent: #2563EB;
+      --color-secondary: #EF4444;
+      --color-surface: #FFFFFF;
+      --shadow-offset: 6px 6px 0px 0px #111113;
+      --shadow-offset-hover: 2px 2px 0px 0px #111113;
+    }
 
+    .dark {
+      --color-bg: #0A0A0C;
+      --color-text: #F9FAFB;
+      --color-muted: #9CA3AF;
+      --color-border: #374151;
+      --color-accent: #60A5FA;
+      --color-secondary: #F87171;
+      --color-surface: #1E1E24;
+      --shadow-offset: 6px 6px 0px 0px #374151;
+      --shadow-offset-hover: 2px 2px 0px 0px #374151;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-x: hidden;
+    }
+
+    /* Desktop customized viewfinder cursor */
+    @media (min-width: 1024px) {
       body {
-        background-color: var(--bg-base);
-        color: var(--text-main);
-        overflow-x: hidden;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        transition:
-          background-color 0.3s ease,
-          color 0.3s ease;
+        cursor: none;
       }
+    }
 
-      /* Web Performance: Defer rendering of off-screen elements */
-      .render-optim {
-        content-visibility: auto;
-        contain-intrinsic-size: 1px 500px;
-      }
+    #lab-viewfinder {
+      will-change: transform;
+      transform: translate3d(-50%, -50%, 0);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1), height 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-      /* CRT Scanlines Overlay */
-      .scanlines {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background:
-          linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-          linear-gradient(
-            90deg,
-            rgba(255, 0, 0, 0.06),
-            rgba(0, 255, 0, 0.02),
-            rgba(0, 0, 255, 0.06)
-          );
-        background-size:
-          100% 4px,
-          3px 100%;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: var(--scanline-opacity);
-        transition: opacity 0.3s ease;
-      }
+    /* Tactile floating badges config */
+    .sticker {
+      cursor: grab;
+      user-select: none;
+      will-change: transform, left, top;
+      touch-action: none;
+      position: absolute;
+    }
 
-      /* Subtle Grid Background */
-      .bg-grid {
-        background-size: 40px 40px;
-        background-image:
-          linear-gradient(to right, var(--border-line) 1px, transparent 1px),
-          linear-gradient(to bottom, var(--border-line) 1px, transparent 1px);
-        opacity: 0.4;
-      }
+    .sticker:active {
+      cursor: grabbing;
+    }
 
-      /* Clean Editorial Hover */
-      .article-card {
-        transition:
-          border-color 0.2s ease,
-          background-color 0.2s ease,
-          box-shadow 0.2s ease;
-      }
-      .article-card:hover {
-        border-color: var(--accent);
-        background-color: var(--bg-surface);
-      }
+    /* Dot matrix decorative system layer */
+    .dot-matrix {
+      background-image: radial-gradient(var(--color-border) 1px, transparent 1px);
+      background-size: 24px 24px;
+      opacity: 0.15;
+    }
 
-      /* Minimal Link Underline */
-      .hover-underline {
-        position: relative;
-        text-decoration: none;
-      }
-      .hover-underline::after {
-        content: "";
-        position: absolute;
-        width: 100%;
-        transform: scaleX(0);
-        height: 1px;
-        bottom: 0;
-        left: 0;
-        background-color: var(--accent);
-        transform-origin: bottom right;
-        transition: transform 0.25s ease-out;
-      }
-      .hover-underline:hover::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
+    /* Elastic bouncy transition properties */
+    .elastic-button {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
 
-      /* YOLO Object Detection Bounding Box Hover */
-      .yolo-box {
-        position: relative;
-        transition: all 0.2s ease;
-      }
-      .yolo-box::before,
-      .yolo-box::after {
-        content: "";
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        border: 2px solid var(--border-line);
-        transition: all 0.3s ease;
-        pointer-events: none;
-      }
-      .yolo-box::before {
-        top: -2px;
-        left: -2px;
-        border-right: none;
-        border-bottom: none;
-      }
-      .yolo-box::after {
-        bottom: -2px;
-        right: -2px;
-        border-left: none;
-        border-top: none;
-      }
-      .yolo-box:hover {
-        border-color: transparent;
-      }
-      .yolo-box:hover::before,
-      .yolo-box:hover::after {
-        width: calc(100% + 4px);
-        height: calc(100% + 4px);
-        border-color: var(--accent);
-        box-shadow: 0 0 10px var(--glow-shadow) inset;
-      }
+    .elastic-button:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: var(--shadow-offset);
+    }
 
-      /* Glitch Typography */
-      .glitch-layer {
-        position: relative;
-      }
-      .glitch-layer::before,
-      .glitch-layer::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0.8;
-      }
-      .glitch-layer::before {
-        left: 2px;
-        text-shadow: -2px 0 var(--error);
-        clip: rect(44px, 450px, 56px, 0);
-        animation: glitch-anim 5s infinite linear alternate-reverse;
-      }
-      .glitch-layer::after {
-        left: -2px;
-        text-shadow: -2px 0 var(--accent);
-        clip: rect(44px, 450px, 56px, 0);
-        animation: glitch-anim 5s infinite linear alternate-reverse;
-        animation-delay: -2.5s;
-      }
+    .elastic-button:active {
+      transform: translate(2px, 2px);
+      box-shadow: var(--shadow-offset-hover);
+    }
+  </style>
+</head>
 
-      /* Glowing Terminal Text */
-      .text-glow {
-        text-shadow: 0 0 8px var(--glow-shadow);
-      }
+<body class="font-sans antialiased selection:bg-labAccent selection:text-white relative min-h-screen overflow-x-hidden">
 
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 6px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--bg-base);
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--border-line);
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--accent);
-      }
+  <!-- Custom Viewfinder Cursor (Hidden on Touch Devices) -->
+  <div id="lab-viewfinder"
+    class="fixed w-8 h-8 pointer-events-none z-50 hidden lg:flex items-center justify-center mix-blend-difference">
+    <div class="absolute w-full h-full border border-white rounded-full scale-100 transition-transform duration-300">
+    </div>
+    <div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+  </div>
 
-      /* Prevent overflow on mobile */
-      @media (max-width: 768px) {
-        .scanlines {
-          opacity: 0.05;
-        } /* Minimize scanline interference on mobile */
-      }
-    </style>
-  </head>
-  <body
-    class="font-sans antialiased selection:bg-accent selection:text-base pb-16 relative"
-  >
-    <!-- Grid Overlay -->
-    <div class="fixed inset-0 bg-grid -z-20 pointer-events-none"></div>
+  <!-- Background Grid Decorator -->
+  <div class="fixed inset-0 dot-matrix -z-20 pointer-events-none"></div>
 
-    <!-- CRT Overlay -->
-    <div class="scanlines"></div>
-
-    <!-- TICKER BAR -->
-    <div
-      class="fixed top-0 left-0 w-full z-40 border-b border-line bg-base/90 backdrop-blur font-mono text-[10px] md:text-xs font-bold uppercase overflow-hidden h-8 flex items-center text-muted shadow-sm"
-    >
-      <div
-        class="flex whitespace-nowrap animate-marquee w-[200%] md:w-[150%] lg:w-[100%]"
-      >
-        <!-- Group 1 -->
-        <span class="mx-6 text-accent text-glow">SYSTEM STATUS: OPTIMAL</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">P95 Inference Latency: < 120ms</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">Loss: 0.0412</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6">Multi-Model Consensus & Vision</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-accent text-glow">AVAILABLE FOR HIRE</span>
-        <!-- Group 2 (Duplicate for smooth scroll) -->
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-accent text-glow">SYSTEM STATUS: OPTIMAL</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">P95 Inference Latency: < 120ms</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">Loss: 0.0412</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6">Multi-Model Consensus & Vision</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-accent text-glow">AVAILABLE FOR HIRE</span>
-      </div>
+  <header
+    class="fixed top-0 left-0 w-full z-40 bg-labBase/80 backdrop-blur border-b border-labBorder py-3.5 px-4 sm:px-6 md:px-12 flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <a href="#"
+        class="font-serif font-extrabold text-base sm:text-lg md:text-xl tracking-tight text-labAccent hover:scale-105 transition-transform flex items-center gap-2">
+        GARVIT.JOSHI <span class="hidden xs:inline font-mono text-[9px] sm:text-[10px] text-labMuted uppercase">[ // ML
+          ENGINEER ]</span>
+      </a>
     </div>
 
-    <!-- THEME CONTROLLER -->
-    <div class="fixed top-12 right-4 md:right-8 z-50">
-      <div
-        class="bg-surface border border-line p-1 flex items-center gap-1 shadow-lg backdrop-blur-md"
-      >
-        <button
-          onclick="setTheme('light')"
-          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
-          title="Light Theme"
-          aria-label="Light Theme"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-        </button>
-        <button
-          onclick="setTheme('dark')"
-          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
-          title="Dark Theme"
-          aria-label="Dark Theme"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-        </button>
-        <button
-          onclick="setTheme('system')"
-          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
-          title="System Theme"
-          aria-label="System Theme"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-            <line x1="8" y1="21" x2="16" y2="21" />
-            <line x1="12" y1="17" x2="12" y2="21" />
-          </svg>
+    <div class="flex items-center gap-3 sm:gap-6">
+      <div class="hidden md:flex items-center gap-2 font-mono text-[10px] text-labMuted uppercase tracking-widest">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>SYSTEM ACTIVE</span>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <span id="lab-clock"
+          class="hidden sm:inline font-mono text-[10px] sm:text-[11px] text-labMuted bg-labSurface border border-labBorder px-2 py-1 rounded">DEHRADUN,
+          IN</span>
+        <button onclick="toggleLaboratoryLights()"
+          class="bg-labSurface text-labText border border-labBorder px-2.5 py-1.5 rounded font-mono text-[9px] sm:text-[10px] tracking-wider uppercase hover:bg-labText hover:text-labBase transition-colors font-bold whitespace-nowrap">
+          <span id="lights-label">Lights Out</span>
         </button>
       </div>
     </div>
+  </header>
 
-    <!-- MAIN EDITORIAL CONTAINER -->
-    <main
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 relative"
-    >
-      <!-- Live Background Training Logs (Hidden on mobile for clarity and performance) -->
-      <div
-        id="bg-training-logs"
-        class="hidden md:block absolute top-32 right-0 w-full max-w-lg h-96 overflow-hidden font-mono text-[10px] text-accent/20 select-none pointer-events-none -z-10"
-        style="
-          mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-          -webkit-mask-image: linear-gradient(
-            to bottom,
-            black 50%,
-            transparent 100%
-          );
-        "
-      ></div>
+  <!-- MAIN EDITORIAL DISPLAY PORTFOLIO -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-24 sm:pt-28 pb-16 relative overflow-hidden">
 
-      <!-- HEADER -->
-      <header
-        class="mb-12 md:mb-16 border-b border-line pb-8 md:pb-12 relative animate-fade-in"
-      >
+    <div class="grid lg:grid-cols-12 gap-8 items-start mb-12 sm:mb-16">
+      <div class="lg:col-span-8 space-y-4 sm:space-y-6">
         <div
-          class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 md:mb-8"
-        >
-          <div class="flex items-center gap-4">
-            <span
-              class="bg-accent text-base px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider text-glow text-white shadow-sm"
-              >Garvit Joshi</span
-            >
-            <span class="font-mono text-xs text-muted flex items-center gap-2">
-              <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              Open to ML Engineer Roles
-            </span>
-          </div>
-          <div
-            class="font-mono text-xs text-muted uppercase tracking-wider md:text-right flex flex-wrap gap-4"
-          >
-            <a href="#projects" class="hover:text-accent transition-colors"
-              >Case Studies</a
-            >
-            <a href="#metrics" class="hover:text-accent transition-colors"
-              >Architecture</a
-            >
-          </div>
+          class="inline-flex items-center flex-wrap gap-2 font-mono text-[9px] sm:text-[10px] bg-labAccent/10 text-labAccent border border-labAccent/20 px-3 py-1 rounded-full uppercase tracking-wider">
+          <span>🚀 AWS DEEPRACER TOP 10%</span>
+          <span>•</span>
+          <span>AMAZON ML SELECTION</span>
         </div>
 
         <h1
-          class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4 md:mb-6 glitch-layer text-balance"
-          data-text="Machine Learning Engineer scaling predictive models & GenAI architectures."
-        >
-          Machine Learning Engineer scaling
-          <span class="text-accent text-glow">predictive models</span> & GenAI
-          architectures.
+          class="font-serif font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-none text-balance">
+          Building systems that <span class="text-labAccent italic font-normal">converge</span>.
         </h1>
 
-        <p
-          class="text-lg md:text-2xl text-muted font-medium mb-8 md:mb-10 max-w-4xl leading-relaxed text-balance"
-        >
-          <strong class="text-content"
-            >Bridging the gap between Jupyter notebooks and production
-            servers.</strong
-          >
-          I design, train, and deploy ML systems—specializing in deep learning
-          for computer vision, tabular data pipelines, and highly-reliable
-          multi-model LLM consensus mechanisms.
+        <p class="text-base sm:text-lg md:text-xl text-labMuted max-w-2xl leading-relaxed font-sans text-balance">
+          I am Garvit Joshi, a Machine Learning Engineer balancing the precision of mathematical models with premium
+          interactive interface architecture. Bridging the gap between raw research kernels and production-grade
+          runtimes.
         </p>
 
-        <div
-          class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-        >
-          <a
-            href="mailto:garvitjoshi46@gmail.com"
-            class="bg-accent text-white hover:bg-content hover:text-base px-6 md:px-8 py-3 md:py-4 font-mono text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_var(--glow-shadow)] w-full sm:w-auto"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-              ></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            Initialize Contact
+        <div class="flex flex-wrap gap-3 pt-2">
+          <a href="mailto:garvitjoshi46@gmail.com"
+            class="elastic-button w-full sm:w-auto bg-labAccent text-white border border-labBorder px-5 py-3 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
+            Deploy Connection (Email)
           </a>
-          <button
-            onclick="downloadResume()"
-            class="border border-line bg-surface hover:border-accent text-content hover:text-accent px-6 py-3 md:py-4 font-mono text-sm transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
+          <button onclick="extractWeights()"
+            class="elastic-button w-full sm:w-auto bg-labSurface text-labText border border-labBorder px-5 py-3 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
             Extract Weights (Resume)
           </button>
         </div>
-      </header>
+      </div>
 
-      <!-- CALL TO ACTION / HIRE ME SECTION (MOVED TO TOP) -->
-      <section
-        class="mb-12 md:mb-16 render-optim animate-fade-in"
-        style="animation-delay: 0.2s; animation-fill-mode: both"
-      >
+      <!-- Touch-optimized Portrait Card -->
+      <div class="lg:col-span-4 flex justify-center lg:justify-end w-full">
+        <div class="relative group cursor-pointer w-full max-w-[280px]" onclick="triggerStickerConfetti()">
+          <div
+            class="absolute inset-0 bg-labSecondary rounded-2xl transform translate-x-2.5 translate-y-2.5 transition-transform group-hover:translate-x-3.5 group-hover:translate-y-3.5">
+          </div>
+
+          <div
+            class="relative bg-labSurface border-2 border-labBorder p-3 rounded-2xl shadow-brutalist transition-all duration-300 transform group-hover:-translate-y-1">
+            <img src="Linkedin.png" alt="Garvit Joshi"
+              class="w-full h-72 sm:h-80 object-cover rounded-xl filter grayscale group-hover:grayscale-0 transition-all duration-500"
+              onerror="this.onerror=null; this.src='https://placehold.co/256x320/000000/ffffff?text=Garvit+Joshi'" />
+
+            <div
+              class="mt-3 flex items-center justify-between font-mono text-[9px] sm:text-[10px] text-labMuted uppercase">
+              <span>[ STAGE PORTRAIT ]</span>
+              <span class="text-labSecondary font-bold">CLICK ME</span>
+            </div>
+          </div>
+
+          <div
+            class="absolute -top-3 -left-3 bg-labAccent text-white font-mono text-[8px] sm:text-[9px] tracking-widest px-2 py-1 rounded uppercase border border-labBorder transform -rotate-6 shadow-sm">
+            LATENT VECTOR LOCKED
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section
+      class="border-2 border-labBorder bg-labSurface rounded-2xl p-4 sm:p-6 shadow-brutalist mb-12 sm:mb-16 relative overflow-hidden">
+      <div class="absolute inset-0 dot-matrix opacity-10 pointer-events-none"></div>
+
+      <div
+        class="z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-labBorder/10 pb-4 mb-4">
+        <div>
+          <span class="font-mono text-[9px] sm:text-[10px] text-labSecondary tracking-widest uppercase font-bold">[
+            PHYSICAL CANVAS ]</span>
+          <h2 class="font-serif text-xl sm:text-2xl font-extrabold mt-1">Interactive Sticker Deck</h2>
+        </div>
+        <p class="font-mono text-[9px] sm:text-[10px] text-labMuted uppercase">
+          GRAB, THROW, AND BOUNDS-CONTROLLED BADGES
+        </p>
+      </div>
+
+      <!-- Draggable Stickers Playground Boundary Box -->
+      <div class="relative w-full h-[180px] bg-labBase/30 rounded-xl overflow-hidden" id="sticker-container">
+
         <div
-          class="border border-accent bg-surface p-6 md:p-10 relative overflow-hidden group shadow-[0_0_20px_var(--glow-shadow)]"
-        >
-          <!-- Background accent glow -->
-          <div
-            class="absolute -right-20 -top-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-all pointer-events-none"
-          ></div>
+          class="sticker bg-amber-100 text-amber-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          🔥 Top 5% Amazon ML
+        </div>
 
-          <div
-            class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8"
-          >
-            <div class="max-w-3xl">
-              <h2
-                class="text-2xl md:text-3xl font-bold mb-4 text-content flex items-center gap-3"
-              >
-                <div
-                  class="w-3 h-3 bg-accent animate-pulse shadow-[0_0_8px_var(--glow-shadow)]"
-                ></div>
-                READY TO OVERFIT TO YOUR INFRASTRUCTURE
-              </h2>
-              <p
-                class="text-muted md:text-lg mb-8 leading-relaxed text-balance"
-              >
-                I am currently seeking
-                <strong class="text-content">Machine Learning Engineer</strong>
-                roles. If your team is tired of models that collapse the second
-                they see real-world data, let's converge. I build architectures
-                that survive production, handle tensor shape mismatches without
-                a stack trace panic, and I promise my gradients will never
-                vanish during a sprint planning meeting.
-              </p>
-              <div class="flex flex-col sm:flex-row gap-4 font-mono text-sm">
-                <a
-                  href="mailto:garvitjoshi46@gmail.com"
-                  class="inline-flex justify-center items-center gap-2 bg-accent text-white px-6 py-3 hover:opacity-90 transition-opacity font-bold shadow-[0_0_10px_var(--glow-shadow)]"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                    ></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                  garvitjoshi46@gmail.com
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/garvitjoshi01"
-                  target="_blank"
-                  class="inline-flex justify-center items-center gap-2 border border-line bg-base px-6 py-3 text-content hover:border-accent hover:text-accent transition-colors"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-                    ></path>
-                    <rect x="2" y="9" width="4" height="12"></rect>
-                    <circle cx="4" cy="4" r="2"></circle>
-                  </svg>
-                  Backpropagate to my LinkedIn
-                </a>
-              </div>
+        <div
+          class="sticker bg-blue-100 text-blue-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          👾 AWS DeepRacer Top 10%
+        </div>
+
+        <div
+          class="sticker bg-green-100 text-green-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          ⚡ CUDA Optimized
+        </div>
+
+        <div
+          class="sticker bg-purple-100 text-purple-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          🧠 PyTorch Professional
+        </div>
+
+        <div
+          class="sticker bg-red-100 text-red-950 px-3 py-1.5 border border-labBorder rounded-lg font-mono text-[10px] sm:text-[11px] font-bold shadow-md select-none whitespace-nowrap">
+          ☄️ CodeKaze Elite
+        </div>
+
+      </div>
+    </section>
+
+    <section class="grid lg:grid-cols-12 gap-6 md:gap-8 items-stretch mb-12 sm:mb-16">
+      <div
+        class="lg:col-span-4 bg-labSurface border-2 border-labBorder p-4 sm:p-6 rounded-2xl shadow-brutalist flex flex-col justify-between">
+        <div class="space-y-3">
+          <span class="font-mono text-[9px] sm:text-[10px] text-labAccent tracking-widest uppercase font-bold">[ LIVE
+            COMPILATION ]</span>
+          <h3 class="font-serif text-2xl sm:text-3xl font-extrabold">Active Latent Field</h3>
+          <p class="text-xs sm:text-sm text-labMuted leading-relaxed">
+            An interactive 2D graph node simulation running live vector physics. Click inside the viewport to inject
+            custom anchors, drag nodes, or trigger global parameter convergence.
+          </p>
+        </div>
+
+        <!-- Simulation parameter controllers -->
+        <div class="space-y-4 pt-4 mt-4 border-t border-labBorder/10">
+          <div class="space-y-1.5 font-mono text-[11px] sm:text-xs">
+            <div class="flex justify-between">
+              <span>CONVERGENCE SPEED</span>
+              <span id="lr-val" class="text-labAccent font-bold">0.05</span>
             </div>
+            <input type="range" id="lr-slider" min="0.01" max="0.3" step="0.01" value="0.05"
+              oninput="adjustLearningRate(this.value)"
+              class="w-full accent-labAccent cursor-pointer bg-labBase h-1 rounded" />
+          </div>
 
-            <!-- Abstract visual element -->
-            <div
-              class="hidden md:flex flex-col gap-2 font-mono text-[10px] text-accent/60 text-right min-w-[200px]"
-            >
-              <span>> MODEL.STATUS == "AWAITING_GPU_ALLOCATION"</span>
-              <span>> BATCH_SIZE_FOR_INTERVIEWS = 1</span>
-              <span>> EARLY_STOPPING = FALSE</span>
+          <div class="grid grid-cols-2 gap-2">
+            <button onclick="triggerConvergence()"
+              class="bg-labAccent text-white border border-labBorder px-2 py-2 rounded font-mono text-[9px] uppercase font-bold hover:opacity-90 active:scale-95 transition-all text-center">
+              CONVERGE
+            </button>
+            <button onclick="clearNeurons()"
+              class="bg-labBase text-labText border border-labBorder px-2 py-2 rounded font-mono text-[9px] uppercase font-bold hover:bg-labBorder hover:text-labBase active:scale-95 transition-all text-center">
+              CLEAR FIELD
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Responsive HTML Canvas container -->
+      <div
+        class="lg:col-span-8 border-2 border-labBorder bg-labSurface rounded-2xl overflow-hidden relative min-h-[280px] sm:min-h-[350px]">
+        <canvas id="neural-canvas" class="block w-full h-full bg-labSurface transition-colors"></canvas>
+        <div
+          class="absolute bottom-3 left-3 pointer-events-none bg-labBase/95 border border-labBorder px-2.5 py-1 rounded font-mono text-[8px] sm:text-[9px] tracking-widest text-labMuted uppercase">
+          MATRIX: <span id="canvas-telemetry">0x0</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-6 sm:space-y-8 mb-12 sm:mb-16" id="architecture-row">
+      <div class="flex flex-col md:flex-row md:items-end justify-between border-b border-labBorder pb-4 gap-2">
+        <div>
+          <span class="font-mono text-[9px] sm:text-[10px] text-labSecondary tracking-widest uppercase font-bold">[
+            COMPILED PIPELINES ]</span>
+          <h2 class="font-serif text-2xl sm:text-4xl md:text-5xl font-extrabold mt-1">Featured Case Studies</h2>
+        </div>
+        <span class="font-mono text-[9px] sm:text-[10px] text-labMuted uppercase max-w-xs">
+          DETERMINISTIC SYSTEMS ARCHITECTED AND DEPLOYED FOR PRODUCTION FEEDS
+        </span>
+      </div>
+
+      <!-- Project 1: Aegis Council -->
+      <article
+        class="bg-labSurface border-2 border-labBorder rounded-2xl p-4 sm:p-6 md:p-8 shadow-brutalist hover:shadow-brutalistHover transition-all duration-300">
+        <div class="grid md:grid-cols-12 gap-6 items-start">
+          <div class="md:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-2 font-mono text-[9px] sm:text-[10px]">
+              <span class="bg-labAccent/10 text-labAccent px-2.5 py-0.5 rounded uppercase font-bold">GenAI
+                Infrastructure</span>
+              <span class="text-labMuted">•</span>
+              <span class="text-labMuted">Python // Transformers // FastAPI</span>
+            </div>
+            <h3
+              class="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold hover:text-labAccent transition-colors">
+              Aegis Council: Multi-Model AI Inference System
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-labMuted leading-relaxed">
+              Created a multi-model inference framework aggregating responses from LLMs, reducing hallucination errors
+              by 18%. Implemented weighted voting and configurable routing strategies to compare outputs across 4+
+              transformer models.
+            </p>
+
+            <div class="border-l-2 border-labSecondary bg-labSecondary/5 p-3 rounded-r">
+              <span
+                class="font-mono text-[9px] sm:text-[10px] text-labSecondary uppercase font-black block mb-0.5">SYSTEM
+                CONFLICT DEFEATED</span>
+              <p class="text-[11px] sm:text-xs text-labMuted leading-relaxed">
+                Stochastic model drift inside structured data pipelines breaks downstream arrays. Defeated by executing
+                deterministic consensus parameters before output delivery.
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="md:col-span-4 h-full flex flex-col justify-between gap-4 md:text-right border-t md:border-t-0 md:border-l border-labBorder/10 pt-4 md:pt-0 md:pl-6">
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Reduction Score</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-labAccent">-18% HALLUCINATIONS</span>
+            </div>
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Model Polling</span>
+              <span class="text-sm sm:text-base font-bold text-labText">4+ Concurrent LLMs</span>
+            </div>
+            <div class="pt-2">
+              <a href="https://github.com/Garvitjoshi1/Aegis_Council" target="_blank"
+                class="inline-flex items-center gap-2 font-mono text-xs text-labText hover:text-labAccent hover-underline font-bold">
+                <span>View Repository</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
           </div>
         </div>
-      </section>
+      </article>
 
-      <div class="grid lg:grid-cols-12 gap-8 md:gap-12" id="projects">
-        <!-- MAIN FEATURE COLUMN (ML Case Studies) -->
-        <div class="lg:col-span-8 space-y-6 md:space-y-8">
-          <div class="flex items-center gap-4 mb-4 md:mb-8">
-            <div
-              class="w-3 h-3 bg-accent animate-pulse shadow-[0_0_8px_var(--glow-shadow)]"
-            ></div>
-            <h2 class="text-xl md:text-2xl font-bold uppercase tracking-widest">
-              ML Systems & Deployments
-            </h2>
+      <!-- Project 2: Industrial Defect Detection -->
+      <article
+        class="bg-labSurface border-2 border-labBorder rounded-2xl p-4 sm:p-6 md:p-8 shadow-brutalist hover:shadow-brutalistHover transition-all duration-300">
+        <div class="grid md:grid-cols-12 gap-6 items-start">
+          <div class="md:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-2 font-mono text-[9px] sm:text-[10px]">
+              <span class="bg-labAccent/10 text-labAccent px-2.5 py-0.5 rounded uppercase font-bold">Computer
+                Vision</span>
+              <span class="text-labMuted">•</span>
+              <span class="text-labMuted">PyTorch // YOLOv8 // OpenCV // ONNX</span>
+            </div>
+            <h3
+              class="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold hover:text-labAccent transition-colors">
+              Industrial Defect Detection Pipeline
+            </h3>
+            <p class="text-xs sm:text-sm md:text-base text-labMuted leading-relaxed">
+              Architected a computer vision pipeline for automated manufacturing anomaly classification, achieving a
+              0.92 mean Average Precision (mAP) on production-grade validation streams. Optimized models via ONNX
+              Runtime engine, generating 2× faster frame inference with negligible accuracy loss.
+            </p>
+
+            <div class="border-l-2 border-labSecondary bg-labSecondary/5 p-3 rounded-r">
+              <span
+                class="font-mono text-[9px] sm:text-[10px] text-labSecondary uppercase font-black block mb-0.5">SYSTEM
+                CONFLICT DEFEATED</span>
+              <p class="text-[11px] sm:text-xs text-labMuted leading-relaxed">
+                Erratic assembly floor lighting levels caused extreme class imbalance predictions. Solved via CLAHE
+                contrast maps and multi-scale Mosaic pre-augmentations.
+              </p>
+            </div>
           </div>
 
-          <!-- Case Study 1: Aegis Council -->
-          <article
-            class="article-card render-optim border border-line p-5 md:p-8 yolo-box bg-surface"
-          >
-            <div
-              class="hidden sm:block absolute top-0 right-0 bg-accent text-white font-mono text-[10px] px-2 py-1 uppercase font-bold shadow-sm"
-            >
-              Confidence: 99.8%
+          <div
+            class="md:col-span-4 h-full flex flex-col justify-between gap-4 md:text-right border-t md:border-t-0 md:border-l border-labBorder/10 pt-4 md:pt-0 md:pl-6">
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Validation Precision</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-labAccent">0.92 mAP DETECTOR</span>
             </div>
-            <div
-              class="font-mono text-accent text-[10px] md:text-xs mb-3 flex flex-wrap gap-2 text-glow"
-            >
-              <span>GEN-AI ARCHITECTURE</span>
-              <span class="text-line hidden sm:inline">|</span>
-              <span>Python</span>
-              <span class="text-line hidden sm:inline">|</span>
-              <span>Consensus Engine</span>
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Inference Delta</span>
+              <span class="text-sm sm:text-base font-bold text-labText">2x Speed Improvement</span>
             </div>
-            <h3 class="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-balance">
-              Aegis Council: Multi-Model Consensus Engine
-            </h3>
-            <p class="text-muted mb-6 leading-relaxed text-sm md:text-base">
-              Designed a deterministic governance layer for Large Language
-              Models. Instead of relying on a single stochastic output, Aegis
-              Council utilizes multi-model polling and cross-verification to
-              guarantee rigid schema adherence and mitigate hallucination risk
-              in critical pipelines.
-            </p>
-
-            <div
-              class="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6 font-mono text-[10px] md:text-xs"
-            >
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">Architecture / Stack</span>
-                <span class="text-content font-semibold"
-                  >Python, LangChain, Polling, Pydantic</span
-                >
-              </div>
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">System Objective</span>
-                <span class="text-accent font-bold"
-                  >100% Deterministic Output Governance</span
-                >
-              </div>
-            </div>
-
-            <div
-              class="border-l-2 border-error pl-3 md:pl-4 mb-6 bg-error/5 p-3"
-            >
-              <h4
-                class="font-bold text-xs md:text-sm mb-2 text-content flex items-center gap-2"
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  class="text-error"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                  ></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            <div class="pt-2">
+              <a href="https://github.com/Garvitjoshi1/Defected-Object-Detection" target="_blank"
+                class="inline-flex items-center gap-2 font-mono text-xs text-labText hover:text-labAccent hover-underline font-bold">
+                <span>View Pipeline</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
-                The Engineering Challenge:
-              </h4>
-              <p class="text-[11px] md:text-sm text-muted">
-                LLMs inherently hallucinate and break JSON structures, making
-                them dangerous for automated execution. Solved this by
-                engineering a "council" of varied temperature models that must
-                reach consensus on data structures before execution.
-              </p>
+              </a>
             </div>
+          </div>
+        </div>
+      </article>
 
-            <a
-              href="https://github.com/Garvitjoshi1/Aegis_Council"
-              target="_blank"
-              class="text-content font-mono text-xs md:text-sm hover-underline inline-flex items-center gap-2 font-semibold"
-            >
-              View Architecture Repository
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </article>
-
-          <!-- Case Study 2: Defect Object Detection -->
-          <article
-            class="article-card render-optim border border-line p-5 md:p-8 yolo-box bg-surface"
-          >
-            <div
-              class="hidden sm:block absolute top-0 right-0 bg-accent text-white font-mono text-[10px] px-2 py-1 uppercase font-bold shadow-sm"
-            >
-              Bounding Box Locked
+      <!-- Project 3: NeuroGuard -->
+      <article
+        class="bg-labSurface border-2 border-labBorder rounded-2xl p-4 sm:p-6 md:p-8 shadow-brutalist hover:shadow-brutalistHover transition-all duration-300">
+        <div class="grid md:grid-cols-12 gap-6 items-start">
+          <div class="md:col-span-8 space-y-4">
+            <div class="flex flex-wrap items-center gap-2 font-mono text-[9px] sm:text-[10px]">
+              <span class="bg-labAccent/10 text-labAccent px-2.5 py-0.5 rounded uppercase font-bold">Predictive
+                Modeling</span>
+              <span class="text-labMuted">•</span>
+              <span class="text-labMuted">Scikit-Learn // XGBoost // FastAPI // SMOTE</span>
             </div>
-            <div
-              class="font-mono text-accent text-[10px] md:text-xs mb-3 flex flex-wrap gap-2 text-glow"
-            >
-              <span>COMPUTER VISION</span>
-              <span class="text-line hidden sm:inline">|</span>
-              <span>Deep Learning</span>
-              <span class="text-line hidden sm:inline">|</span>
-              <span>PyTorch</span>
-            </div>
-            <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-balance">
-              Automated Defect Detection System
-            </h3>
-            <p class="text-muted mb-6 leading-relaxed text-sm md:text-base">
-              Trained and deployed a robust object detection pipeline to
-              identify manufacturing anomalies. Managed end-to-end data
-              processing, data augmentation, and model fine-tuning to ensure
-              high mean Average Precision (mAP) on custom datasets.
-            </p>
-
-            <div
-              class="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6 font-mono text-[10px] md:text-xs"
-            >
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">Core Tech</span>
-                <span class="text-content font-semibold"
-                  >Jupyter, PyTorch/TF, OpenCV, CNNs</span
-                >
-              </div>
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">Optimization Goal</span>
-                <span class="text-content font-semibold"
-                  >High mAP + Reduced Inference Time</span
-                >
-              </div>
-            </div>
-
-            <div
-              class="border-l-2 border-error pl-3 md:pl-4 mb-6 bg-error/5 p-3"
-            >
-              <h4
-                class="font-bold text-xs md:text-sm mb-2 text-content flex items-center gap-2"
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  class="text-error"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                  ></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                The Engineering Challenge:
-              </h4>
-              <p class="text-[11px] md:text-sm text-muted">
-                Manufacturing imagery often suffers from extreme class imbalance
-                (few defects vs. many normal products). Mitigated this using
-                advanced augmentation techniques and focal loss implementation
-                to prevent the model from predicting the majority class blindly.
-              </p>
-            </div>
-
-            <a
-              href="https://github.com/Garvitjoshi1/Defected-Object-Detection"
-              target="_blank"
-              class="text-content font-mono text-xs md:text-sm hover-underline inline-flex items-center gap-2 font-semibold"
-            >
-              Review Notebook & Pipeline
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </article>
-
-          <!-- Other Notable Projects (Compact Grid) -->
-          <article class="render-optim border-t border-line pt-8">
             <h3
-              class="font-mono text-xs uppercase tracking-widest text-muted mb-6"
-            >
-              Predictive Modeling & Applied NLP
+              class="font-serif text-xl sm:text-2xl md:text-3xl font-extrabold hover:text-labAccent transition-colors">
+              NeuroGuard: Cerebrovascular Stroke Predictor
             </h3>
-            <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
-              <div
-                class="group bg-surface p-5 border border-line hover:border-accent transition-colors"
-              >
-                <div class="font-mono text-accent text-[10px] md:text-xs mb-2">
-                  Tabular Data / Classic ML
-                </div>
-                <h3
-                  class="text-base md:text-lg font-bold mb-2 group-hover:text-accent transition-colors text-content"
-                >
-                  Clinical Stroke Prediction
-                </h3>
-                <p class="text-muted text-xs md:text-sm mb-4 line-clamp-3">
-                  Developed predictive pipelines using XGBoost, AdaBoost, and
-                  NNs. Handled severe medical data imbalance using SMOTE and
-                  optimized for high recall.
-                </p>
-                <a
-                  href="https://github.com/Garvitjoshi1/Stroke_Prediction"
-                  target="_blank"
-                  class="text-xs text-content font-bold underline decoration-line underline-offset-4 hover:text-accent transition-colors"
-                  >View Implementation</a
-                >
-              </div>
-              <div
-                class="group bg-surface p-5 border border-line hover:border-accent transition-colors"
-              >
-                <div class="font-mono text-accent text-[10px] md:text-xs mb-2">
-                  Applied NLP / GovTech
-                </div>
-                <h3
-                  class="text-base md:text-lg font-bold mb-2 group-hover:text-accent transition-colors text-content"
-                >
-                  Sahayak-Setu RAG Engine
-                </h3>
-                <p class="text-muted text-xs md:text-sm mb-4 line-clamp-3">
-                  Multilingual AI assistant backend parsing dense government
-                  documents. Engineered custom semantic chunking logic to
-                  maintain accurate contextual retrieval.
-                </p>
-                <a
-                  href="https://github.com/Garvitjoshi1/Sahayak-Setu"
-                  target="_blank"
-                  class="text-xs text-content font-bold underline decoration-line underline-offset-4 hover:text-accent transition-colors"
-                  >View Repository</a
-                >
-              </div>
+            <p class="text-xs sm:text-sm md:text-base text-labMuted leading-relaxed">
+              Engineered a comprehensive predictive machine learning pipeline for clinical diagnostic stroke prediction,
+              scoring an 87% F1 score on testing splits. Evaluated and tuned XGBoost, AdaBoost, and classical estimators
+              with SMOTE class balancing.
+            </p>
+
+            <div class="border-l-2 border-labSecondary bg-labSecondary/5 p-3 rounded-r">
+              <span
+                class="font-mono text-[9px] sm:text-[10px] text-labSecondary uppercase font-black block mb-0.5">SYSTEM
+                CONFLICT DEFEATED</span>
+              <p class="text-[11px] sm:text-xs text-labMuted leading-relaxed">
+                Extreme clinical diagnostic class imbalances hid high-risk stroke patients. Fixed using synthetic
+                minority oversampling to bias model weights toward safety margins.
+              </p>
             </div>
-          </article>
+          </div>
+
+          <div
+            class="md:col-span-4 h-full flex flex-col justify-between gap-4 md:text-right border-t md:border-t-0 md:border-l border-labBorder/10 pt-4 md:pt-0 md:pl-6">
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">Model F1 Accuracy</span>
+              <span class="text-2xl sm:text-3xl font-extrabold text-labAccent">87% SCORE ACHIEVED</span>
+            </div>
+            <div class="font-mono">
+              <span class="text-[9px] text-labMuted uppercase block">High-Risk Recall</span>
+              <span class="text-sm sm:text-base font-bold text-labText">+12% Recall Elevation</span>
+            </div>
+            <div class="pt-2">
+              <a href="https://github.com/Garvitjoshi1/Stroke_Prediction" target="_blank"
+                class="inline-flex items-center gap-2 font-mono text-xs text-labText hover:text-labAccent hover-underline font-bold">
+                <span>View Script</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="grid lg:grid-cols-12 gap-8 items-start mb-12 sm:mb-16">
+
+      <!-- Experience Block -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="border-b border-labBorder pb-4">
+          <span class="font-mono text-[9px] sm:text-[10px] text-labAccent tracking-widest uppercase font-bold">[ CAREER
+            INTEGRATION ]</span>
+          <h3 class="font-serif text-2xl sm:text-3xl font-extrabold mt-1">Professional Logs</h3>
         </div>
 
-        <!-- RIGHT SIDEBAR (Interactive Demo, Skills, Methodology) -->
-        <aside class="lg:col-span-4 space-y-8" id="metrics">
-          <!-- INTERACTIVE TERMINAL (Proof of Concept) -->
-          <div
-            class="bg-surface border border-accent p-1 shadow-[0_0_15px_var(--glow-shadow)] relative w-full overflow-hidden"
-          >
+        <div class="relative pl-6 border-l-2 border-labBorder space-y-8">
+          <div class="relative">
             <div
-              class="absolute -top-3 -right-2 md:-right-3 bg-accent text-white px-2 py-0.5 font-mono text-[9px] md:text-[10px] font-bold z-10 shadow-sm"
-            >
-              LIVE SESSION
+              class="absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-2 border-labBorder bg-labBase transition-colors">
             </div>
-            <div
-              class="bg-termbg border border-line rounded-sm p-3 md:p-4 font-mono text-xs md:text-sm relative shadow-inner overflow-hidden h-[250px] md:h-[280px] flex flex-col"
-            >
-              <div
-                class="absolute top-0 left-0 w-full bg-termheader px-3 py-1.5 text-[9px] md:text-[10px] text-muted flex items-center justify-between"
-              >
-                <span>root@garvit-ml-node: ~</span>
-                <span class="flex gap-1.5">
-                  <div class="w-2.5 h-2.5 rounded-full bg-error"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-accent"></div>
-                </span>
-              </div>
 
-              <div
-                id="terminal-output"
-                class="mt-8 text-content flex-grow overflow-y-auto pb-2 space-y-2 scroll-smooth pr-2"
-              >
-                <p class="text-accent font-bold text-glow">
-                  Booting ML Knowledge Base...
-                </p>
-                <p class="text-muted">Loading weights: [████████████] 100%</p>
-                <p>System ready. Query my architecture or constraints.</p>
-              </div>
+            <span class="font-mono text-[9px] text-labSecondary font-bold uppercase block tracking-widest">Oct 2024 –
+              May 2025</span>
+            <h4 class="font-serif text-lg sm:text-xl font-extrabold text-labText">Technical Educator – Robotics</h4>
+            <span class="font-mono text-xs text-labMuted uppercase block">Moonpreneur</span>
 
-              <form
-                id="terminal-form"
-                class="mt-2 flex items-center border-t border-line pt-3"
-                onsubmit="handleTerminal(event)"
-              >
-                <span class="text-accent mr-2 font-bold text-glow">❯</span>
-                <input
-                  type="text"
-                  id="terminal-input"
-                  class="bg-transparent border-none outline-none text-content w-full text-xs md:text-sm placeholder-muted"
-                  placeholder="e.g., Explain Aegis Council"
-                  autocomplete="off"
-                />
-              </form>
-            </div>
-          </div>
-
-          <!-- Contextual Skills Section -->
-          <div class="render-optim">
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-accent font-bold text-glow mb-4 border-b border-line pb-2"
-            >
-              Machine Learning Stack
-            </h3>
-            <div class="space-y-4 font-mono text-xs md:text-sm">
-              <div>
-                <span class="text-content font-bold block mb-1"
-                  >Deep Learning & Vision</span
-                >
-                <span class="text-muted leading-relaxed block"
-                  >PyTorch, TensorFlow, OpenCV. Designing CNN architectures,
-                  object detection pipelines, and optimizing tensor
-                  operations.</span
-                >
-              </div>
-              <div>
-                <span class="text-content font-bold block mb-1"
-                  >Predictive ML & NLP</span
-                >
-                <span class="text-muted leading-relaxed block"
-                  >XGBoost, Scikit-Learn, Pandas. Handling imbalanced tabular
-                  data, feature engineering, and deploying RAG pipelines.</span
-                >
-              </div>
-              <div>
-                <span class="text-content font-bold block mb-1"
-                  >MLOps & Inference</span
-                >
-                <span class="text-muted leading-relaxed block"
-                  >FastAPI, Docker, SQL. Containerizing models, managing async
-                  inference queues, and evaluating model drift in
-                  production.</span
-                >
-              </div>
-            </div>
-          </div>
-
-          <!-- Engineering Philosophy -->
-          <div class="render-optim bg-surface border border-line p-5">
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-accent font-bold mb-4"
-            >
-              ML Philosophy
-            </h3>
-            <ul class="space-y-4 text-xs md:text-sm text-muted">
-              <li class="flex items-start gap-3">
-                <svg
-                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                <span
-                  ><strong class="text-content">Data > Algorithms.</strong> 80%
-                  of model performance comes from rigorous feature engineering,
-                  cleaning, and targeted augmentations.</span
-                >
-              </li>
-              <li class="flex items-start gap-3">
-                <svg
-                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                <span
-                  ><strong class="text-content"
-                    >Optimize for the right metric.</strong
-                  >
-                  Accuracy is misleading. In healthcare (Stroke Prediction), I
-                  prioritize Recall to avoid false negatives.</span
-                >
-              </li>
-              <li class="flex items-start gap-3">
-                <svg
-                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                <span
-                  ><strong class="text-content">Deterministic GenAI.</strong>
-                  LLMs are stochastic; I build consensus logic (Aegis) to
-                  guarantee strict output schemas for production tasks.</span
-                >
-              </li>
+            <ul class="mt-3 space-y-2 text-xs text-labMuted list-disc pl-4 leading-relaxed">
+              <li>Mentored 60+ students in structured Python debugging and embedded MicroPython algorithms.</li>
+              <li>Conducted 15+ practical developer sessions covering sensory automation and microprocessor loops.</li>
+              <li>Directed obstacle avoidance arrays using BBC micro:bit embedded parameters.</li>
             </ul>
           </div>
-        </aside>
+        </div>
       </div>
-    </main>
 
-    <!-- FOOTER -->
-    <footer
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24 pt-8 border-t border-line flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left"
-    >
-      <div class="font-mono text-xs text-muted">
-        <p>
-          Ready to deploy scalable ML architectures.
-          <br class="block md:hidden" />
-          <a
-            href="mailto:garvitjoshi46@gmail.com"
-            class="text-content hover:text-accent transition-colors font-bold md:ml-1"
-            >garvitjoshi46@gmail.com</a
-          >
-        </p>
-        <p class="mt-2">
-          System Time:
-          <span id="dynamic-date" class="text-content font-semibold"></span>
-        </p>
+      <!-- Academic and Accreditations Block -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="border-b border-labBorder pb-4">
+          <span class="font-mono text-[9px] sm:text-[10px] text-labSecondary tracking-widest uppercase font-bold">[
+            CREDENTIAL STATS ]</span>
+          <h3 class="font-serif text-2xl sm:text-3xl font-extrabold mt-1">Scholastic Standings</h3>
+        </div>
+
+        <div class="space-y-6">
+          <div class="bg-labSurface border-2 border-labBorder p-4 sm:p-5 rounded-2xl shadow-brutalist">
+            <span class="font-mono text-[9px] text-labAccent font-bold uppercase tracking-widest block mb-1">Graduation
+              Jul 2025</span>
+            <h4 class="font-serif text-lg sm:text-xl font-extrabold">B.Tech in Computer Science</h4>
+            <span class="font-mono text-xs text-labMuted block uppercase mt-1">Lovely Professional University</span>
+            <div
+              class="mt-4 flex flex-wrap gap-2 justify-between items-center pt-3 border-t border-labBorder/10 font-mono text-xs">
+              <span>Specialization: Data Science (AI & ML)</span>
+              <span class="text-labAccent font-bold">CGPA: 7.61</span>
+            </div>
+          </div>
+
+          <div class="bg-labSurface border-2 border-labBorder p-4 sm:p-5 rounded-2xl shadow-brutalist space-y-4">
+            <span class="font-mono text-[9px] text-labSecondary font-bold uppercase tracking-widest block">[
+              ACCREDITATIONS ]</span>
+
+            <div class="space-y-3 font-mono text-xs text-labMuted">
+              <div class="flex justify-between items-center border-b border-labBorder/10 pb-2">
+                <span>Amazon ML Summer School</span>
+                <span class="text-labText font-bold">Top 5% Selection</span>
+              </div>
+              <div class="flex justify-between items-center border-b border-labBorder/10 pb-2">
+                <span>AWS DeepRacer League</span>
+                <span class="text-labText font-bold">Top 10% India</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span>GFG CodeKaze Score</span>
+                <span class="text-labText font-bold">Top 11% Global</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="flex gap-6 justify-center">
-        <a
-          href="https://github.com/Garvitjoshi1"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="GitHub"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-            ></path>
-          </svg>
+    </section>
+
+    <section
+      class="border-2 border-labBorder bg-labSurface p-6 sm:p-8 md:p-16 rounded-2xl text-center relative overflow-hidden shadow-brutalist">
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-labAccent/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-48 h-48 bg-labSecondary/5 rounded-full blur-3xl pointer-events-none">
+      </div>
+
+      <span class="font-mono text-xs text-labAccent tracking-widest uppercase font-bold block mb-3">[ TERMINAL
+        CONVERGENCE ]</span>
+      <h2
+        class="font-serif font-extrabold text-3xl sm:text-5xl md:text-6xl text-labText tracking-tight mb-4 text-balance">
+        Initialize Collaboration?
+      </h2>
+      <p class="font-mono text-[10px] sm:text-xs text-labMuted max-w-xl mx-auto mb-8 uppercase tracking-widest">
+        The models are converged. The pipelines are stable. Ready to deploy high-throughput solutions together.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a href="mailto:garvitjoshi46@gmail.com"
+          class="elastic-button w-full sm:w-auto bg-labSecondary text-white border border-labBorder px-6 py-3.5 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
+          Execute Training Pipeline
         </a>
-        <a
-          href="https://www.linkedin.com/in/garvitjoshi01"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="LinkedIn"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-            ></path>
-            <rect x="2" y="9" width="4" height="12"></rect>
-            <circle cx="4" cy="4" r="2"></circle>
-          </svg>
-        </a>
-        <a
-          href="https://leetcode.com/u/Garvit46/"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="LeetCode"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <polyline points="16 18 22 12 16 6"></polyline>
-            <polyline points="8 6 2 12 8 18"></polyline>
-          </svg>
-        </a>
-        <a
-          href="https://www.kaggle.com/garvit46"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="Kaggle"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-            ></path>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-          </svg>
+        <a href="https://www.linkedin.com/in/garvitjoshi01" target="_blank"
+          class="elastic-button w-full sm:w-auto bg-labSurface text-labText border border-labBorder px-6 py-3.5 rounded font-mono text-xs tracking-widest uppercase font-bold text-center">
+          Backpropagate (LinkedIn)
         </a>
       </div>
-    </footer>
+    </section>
+  </main>
 
-    <!-- Scripts -->
-    <script>
-      // 0. Theme Switching Logic
-      function setTheme(theme) {
-        const root = document.documentElement;
-        if (theme === "system") {
-          localStorage.removeItem("theme");
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            root.classList.add("dark");
-          } else {
-            root.classList.remove("dark");
+  <footer
+    class="border-t border-labBorder py-8 sm:py-12 px-4 sm:px-6 md:px-12 bg-labSurface relative z-20 text-center font-mono text-[10px] sm:text-[11px] text-labMuted">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="space-y-1 md:text-left">
+        <p>© 2026 Garvit Joshi. Optimized for all viewports.</p>
+        <p class="text-[9px] sm:text-[10px]">Made with fluid structural grids, zero horizontal overflow.</p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 sm:gap-4 justify-center text-[9px] sm:text-[10px]">
+        <a href="https://github.com/Garvitjoshi1" target="_blank"
+          class="hover:text-labAccent transition-colors">GITHUB</a>
+        <span>•</span>
+        <a href="https://www.linkedin.com/in/garvitjoshi01" target="_blank"
+          class="hover:text-labAccent transition-colors">LINKEDIN</a>
+        <span>•</span>
+        <a href="https://leetcode.com/u/Garvit46/" target="_blank"
+          class="hover:text-labAccent transition-colors">LEETCODE</a>
+        <span>•</span>
+        <a href="https://www.kaggle.com/garvit46" target="_blank"
+          class="hover:text-labAccent transition-colors">KAGGLE</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom toast element -->
+  <div id="lab-toast"
+    class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 z-50 bg-labSurface border-2 border-labBorder p-4 rounded-xl shadow-brutalist translate-y-24 opacity-0 transition-all duration-300 pointer-events-none sm:max-w-sm">
+    <div class="flex items-start gap-3">
+      <span class="text-labAccent font-bold font-mono">❯</span>
+      <div>
+        <h4 class="font-mono text-xs font-bold text-labText uppercase" id="toast-title">SYSTEM EVENT</h4>
+        <p class="text-[11px] sm:text-xs text-labMuted mt-1" id="toast-body">Configuration optimized successfully.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let learningRate = 0.05;
+    let physicsNodes = [];
+    const canvas = document.getElementById("neural-canvas");
+    const ctx = canvas.getContext("2d");
+
+    // System live clock script
+    function updateLiveClock() {
+      const date = new Date();
+      const options = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+      const clockEl = document.getElementById("lab-clock");
+      if (clockEl) {
+        clockEl.innerText = `DEHRADUN, IN | ${date.toLocaleTimeString('en-US', options)}`;
+      }
+    }
+    setInterval(updateLiveClock, 1000);
+    updateLiveClock();
+
+    // Custom Viewfinder setup for Desktop
+    const viewfinder = document.getElementById("lab-viewfinder");
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let currentX = window.innerWidth / 2;
+    let currentY = window.innerHeight / 2;
+
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateCursor() {
+      const dx = mouseX - currentX;
+      const dy = mouseY - currentY;
+      currentX += dx * 0.15;
+      currentY += dy * 0.15;
+
+      if (viewfinder) {
+        viewfinder.style.transform = `translate3d(${currentX}px, ${currentY}px, 0)`;
+      }
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Viewfinder dynamic scaling trackers
+    const dynamicTargets = document.querySelectorAll("a, button, input, [role='button'], .sticker");
+    dynamicTargets.forEach(elem => {
+      elem.addEventListener("pointerenter", () => {
+        if (viewfinder) {
+          const innerDiv = viewfinder.querySelector("div");
+          innerDiv.classList.remove("scale-100");
+          innerDiv.classList.add("scale-150", "border-labAccent", "bg-labAccent/10");
+        }
+      });
+      elem.addEventListener("pointerleave", () => {
+        if (viewfinder) {
+          const innerDiv = viewfinder.querySelector("div");
+          innerDiv.classList.remove("scale-150", "border-labAccent", "bg-labAccent/10");
+          innerDiv.classList.add("scale-100");
+        }
+      });
+    });
+
+    const stickers = document.querySelectorAll(".sticker");
+    const stickerContainer = document.getElementById("sticker-container");
+
+    function initializeStickerPositions() {
+      if (!stickerContainer) return;
+      const containerWidth = stickerContainer.clientWidth;
+      const containerHeight = stickerContainer.clientHeight;
+
+      stickers.forEach((sticker) => {
+        // Programmatically scale placement margins dynamically to keep inside container bounds
+        const maxLeft = containerWidth - sticker.clientWidth - 16;
+        const maxTop = containerHeight - sticker.clientHeight - 16;
+
+        // Uniform pseudo-randomized coordinates safely distributed
+        const randomLeft = Math.max(8, Math.floor(Math.random() * maxLeft));
+        const randomTop = Math.max(8, Math.floor(Math.random() * maxTop));
+        const randTilt = Math.floor(Math.random() * 16) - 8;
+
+        sticker.style.left = `${randomLeft}px`;
+        sticker.style.top = `${randomTop}px`;
+        sticker.style.transform = `scale(1) rotate(${randTilt}deg)`;
+      });
+    }
+
+    stickers.forEach((sticker) => {
+      let isDragging = false;
+      let startX, startY, origLeft, origTop;
+
+      sticker.addEventListener("pointerdown", (e) => {
+        isDragging = true;
+        sticker.style.zIndex = "100";
+        startX = e.clientX;
+        startY = e.clientY;
+        origLeft = sticker.offsetLeft;
+        origTop = sticker.offsetTop;
+        sticker.setPointerCapture(e.pointerId);
+        sticker.style.transform = "scale(1.05) rotate(0deg)";
+      });
+
+      sticker.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        let targetLeft = origLeft + dx;
+        let targetTop = origTop + dy;
+
+        // Boundary bounds clamping to lock stickers safely inside the card
+        const containerWidth = stickerContainer.clientWidth;
+        const containerHeight = stickerContainer.clientHeight;
+        const maxLeft = containerWidth - sticker.clientWidth;
+        const maxTop = containerHeight - sticker.clientHeight;
+
+        targetLeft = Math.max(0, Math.min(targetLeft, maxLeft));
+        targetTop = Math.max(0, Math.min(targetTop, maxTop));
+
+        sticker.style.left = `${targetLeft}px`;
+        sticker.style.top = `${targetTop}px`;
+      });
+
+      sticker.addEventListener("pointerup", (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        sticker.releasePointerCapture(e.pointerId);
+        const randTilt = Math.floor(Math.random() * 16) - 8;
+        sticker.style.transform = `scale(1) rotate(${randTilt}deg)`;
+        sticker.style.zIndex = "";
+        triggerToast("STICKER INTEGRATED", "Badge coordinates clamped securely within viewport boundaries.");
+      });
+    });
+
+    // Toast system script
+    let toastTimeout;
+    function triggerToast(title, body) {
+      const toast = document.getElementById("lab-toast");
+      if (!toast) return;
+      document.getElementById("toast-title").innerText = title;
+      document.getElementById("toast-body").innerText = body;
+
+      toast.classList.remove("translate-y-24", "opacity-0", "pointer-events-none");
+      toast.classList.add("translate-y-0", "opacity-100");
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add("translate-y-24", "opacity-0", "pointer-events-none");
+        toast.classList.remove("translate-y-0", "opacity-100");
+      }, 3000);
+    }
+
+    function extractWeights() {
+      triggerToast("WEIGHTS EXPORTED", "Garvit_Joshi_MLE_CV.pdf initialized. Output streaming stable.");
+      setTimeout(() => {
+        window.open("https://github.com/Garvitjoshi1", "_blank");
+      }, 1200);
+    }
+
+    function getCanvasColors() {
+      const isDark = document.documentElement.classList.contains("dark");
+      return {
+        accent: isDark ? "#60A5FA" : "#2563EB",
+        secondary: isDark ? "#F87171" : "#EF4444",
+        line: isDark ? "rgba(96, 165, 250, 0.28)" : "rgba(37, 99, 235, 0.22)",
+        dotGrid: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(0, 0, 0, 0.05)"
+      };
+    }
+
+    function resizeCanvas() {
+      if (!canvas) return;
+      const container = canvas.parentElement;
+      canvas.width = container.clientWidth;
+      canvas.height = container.clientHeight || 350;
+      document.getElementById("canvas-telemetry").innerText = `${canvas.width}x${canvas.height}`;
+
+      // Ensure resizing bounds existing vector nodes inside viewport limits
+      physicsNodes.forEach(node => {
+        if (node.x > canvas.width) node.x = canvas.width - 10;
+        if (node.y > canvas.height) node.y = canvas.height - 10;
+      });
+    }
+
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      initializeStickerPositions();
+    });
+
+    class Neuron {
+      constructor(x, y, fixed = false) {
+        this.x = x || Math.random() * canvas.width;
+        this.y = y || Math.random() * canvas.height;
+        this.vx = fixed ? 0 : (Math.random() - 0.5) * 2;
+        this.vy = fixed ? 0 : (Math.random() - 0.5) * 2;
+        this.radius = Math.random() * 3 + 2;
+        this.fixed = fixed;
+      }
+
+      update() {
+        if (this.fixed) return;
+        this.x += this.vx * (learningRate * 10);
+        this.y += this.vy * (learningRate * 10);
+
+        // Bounce limits inside canvas frame
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw(colors) {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.fixed ? colors.secondary : colors.accent;
+        ctx.fill();
+      }
+    }
+
+    function initNeurons() {
+      physicsNodes = [];
+      const count = Math.min(45, Math.floor(canvas.width / 15));
+      for (let i = 0; i < count; i++) {
+        physicsNodes.push(new Neuron());
+      }
+    }
+
+    canvas.addEventListener("click", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      physicsNodes.push(new Neuron(x, y, true));
+      triggerToast("ANCHOR INJECTED", `Static validation node set at [${Math.floor(x)}, ${Math.floor(y)}].`);
+    });
+
+    function clearNeurons() {
+      initNeurons();
+      triggerToast("FIELD RESET", "Cleared custom anchor variables. Baseline physical field restored.");
+    }
+
+    function triggerConvergence() {
+      physicsNodes.forEach(node => {
+        node.vx = (canvas.width / 2 - node.x) * 0.02;
+        node.vy = (canvas.height / 2 - node.y) * 0.02;
+      });
+      triggerToast("CONVERGENCE ORDERED", "Global parameter weights directed inward towards coordinate center.");
+    }
+
+    function adjustLearningRate(val) {
+      learningRate = parseFloat(val);
+      document.getElementById("lr-val").innerText = learningRate.toFixed(2);
+    }
+
+    function renderCanvas() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const colors = getCanvasColors();
+
+      for (let i = 0; i < physicsNodes.length; i++) {
+        for (let j = i + 1; j < physicsNodes.length; j++) {
+          const dx = physicsNodes[i].x - physicsNodes[j].x;
+          const dy = physicsNodes[i].y - physicsNodes[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(physicsNodes[i].x, physicsNodes[i].y);
+            ctx.lineTo(physicsNodes[j].x, physicsNodes[j].y);
+            ctx.strokeStyle = colors.line;
+            ctx.lineWidth = 1.2 * (1 - dist / 100);
+            ctx.stroke();
           }
-        } else if (theme === "dark") {
-          root.classList.add("dark");
-          localStorage.setItem("theme", "dark");
-        } else {
-          root.classList.remove("dark");
-          localStorage.setItem("theme", "light");
         }
       }
 
-      // Listen for system theme changes if set to system
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", (e) => {
-          if (!localStorage.getItem("theme")) {
-            if (e.matches) {
-              document.documentElement.classList.add("dark");
-            } else {
-              document.documentElement.classList.remove("dark");
-            }
-          }
-        });
+      physicsNodes.forEach(node => {
+        node.update();
+        node.draw(colors);
+      });
 
-      // 1. Live Training Log Generator (Optimized for performance)
-      const logsContainer = document.getElementById("bg-training-logs");
-      let epoch = 1;
-      let logTimeout;
+      requestAnimationFrame(renderCanvas);
+    }
 
-      function generateLog() {
-        // Pause animation if user is not on tab to save CPU on mobile
-        if (document.hidden || !logsContainer || window.innerWidth < 768) {
-          logTimeout = setTimeout(generateLog, 2000);
-          return;
-        }
-
-        const loss = (Math.random() * 0.5 + 0.01).toFixed(4);
-        const valLoss = (parseFloat(loss) + Math.random() * 0.05).toFixed(4);
-        const time = Math.floor(Math.random() * 120 + 20);
-
-        const logLine = document.createElement("div");
-        logLine.className = "whitespace-nowrap transition-all duration-300";
-        logLine.innerText = `[INFO] Epoch ${epoch.toString().padStart(4, "0")}/5000 | loss: ${loss} - val_loss: ${valLoss} - time: ${time}ms - lr: 1e-4`;
-
-        if (Math.random() > 0.8) {
-          logLine.classList.add("text-accent", "text-glow", "font-bold");
-          logLine.innerText += " --> [VAL_LOSS DECREASED, SAVING TENSORS]";
-        }
-
-        logsContainer.appendChild(logLine);
-
-        if (logsContainer.children.length > 15) {
-          logsContainer.removeChild(logsContainer.firstChild);
-        }
-
-        epoch++;
-        logTimeout = setTimeout(generateLog, Math.random() * 1000 + 400);
+    // Lights out toggle switch
+    function toggleLaboratoryLights() {
+      const html = document.documentElement;
+      const label = document.getElementById("lights-label");
+      if (html.classList.contains("dark")) {
+        html.classList.remove("dark");
+        label.innerText = "Lights Out";
+        triggerToast("THEME CONVERTED", "Aesthetic converted to Light Cream Lookbook.");
+      } else {
+        html.classList.add("dark");
+        label.innerText = "Lights On";
+        triggerToast("THEME CONVERTED", "Aesthetic converted to Darkroom Environment.");
       }
+    }
 
-      // Start logs with slight delay
-      setTimeout(generateLog, 1500);
+    // Confetti trigger module
+    function triggerStickerConfetti() {
+      confetti({
+        particleCount: 65,
+        spread: 55,
+        origin: { y: 0.8 },
+        colors: ['#2563EB', '#EF4444', '#F4C542', '#10B981']
+      });
+      triggerToast("METRIC COMPILED", "Confetti explosion dispatched safely to layout layer.");
+    }
 
-      // 2. Dynamic Timestamps
-      document.getElementById("dynamic-date").innerText =
-        new Date().toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
-        });
+    window.onload = function () {
+      resizeCanvas();
+      initNeurons();
+      renderCanvas();
+      setTimeout(initializeStickerPositions, 200);
+    }
+  </script>
+</body>
 
-      // 3. Download Resume (Placeholder action)
-      function downloadResume() {
-        alert("Action: Download Garvit_Joshi_MLE_Resume.pdf");
-      }
-
-      // 4. Interactive Terminal Logic
-      const terminalOutput = document.getElementById("terminal-output");
-      const terminalInput = document.getElementById("terminal-input");
-
-      const knowledgeBase = [
-        {
-          keys: ["imbalanced", "smote", "class"],
-          response:
-            "For imbalanced datasets, I rely on techniques like SMOTE for oversampling, and apply focal loss or class weights during training rather than standard cross-entropy.",
-        },
-        {
-          keys: ["vision", "cv", "object", "image"],
-          response:
-            "In Computer Vision, I've built Defect Detection pipelines using CNNs/PyTorch. A major challenge is augmentation strategy and thresholding NMS to ensure high mAP without tanking FPS.",
-        },
-        {
-          keys: ["consensus", "aegis", "hallucination", "llm"],
-          response:
-            "Aegis Council is my solution to LLM hallucinations. By querying models at varied temperatures and enforcing Pydantic schemas, I create a deterministic consensus gate.",
-        },
-        {
-          keys: ["hire", "work", "job", "role"],
-          response:
-            "I'm looking for Machine Learning Engineer roles to build and scale predictive models. Initialize contact at garvitjoshi46@gmail.com.",
-        },
-        {
-          keys: ["stack", "tech", "tools"],
-          response:
-            "Core ML stack: PyTorch, XGBoost, Scikit-Learn. I also write backend code in FastAPI to serve models, and containerize them using Docker.",
-        },
-        {
-          keys: ["metric", "accuracy", "evaluate"],
-          response:
-            "Accuracy is often a trap. Depending on the domain, I focus on Recall (e.g. healthcare), Precision (finance), or mAP (object detection).",
-        },
-      ];
-
-      function handleTerminal(e) {
-        e.preventDefault();
-        const query = terminalInput.value.trim();
-        if (!query) return;
-
-        addTerminalLine(`❯ ${query}`, "text-content font-bold");
-        terminalInput.value = "";
-
-        const thinkId = addTerminalLine(
-          "Running inference...",
-          "text-muted animate-pulse",
-        );
-
-        setTimeout(() => {
-          document.getElementById(thinkId).remove();
-
-          let response =
-            "I'm an ML agent. Ask about 'imbalanced data', 'vision', 'consensus/LLMs', or my 'stack'.";
-          const queryLower = query.toLowerCase();
-
-          for (let item of knowledgeBase) {
-            if (item.keys.some((key) => queryLower.includes(key))) {
-              response = item.response;
-              break;
-            }
-          }
-
-          addTerminalLine(response, "text-accent text-glow font-medium");
-          terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        }, 600);
-      }
-
-      function addTerminalLine(text, className) {
-        const id = "line-" + Date.now();
-        const p = document.createElement("p");
-        p.id = id;
-        p.className = `mt-1.5 ${className} leading-relaxed`;
-        p.innerText = text;
-        terminalOutput.appendChild(p);
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        return id;
-      }
-    </script>
-  </body>
 </html>
