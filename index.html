@@ -1,1313 +1,2201 @@
 <!doctype html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Garvit Joshi | Machine Learning Engineer</title>
+<html lang="en" class="scroll-smooth dark">
 
-    <!-- Meta tag for theme color switching -->
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: light)"
-      content="#FAFAFA"
-    />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="#050505"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>Garvit Joshi | The Overfit — A Netflix Original Series</title>
 
-    <!-- Google Fonts: Inter & JetBrains Mono (Preconnected for speed) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Theme colors for native UI -->
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0A0A0A" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FAFAF8" />
 
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet" />
 
-    <!-- Theme Initialization Script (Must run before DOM load to prevent flash) -->
-    <script>
-      function getInitialTheme() {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-          return savedTheme;
-        }
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
-      }
-      if (getInitialTheme() === "dark") {
-        document.documentElement.classList.add("dark");
-      }
-    </script>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Custom Tailwind Configuration -->
-    <script>
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              base: "var(--bg-base)",
-              content: "var(--text-main)",
-              accent: "var(--accent)",
-              muted: "var(--text-muted)",
-              surface: "var(--bg-surface)",
-              line: "var(--border-line)",
-              error: "var(--error)",
-              termbg: "var(--terminal-bg)",
-              termheader: "var(--terminal-header)",
-            },
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-              mono: ["JetBrains Mono", "monospace"],
-            },
-            animation: {
-              marquee: "marquee 30s linear infinite",
-              "fade-in": "fadeIn 0.5s ease-out forwards",
-              "glitch-anim": "glitch 2s linear infinite",
-            },
-            keyframes: {
-              marquee: {
-                "0%": { transform: "translateX(0)" },
-                "100%": { transform: "translateX(-50%)" },
-              },
-              fadeIn: {
-                "0%": { opacity: "0", transform: "translateY(10px)" },
-                "100%": { opacity: "1", transform: "translateY(0)" },
-              },
-              glitch: {
-                "2%, 64%": { transform: "translate(2px,0) skew(0deg)" },
-                "4%, 60%": { transform: "translate(-2px,0) skew(0deg)" },
-                "62%": { transform: "translate(0,0) skew(5deg)" },
-              },
-            },
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            // Dark mode (Netflix)
+            netflixBlack: '#0A0A0A',
+            netflixDark: '#141414',
+            netflixCard: '#1A1A1A',
+            netflixRed: '#E50914',
+            netflixGold: '#F5C518',
+            netflixWhite: '#F5F5F1',
+            netflixMuted: '#A8A8A8',
+            // Light mode (Cinema Lights On)
+            cinemaCream: '#FAFAF8',
+            cinemaWhite: '#FFFFFF',
+            cinemaCharcoal: '#1A1A1A',
+            cinemaMuted: '#6B6B6B',
+            cinemaBorder: '#E8E6E3',
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          boxShadow: {
+            netflix: '0 8px 40px rgba(0,0,0,0.8)',
+            netflixGlow: '0 0 60px rgba(229, 9, 20, 0.25)',
+            cinema: '0 8px 40px rgba(0,0,0,0.08)',
           },
         },
-      };
-    </script>
+      },
+    }
+  </script>
 
-    <style>
-      /* CSS Variables for Lightning-Fast Theme Switching */
-      :root {
-        --bg-base: #f4f4f5; /* Crisp, technical light grey background */
-        --text-main: #000000; /* Pure black for Ultra-HD clarity */
-        --text-muted: #52525b; /* Deep grey for readable secondary text */
-        --accent: #ff3300; /* Aggressive Tech Orange/Red for the "maniac" vibe */
-        --bg-surface: #ffffff; /* Pure white for popping cards */
-        --border-line: #a1a1aa; /* Stronger, schematic-like borders */
-        --error: #dc2626;
-        --terminal-bg: #fafafa;
-        --terminal-header: #e4e4e7;
-        --glow-shadow: rgba(255, 51, 0, 0.35); /* Vibrant orange glow */
-        --scanline-opacity: 0.08;
-      }
+  <style>
+    /* ===== CSS VARIABLES FOR THEME SWITCHING ===== */
+    :root {
+      /* Dark mode defaults (Netflix) */
+      --bg-primary: #0A0A0A;
+      --bg-secondary: #141414;
+      --bg-card: #1A1A1A;
+      --bg-card-hover: #222222;
+      --text-primary: #F5F5F1;
+      --text-secondary: #A8A8A8;
+      --text-muted: rgba(255, 255, 255, 0.4);
+      --border-color: rgba(255, 255, 255, 0.06);
+      --border-hover: rgba(229, 9, 20, 0.4);
+      --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 60px rgba(229, 9, 20, 0.15);
+      --overlay-gradient: rgba(10, 10, 10, 0.92);
+      --hero-overlay: rgba(10, 10, 10, 0.6);
+      --scrollbar-track: #0A0A0A;
+      --scrollbar-thumb: #E50914;
+      --cursor-border: rgba(245, 245, 241, 0.35);
+      --cursor-dot: rgba(245, 245, 241, 0.6);
+      --toast-bg: #1A1A1A;
+      --toast-border: rgba(255, 255, 255, 0.08);
+      --input-bg: rgba(255, 255, 255, 0.05);
+    }
 
-      .dark {
-        --bg-base: #050505;
-        --text-main: #ffffff;
-        --text-muted: #8a8f9e;
-        --accent: #00ff41; /* Neon Terminal Green */
-        --bg-surface: #0a0a0f;
-        --border-line: #1f2937;
-        --error: #ff003c;
-        --terminal-bg: #050505;
-        --terminal-header: #1f2937;
-        --glow-shadow: rgba(0, 255, 65, 0.6);
-        --scanline-opacity: 0.3;
-      }
+    /* Light mode (Cinema Lights On) */
+    html:not(.dark) {
+      --bg-primary: #FAFAF8;
+      --bg-secondary: #F5F3F0;
+      --bg-card: #FFFFFF;
+      --bg-card-hover: #F8F6F4;
+      --text-primary: #1A1A1A;
+      --text-secondary: #6B6B6B;
+      --text-muted: rgba(0, 0, 0, 0.35);
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-hover: rgba(229, 9, 20, 0.3);
+      --shadow-card: 0 8px 40px rgba(0, 0, 0, 0.08);
+      --shadow-glow: 0 0 60px rgba(229, 9, 20, 0.08);
+      --overlay-gradient: rgba(255, 255, 255, 0.95);
+      --hero-overlay: rgba(255, 255, 255, 0.5);
+      --scrollbar-track: #FAFAF8;
+      --scrollbar-thumb: #E50914;
+      --cursor-border: rgba(26, 26, 26, 0.3);
+      --cursor-dot: rgba(26, 26, 26, 0.5);
+      --toast-bg: #FFFFFF;
+      --toast-border: rgba(0, 0, 0, 0.08);
+      --input-bg: rgba(0, 0, 0, 0.04);
+    }
 
+    /* ===== BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      cursor: default;
+      transition: background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--scrollbar-track);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb);
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #F5C518;
+    }
+
+    /* ===== CURSOR (desktop only) ===== */
+    #netflix-cursor {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1.5px solid var(--cursor-border);
+      background: transparent;
+      transform: translate3d(-50%, -50%, 0);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        height 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: none;
+      will-change: transform;
+    }
+
+    #netflix-cursor .dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--cursor-dot);
+      transition: background 0.25s ease, width 0.25s ease, height 0.25s ease;
+    }
+
+    #netflix-cursor.expanded {
+      width: 52px;
+      height: 52px;
+      border-color: #E50914;
+      background: rgba(229, 9, 20, 0.08);
+    }
+
+    #netflix-cursor.expanded .dot {
+      background: #E50914;
+      width: 6px;
+      height: 6px;
+    }
+
+    @media (min-width: 1024px) {
       body {
-        background-color: var(--bg-base);
-        color: var(--text-main);
-        overflow-x: hidden;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        transition:
-          background-color 0.3s ease,
-          color 0.3s ease;
+        cursor: none;
       }
 
-      /* Web Performance: Defer rendering of off-screen elements */
-      .render-optim {
-        content-visibility: auto;
-        contain-intrinsic-size: 1px 500px;
+      #netflix-cursor {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      #netflix-cursor {
+        display: none !important;
+      }
+    }
+
+    /* ===== SCROLL PROGRESS ===== */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: #E50914;
+      z-index: 100;
+      width: 0%;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 30px rgba(229, 9, 20, 0.3);
+    }
+
+    /* ===== HERO ===== */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg .gradient-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: linear-gradient(to right, var(--bg-primary) 0%, var(--bg-primary) 20%, transparent 70%);
+    }
+
+    .hero-bg .gradient-overlay-bottom {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      background: linear-gradient(to top, var(--bg-primary) 0%, transparent 60%);
+    }
+
+    .hero-bg .accent-glow {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: radial-gradient(ellipse at 70% 50%, rgba(229, 9, 20, 0.15) 0%, transparent 70%);
+      transition: opacity 0.5s ease;
+    }
+
+    html:not(.dark) .hero-bg .accent-glow {
+      opacity: 0.3;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      opacity: 0.35;
+      transition: opacity 0.5s ease;
+    }
+
+    html:not(.dark) .hero-bg img {
+      opacity: 0.12;
+    }
+
+    /* ===== EPISODE ROW ===== */
+    .episode-row {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding: 12px 4px 24px 4px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+    }
+
+    .episode-row::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .episode-row::-webkit-scrollbar-track {
+      background: var(--border-color);
+      border-radius: 2px;
+    }
+
+    .episode-row::-webkit-scrollbar-thumb {
+      background: #E50914;
+      border-radius: 2px;
+    }
+
+    .episode-card {
+      flex: 0 0 260px;
+      background: var(--bg-card);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+        border-color 0.3s ease,
+        background 0.4s ease;
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      will-change: transform;
+      position: relative;
+      scroll-snap-align: start;
+    }
+
+    .episode-card:hover {
+      transform: scale(1.04) translateY(-6px);
+      border-color: #E50914;
+      box-shadow: var(--shadow-card), 0 0 40px rgba(229, 9, 20, 0.12);
+      z-index: 10;
+      background: var(--bg-card-hover);
+    }
+
+    @media (max-width: 480px) {
+      .episode-card {
+        flex: 0 0 200px;
       }
 
-      /* CRT Scanlines Overlay */
-      .scanlines {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background:
-          linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-          linear-gradient(
-            90deg,
-            rgba(255, 0, 0, 0.06),
-            rgba(0, 255, 0, 0.02),
-            rgba(0, 0, 255, 0.06)
-          );
-        background-size:
-          100% 4px,
-          3px 100%;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: var(--scanline-opacity);
-        transition: opacity 0.3s ease;
+      .episode-card .card-thumb {
+        height: 110px !important;
       }
 
-      /* Subtle Grid Background */
-      .bg-grid {
-        background-size: 40px 40px;
-        background-image:
-          linear-gradient(to right, var(--border-line) 1px, transparent 1px),
-          linear-gradient(to bottom, var(--border-line) 1px, transparent 1px);
-        opacity: 0.4;
+      .episode-card .card-body h3 {
+        font-size: 15px !important;
       }
 
-      /* Clean Editorial Hover */
-      .article-card {
-        transition:
-          border-color 0.2s ease,
-          background-color 0.2s ease,
-          box-shadow 0.2s ease;
+      .episode-card .card-body p {
+        font-size: 11px !important;
+        -webkit-line-clamp: 2 !important;
+        line-clamp: 2 !important;
       }
-      .article-card:hover {
-        border-color: var(--accent);
-        background-color: var(--bg-surface);
+    }
+
+    @media (min-width: 481px) and (max-width: 768px) {
+      .episode-card {
+        flex: 0 0 220px;
       }
 
-      /* Minimal Link Underline */
-      .hover-underline {
-        position: relative;
-        text-decoration: none;
+      .episode-card .card-thumb {
+        height: 130px !important;
       }
-      .hover-underline::after {
-        content: "";
-        position: absolute;
+    }
+
+    .episode-card .card-thumb {
+      width: 100%;
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s ease;
+    }
+
+    .episode-card .card-thumb .episode-number {
+      position: absolute;
+      bottom: 8px;
+      right: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .episode-card .card-thumb .play-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .episode-card:hover .card-thumb .play-overlay {
+      opacity: 1;
+    }
+
+    .episode-card .card-thumb .play-overlay svg {
+      width: 44px;
+      height: 44px;
+      fill: #E50914;
+      filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.5));
+      transform: scale(0.8);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .episode-card:hover .card-thumb .play-overlay svg {
+      transform: scale(1);
+    }
+
+    .episode-card .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .episode-card .card-body .match-score {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #F5C518;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .episode-card .card-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-top: 4px;
+      line-height: 1.2;
+      transition: color 0.3s ease;
+      color: var(--text-primary);
+    }
+
+    .episode-card:hover .card-body h3 {
+      color: #E50914;
+    }
+
+    .episode-card .card-body p {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-top: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .episode-card .card-body .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 8px;
+    }
+
+    .episode-card .card-body .tags span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 8px;
+      background: var(--input-bg);
+      border-radius: 4px;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+
+    /* ===== MODAL ===== */
+    #screenplay-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: var(--overlay-gradient);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: modalFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overscroll-behavior: contain;
+    }
+
+    #screenplay-modal.active {
+      display: flex;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    #screenplay-modal .modal-content {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      max-width: 1000px;
+      width: 100%;
+      max-height: 90vh;
+      max-height: 90dvh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    #screenplay-modal .modal-content::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #screenplay-modal .modal-content::-webkit-scrollbar-thumb {
+      background: #E50914;
+      border-radius: 2px;
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--bg-secondary);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10;
+      border-radius: 20px 20px 0 0;
+      transition: background 0.4s ease;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .modal-header .episode-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #E50914;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(229, 9, 20, 0.12);
+      padding: 4px 14px;
+      border-radius: 100px;
+      border: 1px solid rgba(229, 9, 20, 0.2);
+      white-space: nowrap;
+    }
+
+    .modal-header .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .modal-header .close-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 26px;
+      cursor: pointer;
+      transition: color 0.2s ease, transform 0.2s ease;
+      font-family: 'Inter', sans-serif;
+      line-height: 1;
+      padding: 4px 8px;
+    }
+
+    .modal-header .close-btn:hover {
+      color: #E50914;
+      transform: rotate(90deg);
+    }
+
+    .modal-body {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .modal-body {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 16px;
+      }
+
+      .modal-header .modal-title {
+        font-size: 16px;
+      }
+
+      .modal-header {
+        padding: 12px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #screenplay-modal {
+        padding: 8px;
+      }
+
+      .modal-body {
+        padding: 12px;
+        gap: 16px;
+      }
+
+      .modal-header .episode-badge {
+        font-size: 8px;
+        padding: 3px 10px;
+      }
+
+      .modal-header .modal-title {
+        font-size: 14px;
+      }
+    }
+
+    .modal-body .script-section {
+      font-family: 'Inter', sans-serif;
+    }
+
+    .modal-body .script-section .scene-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: #E50914;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .modal-body .script-section .script-line {
+      font-size: 13px;
+      line-height: 1.8;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .modal-body .script-section .script-line .character {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: #F5C518;
+      font-style: italic;
+    }
+
+    .modal-body .script-section .script-line .action {
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .modal-body .script-section .divider {
+      border: none;
+      border-top: 1px solid var(--border-color);
+      margin: 12px 0;
+    }
+
+    .modal-body .production-notes {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      height: fit-content;
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .modal-body .production-notes h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .modal-body .production-notes .note-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 12px;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .modal-body .production-notes .note-item:last-child {
+      border-bottom: none;
+    }
+
+    .modal-body .production-notes .note-item .label {
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    .modal-body .production-notes .note-item .value {
+      color: var(--text-primary);
+      font-weight: 600;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .modal-body .production-notes .note-item .value.accent {
+      color: #E50914;
+    }
+
+    .modal-body .production-notes .note-item .value.gold {
+      color: #F5C518;
+    }
+
+    .modal-footer-actions {
+      padding: 14px 20px 20px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      .modal-footer-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px 16px 16px;
+      }
+
+      .modal-footer-actions .github-link {
+        justify-content: center;
+      }
+
+      .modal-footer-actions .greenlight-btn {
         width: 100%;
-        transform: scaleX(0);
-        height: 1px;
-        bottom: 0;
-        left: 0;
-        background-color: var(--accent);
-        transform-origin: bottom right;
-        transition: transform 0.25s ease-out;
+        justify-content: center;
       }
-      .hover-underline:hover::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
+    }
 
-      /* YOLO Object Detection Bounding Box Hover */
-      .yolo-box {
-        position: relative;
-        transition: all 0.2s ease;
-      }
-      .yolo-box::before,
-      .yolo-box::after {
-        content: "";
-        position: absolute;
-        width: 15px;
-        height: 15px;
-        border: 2px solid var(--border-line);
-        transition: all 0.3s ease;
-        pointer-events: none;
-      }
-      .yolo-box::before {
-        top: -2px;
-        left: -2px;
-        border-right: none;
-        border-bottom: none;
-      }
-      .yolo-box::after {
-        bottom: -2px;
-        right: -2px;
-        border-left: none;
-        border-top: none;
-      }
-      .yolo-box:hover {
-        border-color: transparent;
-      }
-      .yolo-box:hover::before,
-      .yolo-box:hover::after {
-        width: calc(100% + 4px);
-        height: calc(100% + 4px);
-        border-color: var(--accent);
-        box-shadow: 0 0 10px var(--glow-shadow) inset;
-      }
+    .modal-footer-actions .greenlight-btn {
+      background: #E50914;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-      /* Glitch Typography */
-      .glitch-layer {
-        position: relative;
-      }
-      .glitch-layer::before,
-      .glitch-layer::after {
-        content: attr(data-text);
-        position: absolute;
-        top: 0;
-        left: 0;
+    .modal-footer-actions .greenlight-btn:hover {
+      background: #F5C518;
+      color: #0A0A0A;
+      transform: scale(1.02);
+    }
+
+    .modal-footer-actions .github-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      transition: color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-footer-actions .github-link:hover {
+      color: var(--text-primary);
+    }
+
+    /* ===== BUTTONS ===== */
+    .netflix-btn {
+      background: #E50914;
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+
+    .netflix-btn:hover {
+      background: #F5C518;
+      color: #0A0A0A;
+      transform: scale(1.02);
+      box-shadow: 0 0 40px rgba(229, 9, 20, 0.3);
+    }
+
+    .netflix-btn:active {
+      transform: scale(0.97);
+    }
+
+    .netflix-btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 12px 32px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+
+    .netflix-btn-outline:hover {
+      border-color: #E50914;
+      color: #E50914;
+      transform: scale(1.02);
+    }
+
+    .netflix-btn-outline:active {
+      transform: scale(0.97);
+    }
+
+    @media (max-width: 480px) {
+
+      .netflix-btn,
+      .netflix-btn-outline {
+        padding: 10px 20px;
+        font-size: 10px;
+        gap: 8px;
         width: 100%;
-        height: 100%;
-        opacity: 0.8;
-      }
-      .glitch-layer::before {
-        left: 2px;
-        text-shadow: -2px 0 var(--error);
-        clip: rect(44px, 450px, 56px, 0);
-        animation: glitch-anim 5s infinite linear alternate-reverse;
-      }
-      .glitch-layer::after {
-        left: -2px;
-        text-shadow: -2px 0 var(--accent);
-        clip: rect(44px, 450px, 56px, 0);
-        animation: glitch-anim 5s infinite linear alternate-reverse;
-        animation-delay: -2.5s;
+        justify-content: center;
       }
 
-      /* Glowing Terminal Text */
-      .text-glow {
-        text-shadow: 0 0 8px var(--glow-shadow);
+      .flex-wrap.gap-4 {
+        gap: 10px;
+      }
+    }
+
+    /* ===== CREDITS ROLL ===== */
+    @keyframes creditsScroll {
+      0% {
+        transform: translateY(20%);
       }
 
-      /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 6px;
+      100% {
+        transform: translateY(-100%);
       }
-      ::-webkit-scrollbar-track {
-        background: var(--bg-base);
+    }
+
+    .credits-roll {
+      animation: creditsScroll 50s linear infinite;
+      will-change: transform;
+    }
+
+    .credits-roll:hover {
+      animation-play-state: paused;
+    }
+
+    /* ===== TOAST ===== */
+    #toast-container {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+      max-width: 90vw;
+    }
+
+    @media (max-width: 480px) {
+      #toast-container {
+        bottom: 16px;
+        right: 16px;
+        left: 16px;
+        max-width: 100%;
       }
-      ::-webkit-scrollbar-thumb {
-        background: var(--border-line);
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--accent);
+    }
+
+    .toast-item {
+      background: var(--toast-bg);
+      border: 1px solid var(--toast-border);
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      pointer-events: auto;
+      animation: toastIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      max-width: 380px;
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .toast-item .toast-icon {
+      color: #E50914;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .toast-item .toast-close {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 0 4px;
+      flex-shrink: 0;
+      transition: color 0.2s ease;
+    }
+
+    .toast-item .toast-close:hover {
+      color: #E50914;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateX(40px) scale(0.95);
       }
 
-      /* Prevent overflow on mobile */
-      @media (max-width: 768px) {
-        .scanlines {
-          opacity: 0.05;
-        } /* Minimize scanline interference on mobile */
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
       }
-    </style>
-  </head>
-  <body
-    class="font-sans antialiased selection:bg-accent selection:text-base pb-16 relative"
-  >
-    <!-- Grid Overlay -->
-    <div class="fixed inset-0 bg-grid -z-20 pointer-events-none"></div>
+    }
 
-    <!-- CRT Overlay -->
-    <div class="scanlines"></div>
+    /* ===== HEADER ===== */
+    .site-header {
+      background: var(--bg-primary);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.4s ease, border-color 0.4s ease;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      padding: 10px 16px;
+    }
 
-    <!-- TICKER BAR -->
-    <div
-      class="fixed top-0 left-0 w-full z-40 border-b border-line bg-base/90 backdrop-blur font-mono text-[10px] md:text-xs font-bold uppercase overflow-hidden h-8 flex items-center text-muted shadow-sm"
-    >
-      <div
-        class="flex whitespace-nowrap animate-marquee w-[200%] md:w-[150%] lg:w-[100%]"
-      >
-        <!-- Group 1 -->
-        <span class="mx-6 text-accent text-glow">SYSTEM STATUS: OPTIMAL</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">P95 Inference Latency: < 120ms</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">Loss: 0.0412</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6">Multi-Model Consensus & Vision</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-accent text-glow">AVAILABLE FOR HIRE</span>
-        <!-- Group 2 (Duplicate for smooth scroll) -->
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-accent text-glow">SYSTEM STATUS: OPTIMAL</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">P95 Inference Latency: < 120ms</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-content">Loss: 0.0412</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6">Multi-Model Consensus & Vision</span>
-        <span class="mx-6 text-line">/</span>
-        <span class="mx-6 text-accent text-glow">AVAILABLE FOR HIRE</span>
+    @media (min-width: 768px) {
+      .site-header {
+        padding: 12px 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .site-header {
+        padding: 8px 12px;
+      }
+
+      .site-header .brand {
+        font-size: 16px !important;
+      }
+
+      .site-header .brand .season-tag {
+        font-size: 8px !important;
+      }
+
+      .site-header .header-actions button {
+        font-size: 8px !important;
+        padding: 4px 10px !important;
+      }
+
+      .site-header .header-actions .status-badge {
+        display: none !important;
+      }
+    }
+
+    .site-header .brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 900;
+      color: #E50914;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .site-header .brand:hover {
+      transform: scale(1.04);
+    }
+
+    .site-header .brand .season-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      letter-spacing: 2px;
+    }
+
+    .site-header .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .site-header .header-actions .status-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .site-header .header-actions .status-badge .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10B981;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
+
+    .site-header .header-actions button {
+      background: var(--input-bg);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+      padding: 5px 14px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      touch-action: manipulation;
+      white-space: nowrap;
+    }
+
+    .site-header .header-actions button:hover {
+      background: #E50914;
+      color: white;
+      border-color: #E50914;
+    }
+
+    .site-header .header-actions button:active {
+      transform: scale(0.95);
+    }
+
+    /* ===== RESPONSIVE HELPERS ===== */
+    .container-padding {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .container-padding {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .container-padding {
+        padding-left: 48px;
+        padding-right: 48px;
+      }
+    }
+
+    /* ===== SECTION TITLES ===== */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      color: var(--text-primary);
+      transition: color 0.4s ease;
+    }
+
+    .section-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: #E50914;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    /* ===== CARDS (experience/education) ===== */
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease, background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .info-card:hover {
+      border-color: rgba(229, 9, 20, 0.3);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-card);
+    }
+
+    @media (max-width: 480px) {
+      .info-card {
+        padding: 16px;
+      }
+
+      .info-card h3 {
+        font-size: 18px !important;
+      }
+    }
+
+    /* ===== SEASON FINALE CTA ===== */
+    .cta-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      padding: 32px 24px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    @media (min-width: 768px) {
+      .cta-box {
+        padding: 48px 64px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cta-box {
+        padding: 24px 16px;
+        border-radius: 16px;
+      }
+
+      .cta-box h2 {
+        font-size: 28px !important;
+      }
+    }
+
+    .cta-box .glow-1 {
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(229, 9, 20, 0.05);
+      pointer-events: none;
+      filter: blur(60px);
+      transition: opacity 0.4s ease;
+    }
+
+    .cta-box .glow-2 {
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(245, 197, 24, 0.04);
+      pointer-events: none;
+      filter: blur(60px);
+      transition: opacity 0.4s ease;
+    }
+
+    html:not(.dark) .cta-box .glow-1,
+    html:not(.dark) .cta-box .glow-2 {
+      opacity: 0.3;
+    }
+
+    /* ===== FOOTER CREDITS ===== */
+    .credits-container {
+      height: 280px;
+      overflow: hidden;
+      position: relative;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-primary);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    @media (max-width: 480px) {
+      .credits-container {
+        height: 200px;
+      }
+
+      .credits-container .credits-roll {
+        font-size: 8px !important;
+      }
+
+      .credits-container .credits-roll>div {
+        font-size: 8px !important;
+      }
+
+      .credits-container .credits-roll .credits-title {
+        font-size: 11px !important;
+      }
+
+      .credits-container .credits-roll .credits-label {
+        font-size: 10px !important;
+      }
+    }
+
+    .credits-container .credits-roll {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      animation: creditsScroll 45s linear infinite;
+      will-change: transform;
+      padding: 20px 0;
+    }
+
+    .credits-container .credits-roll:hover {
+      animation-play-state: paused;
+    }
+
+    .credits-container .credits-roll .credits-title {
+      color: #E50914;
+      font-weight: 900;
+      font-size: 14px;
+      letter-spacing: 3px;
+    }
+
+    .credits-container .credits-roll .credits-label {
+      color: var(--text-primary);
+      font-weight: 700;
+      font-size: 12px;
+      display: block;
+      margin-bottom: 4px;
+      letter-spacing: 2px;
+    }
+
+    .credits-container .credits-roll .credits-item {
+      margin-bottom: 20px;
+    }
+
+    /* ===== MODAL OVERLAY SCROLL LOCK ===== */
+    body.modal-open {
+      overflow: hidden;
+      padding-right: var(--scrollbar-width, 0px);
+    }
+
+    /* ===== SAFE AREA PADDING ===== */
+    @supports (padding: max(0px)) {
+      .safe-area-bottom {
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+      }
+
+      .safe-area-top {
+        padding-top: max(16px, env(safe-area-inset-top));
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== CURSOR ===== -->
+  <div id="netflix-cursor" aria-hidden="true">
+    <span class="dot"></span>
+  </div>
+
+  <!-- ===== SCROLL PROGRESS ===== -->
+  <div id="scroll-progress"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <a href="#" class="brand">
+        THE OVERFIT
+        <span class="season-tag">[ S01 ]</span>
+      </a>
+
+      <div class="header-actions">
+        <span class="status-badge">
+          <span class="dot"></span>
+          <span class="hidden sm:inline">Latent Space OK</span>
+        </span>
+
+        <button onclick="showToast('🎬 OVERTURE', 'Cinematic score activated. Bass at 110Hz.')"
+          aria-label="Play overture">
+          ▶ OVERTURE
+        </button>
+
+        <button onclick="toggleLights()" id="lights-toggle" aria-label="Toggle cinema lights">
+          <span id="lights-label">LIGHTS OFF</span>
+        </button>
       </div>
     </div>
+  </header>
 
-    <!-- THEME CONTROLLER -->
-    <div class="fixed top-12 right-4 md:right-8 z-50">
-      <div
-        class="bg-surface border border-line p-1 flex items-center gap-1 shadow-lg backdrop-blur-md"
-      >
-        <button
-          onclick="setTheme('light')"
-          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
-          title="Light Theme"
-          aria-label="Light Theme"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <circle cx="12" cy="12" r="5" />
-            <line x1="12" y1="1" x2="12" y2="3" />
-            <line x1="12" y1="21" x2="12" y2="23" />
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-            <line x1="1" y1="12" x2="3" y2="12" />
-            <line x1="21" y1="12" x2="23" y2="12" />
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-          </svg>
-        </button>
-        <button
-          onclick="setTheme('dark')"
-          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
-          title="Dark Theme"
-          aria-label="Dark Theme"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-          </svg>
-        </button>
-        <button
-          onclick="setTheme('system')"
-          class="p-2 text-muted hover:text-accent focus:text-accent transition-colors"
-          title="System Theme"
-          aria-label="System Theme"
-        >
-          <svg
-            width="14"
-            height="14"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-            <line x1="8" y1="21" x2="16" y2="21" />
-            <line x1="12" y1="17" x2="12" y2="21" />
-          </svg>
-        </button>
-      </div>
+  <!-- ===== HERO ===== -->
+  <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <!-- Background -->
+    <div class="hero-bg">
+      <div class="gradient-overlay"></div>
+      <div class="gradient-overlay-bottom"></div>
+      <div class="accent-glow"></div>
+      <img src="Linkedin.png" alt="Garvit Joshi" onerror="this.style.display='none'" loading="lazy" />
     </div>
 
-    <!-- MAIN EDITORIAL CONTAINER -->
-    <main
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 md:pt-28 relative"
-    >
-      <!-- Live Background Training Logs (Hidden on mobile for clarity and performance) -->
-      <div
-        id="bg-training-logs"
-        class="hidden md:block absolute top-32 right-0 w-full max-w-lg h-96 overflow-hidden font-mono text-[10px] text-accent/20 select-none pointer-events-none -z-10"
-        style="
-          mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-          -webkit-mask-image: linear-gradient(
-            to bottom,
-            black 50%,
-            transparent 100%
-          );
-        "
-      ></div>
-
-      <!-- HEADER -->
-      <header
-        class="mb-12 md:mb-16 border-b border-line pb-8 md:pb-12 relative animate-fade-in"
-      >
-        <div
-          class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 md:mb-8"
-        >
-          <div class="flex items-center gap-4">
-            <span
-              class="bg-accent text-base px-2 py-1 font-mono text-xs font-bold uppercase tracking-wider text-glow text-white shadow-sm"
-              >Garvit Joshi</span
-            >
-            <span class="font-mono text-xs text-muted flex items-center gap-2">
-              <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              Open to ML Engineer Roles
-            </span>
-          </div>
-          <div
-            class="font-mono text-xs text-muted uppercase tracking-wider md:text-right flex flex-wrap gap-4"
-          >
-            <a href="#projects" class="hover:text-accent transition-colors"
-              >Case Studies</a
-            >
-            <a href="#metrics" class="hover:text-accent transition-colors"
-              >Architecture</a
-            >
-          </div>
+    <div class="relative z-20 max-w-7xl mx-auto container-padding w-full py-12 md:py-20">
+      <div class="max-w-3xl space-y-5 md:space-y-6">
+        <div class="flex flex-wrap items-center gap-2 md:gap-3 font-mono text-[9px] md:text-[10px]">
+          <span class="bg-netflixRed text-white px-2.5 py-0.5 font-bold tracking-widest rounded-sm uppercase">Netflix
+            Original</span>
+          <span class="text-secondary" style="color:var(--text-secondary);">Series Premiere</span>
+          <span class="text-muted" style="color:var(--text-muted);">•</span>
+          <span class="text-netflixGold font-bold tracking-wider uppercase">★ Top 5% Amazon ML</span>
         </div>
 
-        <h1
-          class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4 md:mb-6 glitch-layer text-balance"
-          data-text="Machine Learning Engineer scaling predictive models & GenAI architectures."
-        >
-          Machine Learning Engineer scaling
-          <span class="text-accent text-glow">predictive models</span> & GenAI
-          architectures.
+        <h1 class="font-serif font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter leading-[1.05]">
+          <span class="text-netflixRed">GARVIT</span>
+          <span class="text-primary" style="color:var(--text-primary);">JOSHI</span>
         </h1>
 
-        <p
-          class="text-lg md:text-2xl text-muted font-medium mb-8 md:mb-10 max-w-4xl leading-relaxed text-balance"
-        >
-          <strong class="text-content"
-            >Bridging the gap between Jupyter notebooks and production
-            servers.</strong
-          >
-          I design, train, and deploy ML systems—specializing in deep learning
-          for computer vision, tabular data pipelines, and highly-reliable
-          multi-model LLM consensus mechanisms.
+        <p class="font-serif italic text-xl sm:text-2xl md:text-3xl" style="color:var(--text-secondary);">
+          "One engineer. Six projects. A trillion parameters."
         </p>
 
-        <div
-          class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4"
-        >
-          <a
-            href="mailto:garvitjoshi46@gmail.com"
-            class="bg-accent text-white hover:bg-content hover:text-base px-6 md:px-8 py-3 md:py-4 font-mono text-sm font-bold transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_var(--glow-shadow)] w-full sm:w-auto"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-              ></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            Initialize Contact
-          </a>
-          <button
-            onclick="downloadResume()"
-            class="border border-line bg-surface hover:border-accent text-content hover:text-accent px-6 py-3 md:py-4 font-mono text-sm transition-colors flex items-center justify-center gap-2 w-full sm:w-auto"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Extract Weights (Resume)
+        <p class="text-sm sm:text-base md:text-lg max-w-xl leading-relaxed" style="color:var(--text-secondary);">
+          In a world where deep architectures collapse and neural networks run amok, one engineer battles vanishing
+          gradients, data leakage, and production latency — building systems that survive the ultimate pipeline test.
+        </p>
+
+        <div class="flex flex-wrap gap-3 md:gap-4 pt-2">
+          <button onclick="document.getElementById('episodes-section').scrollIntoView({behavior:'smooth'})"
+            class="netflix-btn">
+            <span>▶</span> WATCH NOW
           </button>
+          <a href="mailto:garvitjoshi46@gmail.com" class="netflix-btn-outline">
+            Contact Executive Producer
+          </a>
         </div>
-      </header>
 
-      <!-- CALL TO ACTION / HIRE ME SECTION (MOVED TO TOP) -->
-      <section
-        class="mb-12 md:mb-16 render-optim animate-fade-in"
-        style="animation-delay: 0.2s; animation-fill-mode: both"
-      >
-        <div
-          class="border border-accent bg-surface p-6 md:p-10 relative overflow-hidden group shadow-[0_0_20px_var(--glow-shadow)]"
-        >
-          <!-- Background accent glow -->
-          <div
-            class="absolute -right-20 -top-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-all pointer-events-none"
-          ></div>
-
-          <div
-            class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8"
-          >
-            <div class="max-w-3xl">
-              <h2
-                class="text-2xl md:text-3xl font-bold mb-4 text-content flex items-center gap-3"
-              >
-                <div
-                  class="w-3 h-3 bg-accent animate-pulse shadow-[0_0_8px_var(--glow-shadow)]"
-                ></div>
-                READY TO OVERFIT TO YOUR INFRASTRUCTURE
-              </h2>
-              <p
-                class="text-muted md:text-lg mb-8 leading-relaxed text-balance"
-              >
-                I am currently seeking
-                <strong class="text-content">Machine Learning Engineer</strong>
-                roles. If your team is tired of models that collapse the second
-                they see real-world data, let's converge. I build architectures
-                that survive production, handle tensor shape mismatches without
-                a stack trace panic, and I promise my gradients will never
-                vanish during a sprint planning meeting.
-              </p>
-              <div class="flex flex-col sm:flex-row gap-4 font-mono text-sm">
-                <a
-                  href="mailto:garvitjoshi46@gmail.com"
-                  class="inline-flex justify-center items-center gap-2 bg-accent text-white px-6 py-3 hover:opacity-90 transition-opacity font-bold shadow-[0_0_10px_var(--glow-shadow)]"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
-                    ></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                  garvitjoshi46@gmail.com
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/garvitjoshi01"
-                  target="_blank"
-                  class="inline-flex justify-center items-center gap-2 border border-line bg-base px-6 py-3 text-content hover:border-accent hover:text-accent transition-colors"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-                    ></path>
-                    <rect x="2" y="9" width="4" height="12"></rect>
-                    <circle cx="4" cy="4" r="2"></circle>
-                  </svg>
-                  Backpropagate to my LinkedIn
-                </a>
-              </div>
-            </div>
-
-            <!-- Abstract visual element -->
-            <div
-              class="hidden md:flex flex-col gap-2 font-mono text-[10px] text-accent/60 text-right min-w-[200px]"
-            >
-              <span>> MODEL.STATUS == "AWAITING_GPU_ALLOCATION"</span>
-              <span>> BATCH_SIZE_FOR_INTERVIEWS = 1</span>
-              <span>> EARLY_STOPPING = FALSE</span>
-            </div>
+        <!-- Hero stats -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 pt-4 md:pt-6 max-w-3xl border-t border-border"
+          style="border-color:var(--border-color);">
+          <div class="font-mono text-[9px] md:text-[10px]">
+            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Station</span>
+            <span class="font-bold" style="color:var(--text-primary);">Dehradun, IN</span>
+          </div>
+          <div class="font-mono text-[9px] md:text-[10px]">
+            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Model Integrity</span>
+            <span class="text-netflixRed font-bold">0.92 mAP</span>
+          </div>
+          <div class="font-mono text-[9px] md:text-[10px]">
+            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Inference</span>
+            <span class="font-bold" style="color:var(--text-primary);">&lt;100ms</span>
+          </div>
+          <div class="font-mono text-[9px] md:text-[10px]">
+            <span class="block uppercase tracking-widest" style="color:var(--text-muted);">Compiler</span>
+            <span class="text-netflixGold font-bold">PyTorch Pro</span>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <div class="grid lg:grid-cols-12 gap-8 md:gap-12" id="projects">
-        <!-- MAIN FEATURE COLUMN (ML Case Studies) -->
-        <div class="lg:col-span-8 space-y-6 md:space-y-8">
-          <div class="flex items-center gap-4 mb-4 md:mb-8">
-            <div
-              class="w-3 h-3 bg-accent animate-pulse shadow-[0_0_8px_var(--glow-shadow)]"
-            ></div>
-            <h2 class="text-xl md:text-2xl font-bold uppercase tracking-widest">
-              ML Systems & Deployments
-            </h2>
-          </div>
+    <!-- Scroll indicator -->
+    <div
+      class="absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 md:gap-2 font-mono text-[8px] md:text-[9px] tracking-widest uppercase animate-bounce"
+      style="color:var(--text-muted);">
+      <span>Scroll to binge</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M12 5v14M5 12l7 7 7-7" />
+      </svg>
+    </div>
+  </section>
 
-          <!-- Case Study 1: Aegis Council -->
-          <article
-            class="article-card render-optim border border-line p-5 md:p-8 yolo-box bg-surface"
-          >
-            <div
-              class="hidden sm:block absolute top-0 right-0 bg-accent text-white font-mono text-[10px] px-2 py-1 uppercase font-bold shadow-sm"
-            >
-              Confidence: 99.8%
+  <!-- ===== EPISODES ===== -->
+  <section id="episodes-section" class="py-12 md:py-20 container-padding relative z-10">
+    <div class="max-w-7xl mx-auto">
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between gap-3 md:gap-4 border-b border-border pb-4 md:pb-6 mb-6 md:mb-8"
+        style="border-color:var(--border-color);">
+        <div>
+          <span class="section-subtitle">Season 01</span>
+          <h2 class="section-title text-2xl md:text-4xl lg:text-5xl">Binge the Episodes</h2>
+        </div>
+        <span class="font-mono text-[9px] md:text-[10px] uppercase tracking-widest" style="color:var(--text-muted);">6
+          episodes · 1 season</span>
+      </div>
+
+      <!-- Horizontal scroll row -->
+      <div class="episode-row" id="episode-row">
+
+        <!-- Episode 1 -->
+        <div class="episode-card" onclick="openModal(1)">
+          <div class="card-thumb" style="background: linear-gradient(145deg, #1a0a0a, #2a1a1a);">
+            <span style="font-size:40px;">🏛️</span>
+            <div class="play-overlay">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
             </div>
-            <div
-              class="font-mono text-accent text-[10px] md:text-xs mb-3 flex flex-wrap gap-2 text-glow"
-            >
-              <span>GEN-AI ARCHITECTURE</span>
-              <span class="text-line hidden sm:inline">|</span>
+            <span class="episode-number">S01E01</span>
+          </div>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <span class="match-score">★ 98% MATCH</span>
+              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">45 min</span>
+            </div>
+            <h3>The Council of Models</h3>
+            <p>When one LLM hallucinates, four vote for the truth. A democratic polling framework that filters outputs
+              across multiple transformers.</p>
+            <div class="tags">
+              <span>Transformers</span>
+              <span>LLMs</span>
               <span>Python</span>
-              <span class="text-line hidden sm:inline">|</span>
-              <span>Consensus Engine</span>
             </div>
-            <h3 class="text-xl md:text-3xl font-bold mb-3 md:mb-4 text-balance">
-              Aegis Council: Multi-Model Consensus Engine
-            </h3>
-            <p class="text-muted mb-6 leading-relaxed text-sm md:text-base">
-              Designed a deterministic governance layer for Large Language
-              Models. Instead of relying on a single stochastic output, Aegis
-              Council utilizes multi-model polling and cross-verification to
-              guarantee rigid schema adherence and mitigate hallucination risk
-              in critical pipelines.
-            </p>
-
-            <div
-              class="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6 font-mono text-[10px] md:text-xs"
-            >
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">Architecture / Stack</span>
-                <span class="text-content font-semibold"
-                  >Python, LangChain, Polling, Pydantic</span
-                >
-              </div>
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">System Objective</span>
-                <span class="text-accent font-bold"
-                  >100% Deterministic Output Governance</span
-                >
-              </div>
-            </div>
-
-            <div
-              class="border-l-2 border-error pl-3 md:pl-4 mb-6 bg-error/5 p-3"
-            >
-              <h4
-                class="font-bold text-xs md:text-sm mb-2 text-content flex items-center gap-2"
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  class="text-error"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                  ></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                The Engineering Challenge:
-              </h4>
-              <p class="text-[11px] md:text-sm text-muted">
-                LLMs inherently hallucinate and break JSON structures, making
-                them dangerous for automated execution. Solved this by
-                engineering a "council" of varied temperature models that must
-                reach consensus on data structures before execution.
-              </p>
-            </div>
-
-            <a
-              href="https://github.com/Garvitjoshi1/Aegis_Council"
-              target="_blank"
-              class="text-content font-mono text-xs md:text-sm hover-underline inline-flex items-center gap-2 font-semibold"
-            >
-              View Architecture Repository
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </article>
-
-          <!-- Case Study 2: Defect Object Detection -->
-          <article
-            class="article-card render-optim border border-line p-5 md:p-8 yolo-box bg-surface"
-          >
-            <div
-              class="hidden sm:block absolute top-0 right-0 bg-accent text-white font-mono text-[10px] px-2 py-1 uppercase font-bold shadow-sm"
-            >
-              Bounding Box Locked
-            </div>
-            <div
-              class="font-mono text-accent text-[10px] md:text-xs mb-3 flex flex-wrap gap-2 text-glow"
-            >
-              <span>COMPUTER VISION</span>
-              <span class="text-line hidden sm:inline">|</span>
-              <span>Deep Learning</span>
-              <span class="text-line hidden sm:inline">|</span>
-              <span>PyTorch</span>
-            </div>
-            <h3 class="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-balance">
-              Automated Defect Detection System
-            </h3>
-            <p class="text-muted mb-6 leading-relaxed text-sm md:text-base">
-              Trained and deployed a robust object detection pipeline to
-              identify manufacturing anomalies. Managed end-to-end data
-              processing, data augmentation, and model fine-tuning to ensure
-              high mean Average Precision (mAP) on custom datasets.
-            </p>
-
-            <div
-              class="grid sm:grid-cols-2 gap-3 md:gap-4 mb-6 font-mono text-[10px] md:text-xs"
-            >
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">Core Tech</span>
-                <span class="text-content font-semibold"
-                  >Jupyter, PyTorch/TF, OpenCV, CNNs</span
-                >
-              </div>
-              <div class="bg-base border border-line p-3">
-                <span class="text-muted block mb-1">Optimization Goal</span>
-                <span class="text-content font-semibold"
-                  >High mAP + Reduced Inference Time</span
-                >
-              </div>
-            </div>
-
-            <div
-              class="border-l-2 border-error pl-3 md:pl-4 mb-6 bg-error/5 p-3"
-            >
-              <h4
-                class="font-bold text-xs md:text-sm mb-2 text-content flex items-center gap-2"
-              >
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  class="text-error"
-                  stroke-width="2"
-                >
-                  <path
-                    d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                  ></path>
-                  <line x1="12" y1="9" x2="12" y2="13"></line>
-                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                </svg>
-                The Engineering Challenge:
-              </h4>
-              <p class="text-[11px] md:text-sm text-muted">
-                Manufacturing imagery often suffers from extreme class imbalance
-                (few defects vs. many normal products). Mitigated this using
-                advanced augmentation techniques and focal loss implementation
-                to prevent the model from predicting the majority class blindly.
-              </p>
-            </div>
-
-            <a
-              href="https://github.com/Garvitjoshi1/Defected-Object-Detection"
-              target="_blank"
-              class="text-content font-mono text-xs md:text-sm hover-underline inline-flex items-center gap-2 font-semibold"
-            >
-              Review Notebook & Pipeline
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </a>
-          </article>
-
-          <!-- Other Notable Projects (Compact Grid) -->
-          <article class="render-optim border-t border-line pt-8">
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-muted mb-6"
-            >
-              Predictive Modeling & Applied NLP
-            </h3>
-            <div class="grid sm:grid-cols-2 gap-6 md:gap-8">
-              <div
-                class="group bg-surface p-5 border border-line hover:border-accent transition-colors"
-              >
-                <div class="font-mono text-accent text-[10px] md:text-xs mb-2">
-                  Tabular Data / Classic ML
-                </div>
-                <h3
-                  class="text-base md:text-lg font-bold mb-2 group-hover:text-accent transition-colors text-content"
-                >
-                  Clinical Stroke Prediction
-                </h3>
-                <p class="text-muted text-xs md:text-sm mb-4 line-clamp-3">
-                  Developed predictive pipelines using XGBoost, AdaBoost, and
-                  NNs. Handled severe medical data imbalance using SMOTE and
-                  optimized for high recall.
-                </p>
-                <a
-                  href="https://github.com/Garvitjoshi1/Stroke_Prediction"
-                  target="_blank"
-                  class="text-xs text-content font-bold underline decoration-line underline-offset-4 hover:text-accent transition-colors"
-                  >View Implementation</a
-                >
-              </div>
-              <div
-                class="group bg-surface p-5 border border-line hover:border-accent transition-colors"
-              >
-                <div class="font-mono text-accent text-[10px] md:text-xs mb-2">
-                  Applied NLP / GovTech
-                </div>
-                <h3
-                  class="text-base md:text-lg font-bold mb-2 group-hover:text-accent transition-colors text-content"
-                >
-                  Sahayak-Setu RAG Engine
-                </h3>
-                <p class="text-muted text-xs md:text-sm mb-4 line-clamp-3">
-                  Multilingual AI assistant backend parsing dense government
-                  documents. Engineered custom semantic chunking logic to
-                  maintain accurate contextual retrieval.
-                </p>
-                <a
-                  href="https://github.com/Garvitjoshi1/Sahayak-Setu"
-                  target="_blank"
-                  class="text-xs text-content font-bold underline decoration-line underline-offset-4 hover:text-accent transition-colors"
-                  >View Repository</a
-                >
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
 
-        <!-- RIGHT SIDEBAR (Interactive Demo, Skills, Methodology) -->
-        <aside class="lg:col-span-4 space-y-8" id="metrics">
-          <!-- INTERACTIVE TERMINAL (Proof of Concept) -->
-          <div
-            class="bg-surface border border-accent p-1 shadow-[0_0_15px_var(--glow-shadow)] relative w-full overflow-hidden"
-          >
-            <div
-              class="absolute -top-3 -right-2 md:-right-3 bg-accent text-white px-2 py-0.5 font-mono text-[9px] md:text-[10px] font-bold z-10 shadow-sm"
-            >
-              LIVE SESSION
+        <!-- Episode 2 -->
+        <div class="episode-card" onclick="openModal(2)">
+          <div class="card-thumb" style="background: linear-gradient(145deg, #0a1a0a, #1a2a1a);">
+            <span style="font-size:40px;">🏭</span>
+            <div class="play-overlay">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
             </div>
-            <div
-              class="bg-termbg border border-line rounded-sm p-3 md:p-4 font-mono text-xs md:text-sm relative shadow-inner overflow-hidden h-[250px] md:h-[280px] flex flex-col"
-            >
-              <div
-                class="absolute top-0 left-0 w-full bg-termheader px-3 py-1.5 text-[9px] md:text-[10px] text-muted flex items-center justify-between"
-              >
-                <span>root@garvit-ml-node: ~</span>
-                <span class="flex gap-1.5">
-                  <div class="w-2.5 h-2.5 rounded-full bg-error"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-yellow-500"></div>
-                  <div class="w-2.5 h-2.5 rounded-full bg-accent"></div>
-                </span>
-              </div>
-
-              <div
-                id="terminal-output"
-                class="mt-8 text-content flex-grow overflow-y-auto pb-2 space-y-2 scroll-smooth pr-2"
-              >
-                <p class="text-accent font-bold text-glow">
-                  Booting ML Knowledge Base...
-                </p>
-                <p class="text-muted">Loading weights: [████████████] 100%</p>
-                <p>System ready. Query my architecture or constraints.</p>
-              </div>
-
-              <form
-                id="terminal-form"
-                class="mt-2 flex items-center border-t border-line pt-3"
-                onsubmit="handleTerminal(event)"
-              >
-                <span class="text-accent mr-2 font-bold text-glow">❯</span>
-                <input
-                  type="text"
-                  id="terminal-input"
-                  class="bg-transparent border-none outline-none text-content w-full text-xs md:text-sm placeholder-muted"
-                  placeholder="e.g., Explain Aegis Council"
-                  autocomplete="off"
-                />
-              </form>
+            <span class="episode-number">S01E02</span>
+          </div>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <span class="match-score">★ 96% MATCH</span>
+              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">38 min</span>
+            </div>
+            <h3>The Defect Detector</h3>
+            <p>Deep within erratic factory lights, standard sensors fail. Garvit deploys YOLOv8 with CLAHE preprocessing
+              to spot anomalies.</p>
+            <div class="tags">
+              <span>YOLOv8</span>
+              <span>PyTorch</span>
+              <span>ONNX</span>
             </div>
           </div>
+        </div>
 
-          <!-- Contextual Skills Section -->
-          <div class="render-optim">
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-accent font-bold text-glow mb-4 border-b border-line pb-2"
-            >
-              Machine Learning Stack
-            </h3>
-            <div class="space-y-4 font-mono text-xs md:text-sm">
-              <div>
-                <span class="text-content font-bold block mb-1"
-                  >Deep Learning & Vision</span
-                >
-                <span class="text-muted leading-relaxed block"
-                  >PyTorch, TensorFlow, OpenCV. Designing CNN architectures,
-                  object detection pipelines, and optimizing tensor
-                  operations.</span
-                >
-              </div>
-              <div>
-                <span class="text-content font-bold block mb-1"
-                  >Predictive ML & NLP</span
-                >
-                <span class="text-muted leading-relaxed block"
-                  >XGBoost, Scikit-Learn, Pandas. Handling imbalanced tabular
-                  data, feature engineering, and deploying RAG pipelines.</span
-                >
-              </div>
-              <div>
-                <span class="text-content font-bold block mb-1"
-                  >MLOps & Inference</span
-                >
-                <span class="text-muted leading-relaxed block"
-                  >FastAPI, Docker, SQL. Containerizing models, managing async
-                  inference queues, and evaluating model drift in
-                  production.</span
-                >
-              </div>
+        <!-- Episode 3 -->
+        <div class="episode-card" onclick="openModal(3)">
+          <div class="card-thumb" style="background: linear-gradient(145deg, #0a0a1a, #1a1a2a);">
+            <span style="font-size:40px;">🧠</span>
+            <div class="play-overlay">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+            <span class="episode-number">S01E03</span>
+          </div>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <span class="match-score">★ 94% MATCH</span>
+              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">42 min</span>
+            </div>
+            <h3>NeuroGuard</h3>
+            <p>Predicting strokes before they strike. XGBoost meets SMOTE in a clinical pipeline that raises high-risk
+              recall by 12%.</p>
+            <div class="tags">
+              <span>XGBoost</span>
+              <span>Scikit-Learn</span>
+              <span>SMOTE</span>
             </div>
           </div>
+        </div>
 
-          <!-- Engineering Philosophy -->
-          <div class="render-optim bg-surface border border-line p-5">
-            <h3
-              class="font-mono text-xs uppercase tracking-widest text-accent font-bold mb-4"
-            >
-              ML Philosophy
-            </h3>
-            <ul class="space-y-4 text-xs md:text-sm text-muted">
-              <li class="flex items-start gap-3">
-                <svg
-                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                <span
-                  ><strong class="text-content">Data > Algorithms.</strong> 80%
-                  of model performance comes from rigorous feature engineering,
-                  cleaning, and targeted augmentations.</span
-                >
-              </li>
-              <li class="flex items-start gap-3">
-                <svg
-                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                <span
-                  ><strong class="text-content"
-                    >Optimize for the right metric.</strong
-                  >
-                  Accuracy is misleading. In healthcare (Stroke Prediction), I
-                  prioritize Recall to avoid false negatives.</span
-                >
-              </li>
-              <li class="flex items-start gap-3">
-                <svg
-                  class="w-4 h-4 text-accent shrink-0 mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  ></path>
-                </svg>
-                <span
-                  ><strong class="text-content">Deterministic GenAI.</strong>
-                  LLMs are stochastic; I build consensus logic (Aegis) to
-                  guarantee strict output schemas for production tasks.</span
-                >
-              </li>
-            </ul>
+        <!-- Episode 4 -->
+        <div class="episode-card" onclick="openModal(4)">
+          <div class="card-thumb" style="background: linear-gradient(145deg, #1a1a0a, #2a2a1a);">
+            <span style="font-size:40px;">👨‍🏫</span>
+            <div class="play-overlay">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+            <span class="episode-number">S01E04</span>
           </div>
-        </aside>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <span class="match-score">★ 92% MATCH</span>
+              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">30 min</span>
+            </div>
+            <h3>The Mentor</h3>
+            <p>Flashback episode. Garvit leads 60+ students through MicroPython robotics, turning hardware confusion
+              into algorithmic clarity.</p>
+            <div class="tags">
+              <span>MicroPython</span>
+              <span>Robotics</span>
+              <span>STEM</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Episode 5 -->
+        <div class="episode-card" onclick="openModal(5)">
+          <div class="card-thumb" style="background: linear-gradient(145deg, #1a0a1a, #2a1a2a);">
+            <span style="font-size:40px;">🎓</span>
+            <div class="play-overlay">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+            <span class="episode-number">S01E05</span>
+          </div>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <span class="match-score">★ 90% MATCH</span>
+              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">28 min</span>
+            </div>
+            <h3>The Origin</h3>
+            <p>Lovely Professional University. From first arrays to Amazon ML Summer School selection — the origin story
+              of an ML engineer.</p>
+            <div class="tags">
+              <span>Academics</span>
+              <span>LPU</span>
+              <span>CGPA 7.61</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Episode 6 -->
+        <div class="episode-card" onclick="openModal(6)">
+          <div class="card-thumb" style="background: linear-gradient(145deg, #1a0a0a, #2a0a0a);">
+            <span style="font-size:40px;">🚀</span>
+            <div class="play-overlay">
+              <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+              </svg>
+            </div>
+            <span class="episode-number">S01E06</span>
+          </div>
+          <div class="card-body">
+            <div class="flex items-center justify-between">
+              <span class="match-score">★ 99% MATCH</span>
+              <span class="font-mono text-[8px] md:text-[9px]" style="color:var(--text-muted);">35 min</span>
+            </div>
+            <h3>The Final Gradient</h3>
+            <p>Season finale. The model has converged. The pipeline is stable. Will you greenlight Season 02 and build
+              the next chapter together?</p>
+            <div class="tags">
+              <span>Convergence</span>
+              <span>Collaboration</span>
+              <span>Recruitment</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </main>
+    </div>
+  </section>
 
-    <!-- FOOTER -->
-    <footer
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 md:mt-24 pt-8 border-t border-line flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left"
-    >
-      <div class="font-mono text-xs text-muted">
-        <p>
-          Ready to deploy scalable ML architectures.
-          <br class="block md:hidden" />
-          <a
-            href="mailto:garvitjoshi46@gmail.com"
-            class="text-content hover:text-accent transition-colors font-bold md:ml-1"
-            >garvitjoshi46@gmail.com</a
-          >
+  <!-- ===== MORE LIKE THIS ===== -->
+  <section class="py-10 md:py-16 container-padding relative z-10 border-t border-border"
+    style="border-color:var(--border-color);">
+    <div class="max-w-7xl mx-auto">
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between gap-3 md:gap-4 border-b border-border pb-4 md:pb-6 mb-6 md:mb-8"
+        style="border-color:var(--border-color);">
+        <div>
+          <span class="section-subtitle" style="color:#F5C518;">More Like This</span>
+          <h2 class="section-title text-2xl md:text-4xl">Behind the Scenes</h2>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4 md:gap-6">
+        <!-- Experience -->
+        <div class="info-card">
+          <span class="font-mono text-[9px] text-netflixRed tracking-widest uppercase font-bold">Flashback
+            Episode</span>
+          <h3 class="font-serif text-xl md:text-2xl font-bold mt-1" style="color:var(--text-primary);">Technical
+            Educator — Robotics</h3>
+          <span class="font-mono text-[9px] md:text-[10px] block" style="color:var(--text-muted);">Moonpreneur · Oct
+            2024 – May 2025</span>
+          <ul class="mt-3 space-y-1.5 text-sm"
+            style="color:var(--text-secondary);list-style-type:disc;padding-left:18px;line-height:1.6;">
+            <li>Mentored 60+ students in Python debugging and embedded MicroPython algorithms.</li>
+            <li>Conducted 15+ practical sessions covering sensory automation and microprocessor loops.</li>
+            <li>Directed obstacle avoidance arrays using BBC micro:bit embedded parameters.</li>
+          </ul>
+        </div>
+
+        <!-- Education -->
+        <div class="info-card">
+          <span class="font-mono text-[9px] text-netflixGold tracking-widest uppercase font-bold">Origin Story</span>
+          <h3 class="font-serif text-xl md:text-2xl font-bold mt-1" style="color:var(--text-primary);">B.Tech in
+            Computer Science</h3>
+          <span class="font-mono text-[9px] md:text-[10px] block" style="color:var(--text-muted);">Lovely Professional
+            University · Graduated Jul 2025</span>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <span class="font-mono text-[9px] px-3 py-1 rounded"
+              style="background:var(--input-bg);color:var(--text-secondary);border:1px solid var(--border-color);">AI &
+              ML Specialization</span>
+            <span class="font-mono text-[9px] px-3 py-1 rounded"
+              style="background:var(--input-bg);color:var(--text-secondary);border:1px solid var(--border-color);">CGPA:
+              7.61</span>
+          </div>
+          <div class="mt-4 pt-4 border-t border-border space-y-2" style="border-color:var(--border-color);">
+            <div class="flex justify-between font-mono text-[9px] md:text-[10px]">
+              <span style="color:var(--text-secondary);">Amazon ML Summer School</span>
+              <span class="text-netflixGold font-bold">Top 5% Selection</span>
+            </div>
+            <div class="flex justify-between font-mono text-[9px] md:text-[10px]">
+              <span style="color:var(--text-secondary);">AWS DeepRacer League</span>
+              <span class="text-netflixGold font-bold">Top 10% India</span>
+            </div>
+            <div class="flex justify-between font-mono text-[9px] md:text-[10px]">
+              <span style="color:var(--text-secondary);">CodeKaze Global</span>
+              <span class="text-netflixGold font-bold">Top 11% Worldwide</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SEASON FINALE ===== -->
+  <section class="py-12 md:py-20 container-padding relative z-10">
+    <div class="max-w-4xl mx-auto">
+      <div class="cta-box text-center">
+        <div class="glow-1"></div>
+        <div class="glow-2"></div>
+
+        <span
+          class="font-mono text-[9px] md:text-[10px] text-netflixRed tracking-widest uppercase font-bold block mb-3 md:mb-4">Season
+          Finale</span>
+        <h2 class="font-serif font-black text-3xl md:text-5xl lg:text-6xl tracking-tight mb-4 md:mb-6"
+          style="color:var(--text-primary);">Greenlight Season 02</h2>
+        <p class="font-mono text-[10px] md:text-xs max-w-xl mx-auto mb-8 md:mb-10 uppercase tracking-widest leading-relaxed"
+          style="color:var(--text-secondary);">
+          The model has converged. The pipeline is stable. Ready to build the next generation of systems together?
         </p>
-        <p class="mt-2">
-          System Time:
-          <span id="dynamic-date" class="text-content font-semibold"></span>
-        </p>
-      </div>
-      <div class="flex gap-6 justify-center">
-        <a
-          href="https://github.com/Garvitjoshi1"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="GitHub"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
-            ></path>
-          </svg>
-        </a>
-        <a
-          href="https://www.linkedin.com/in/garvitjoshi01"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="LinkedIn"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
-            ></path>
-            <rect x="2" y="9" width="4" height="12"></rect>
-            <circle cx="4" cy="4" r="2"></circle>
-          </svg>
-        </a>
-        <a
-          href="https://leetcode.com/u/Garvit46/"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="LeetCode"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <polyline points="16 18 22 12 16 6"></polyline>
-            <polyline points="8 6 2 12 8 18"></polyline>
-          </svg>
-        </a>
-        <a
-          href="https://www.kaggle.com/garvit46"
-          target="_blank"
-          class="text-muted hover:text-content focus:text-content transition-colors"
-          aria-label="Kaggle"
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-            ></path>
-            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-            <line x1="12" y1="22.08" x2="12" y2="12"></line>
-          </svg>
-        </a>
-      </div>
-    </footer>
 
-    <!-- Scripts -->
-    <script>
-      // 0. Theme Switching Logic
-      function setTheme(theme) {
-        const root = document.documentElement;
-        if (theme === "system") {
-          localStorage.removeItem("theme");
-          if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            root.classList.add("dark");
-          } else {
-            root.classList.remove("dark");
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+          <a href="mailto:garvitjoshi46@gmail.com" class="netflix-btn">
+            <span>▶</span> Execute Training Pipeline
+          </a>
+          <a href="https://www.linkedin.com/in/garvitjoshi01" target="_blank" class="netflix-btn-outline">
+            Backpropagate (LinkedIn)
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CREDITS ===== -->
+  <div class="credits-container">
+    <div class="max-w-7xl mx-auto container-padding h-full flex items-center justify-center">
+      <div class="relative w-full max-w-lg text-center h-full overflow-hidden py-4">
+        <div class="credits-roll">
+          <div class="credits-item">
+            <div class="credits-title">GARVIT JOSHI · THE OVERFIT · SEASON 01</div>
+          </div>
+
+          <div class="credits-item">
+            <span class="credits-label">PRODUCED &amp; DIRECTED BY</span>
+            Garvit Joshi
+          </div>
+
+          <div class="credits-item">
+            <span class="credits-label">SCREENPLAY WRITTEN BY</span>
+            Garvit Joshi
+          </div>
+
+          <div class="credits-item">
+            <span class="credits-label">EXECUTIVE PRODUCERS</span>
+            PyTorch · Scikit-Learn · YOLOv8
+          </div>
+
+          <div class="credits-item">
+            <span class="credits-label">KEY COLLABORATORS</span>
+            Amazon ML Summer School · AWS DeepRacer · LPU Faculty
+          </div>
+
+          <div class="credits-item">
+            <span class="credits-label">INFRASTRUCTURE</span>
+            FastAPI · ONNX Runtime · Docker
+          </div>
+
+          <div class="credits-item">
+            <div class="credits-title" style="font-size:12px;">COMING SOON: SEASON 02</div>
+          </div>
+
+          <div class="credits-item" style="font-size:8px;opacity:0.4;">
+            All model coefficients optimized. Zero hallucinations detected.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL ===== -->
+  <div id="screenplay-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="flex items-center gap-3 flex-wrap">
+          <span class="episode-badge" id="modal-episode-badge">S01E01</span>
+          <span class="modal-title" id="modal-episode-title">The Council of Models</span>
+        </div>
+        <button class="close-btn" onclick="closeModal()" aria-label="Close modal">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="script-section">
+          <span class="scene-label">🎬 Screenplay Script</span>
+          <div id="modal-script-content"></div>
+        </div>
+
+        <div class="production-notes">
+          <h4>📋 Production Notes</h4>
+          <div id="modal-notes-content"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer-actions">
+        <a href="#" target="_blank" id="modal-github-link" class="github-link" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.15 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.62.24 2.85.12 3.15.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+          </svg>
+          View Repository
+        </a>
+        <button onclick="greenlightAction()" class="greenlight-btn">
+          ★ Greenlight Season 02
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="toast-container"></div>
+
+  <!-- ===== SCRIPT ===== -->
+  <script>
+      (function () {
+        'use strict';
+
+        // ============================================================
+        // DATA
+        // ============================================================
+        const episodeData = {
+          1: {
+            title: 'The Council of Models',
+            badge: 'S01E01',
+            github: 'https://github.com/Garvitjoshi1/Aegis_Council',
+            script: `
+              <p class="script-line"><span class="character">SCENE:</span> Aegis Council Consensus Chamber</p>
+              <p class="script-line"><span class="character">INT:</span> THE CLOUD DATA PIPELINE — NIGHT</p>
+              <p class="script-line"><span class="action">A rogue 7B transformer model outputs a broken JSON payload, triggering a validation failure loop.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">GARVIT (V.O.)</span></p>
+              <p class="script-line">"If one language model hallucinates, the system breaks. But when they are forced to vote under a schema strict gate, mathematical consensus wins."</p>
+              <p class="script-line"><span class="action">Garvit constructs four diverse temperature models, tying them under Pydantic routing logic.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">THE COUNCIL</span></p>
+              <p class="script-line">"Schema checked. Outputs aligned. Validation pass compiled."</p>
+            `,
+            notes: `
+              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">-18% Hallucination Rate</span></div>
+              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">Python, Transformers, FastAPI, Pydantic</span></div>
+              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Stochastic model drift in JSON pipelines</span></div>
+              <div class="note-item"><span class="label">Runtime</span><span class="value">45 minutes</span></div>
+              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 98%</span></div>
+            `
+          },
+          2: {
+            title: 'The Defect Detector',
+            badge: 'S01E02',
+            github: 'https://github.com/Garvitjoshi1/Defected-Object-Detection',
+            script: `
+              <p class="script-line"><span class="character">SCENE:</span> Assembly Floor Detection Node</p>
+              <p class="script-line"><span class="character">INT:</span> HIGH-SPEED MANUFACTURING LINE — DAWN</p>
+              <p class="script-line"><span class="action">The conveyor belt rushes past. Normal components overwhelm optical inputs. Flickering light triggers shadow illusions.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">GARVIT</span></p>
+              <p class="script-line">"Our models can't blindly generalize over erratic exposure levels. We need structural pixel-level contrast mapping."</p>
+              <p class="script-line"><span class="action">Garvit injects CLAHE pre-filtering mechanisms and runs YOLOv8 through an ONNX compilation optimizer.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">SYSTEM LOGS</span></p>
+              <p class="script-line">"[2× speed inference compiled. 0.92 mAP anomaly logged. Safety gate locked.]"</p>
+            `,
+            notes: `
+              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">0.92 mAP Precision</span></div>
+              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">PyTorch, YOLOv8, OpenCV, ONNX Runtime</span></div>
+              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Erratic lighting + class imbalance</span></div>
+              <div class="note-item"><span class="label">Runtime</span><span class="value">38 minutes</span></div>
+              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 96%</span></div>
+            `
+          },
+          3: {
+            title: 'NeuroGuard Stroke Predictor',
+            badge: 'S01E03',
+            github: 'https://github.com/Garvitjoshi1/Stroke_Prediction',
+            script: `
+              <p class="script-line"><span class="character">SCENE:</span> Diagnostic Inference Deck</p>
+              <p class="script-line"><span class="character">INT:</span> THE HOSPITAL CLINICAL NETWORK — MIDNIGHT</p>
+              <p class="script-line"><span class="action">Thousands of benign patient files cataloged. A silent high-risk cardiovascular anomaly lies undetected inside minority sample rows.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">RECRUITER</span></p>
+              <p class="script-line">"Standard accuracy reports 98%. So our engine is optimal?"</p>
+              <p class="script-line"><span class="character">GARVIT</span></p>
+              <p class="script-line">"Accuracy is a trap when diagnostic lives are at stake. 98% accuracy can hide 100% false negatives for minority anomalies. We target pure F1 recall sensitivity."</p>
+              <p class="script-line"><span class="action">Garvit executes SMOTE balancing routines, raising high-risk recall by 12%.</span></p>
+            `,
+            notes: `
+              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">87% F1 Score</span></div>
+              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">Scikit-Learn, XGBoost, SMOTE, FastAPI</span></div>
+              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Extreme clinical class imbalance</span></div>
+              <div class="note-item"><span class="label">Runtime</span><span class="value">42 minutes</span></div>
+              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 94%</span></div>
+            `
+          },
+          4: {
+            title: 'The Mentor',
+            badge: 'S01E04',
+            github: 'https://github.com/Garvitjoshi1',
+            script: `
+              <p class="script-line"><span class="character">SCENE:</span> Creative Robotics Arena</p>
+              <p class="script-line"><span class="character">INT:</span> MOONPRENEUR SYSTEM CLINIC — DAY</p>
+              <p class="script-line"><span class="action">Dozens of junior robotics enthusiasts stare at static micro:bit modules. Broken wiring and infinite sensor loops fill the tables.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">GARVIT</span></p>
+              <p class="script-line">"Don't worry about the raw registers. Let's trace the flow of electrical logic step-by-step together."</p>
+              <p class="script-line"><span class="action">Garvit breaks complex hardware interfaces into modular MicroPython functions.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">STUDENT</span></p>
+              <p class="script-line">"The logic parsed! Obstacle avoidance compiled successfully!"</p>
+            `,
+            notes: `
+              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">60+ Students Mentored</span></div>
+              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">MicroPython, BBC micro:bit, STEM Robotics</span></div>
+              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Novice hardware comprehension</span></div>
+              <div class="note-item"><span class="label">Runtime</span><span class="value">30 minutes</span></div>
+              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 92%</span></div>
+            `
+          },
+          5: {
+            title: 'The Origin Story',
+            badge: 'S01E05',
+            github: 'https://github.com/Garvitjoshi1',
+            script: `
+              <p class="script-line"><span class="character">SCENE:</span> Academic Arena Training Ground</p>
+              <p class="script-line"><span class="character">INT:</span> LOVELY PROFESSIONAL UNIVERSITY — DAY</p>
+              <p class="script-line"><span class="action">Vast compute nodes process tabular math algorithms. Over 63,000 national competitors register for elite ML credentials.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">AMAZON SELECTION PANEL</span></p>
+              <p class="script-line">"Verify candidates with elite execution capabilities, neural comprehension, and mathematical integrity."</p>
+              <p class="script-line"><span class="action">Garvit scores top metrics, securing select national admission inside the Amazon ML Summer School curriculum.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">NARRATOR</span></p>
+              <p class="script-line">"And so began the journey from student to architect."</p>
+            `,
+            notes: `
+              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">7.61 CGPA</span></div>
+              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">LPU, Data Science, Amazon ML School</span></div>
+              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">63,000+ competitors globally</span></div>
+              <div class="note-item"><span class="label">Runtime</span><span class="value">28 minutes</span></div>
+              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 90%</span></div>
+            `
+          },
+          6: {
+            title: 'The Final Gradient',
+            badge: 'S01E06',
+            github: 'https://github.com/Garvitjoshi1',
+            script: `
+              <p class="script-line"><span class="character">SCENE:</span> The Executive Convergence Room</p>
+              <p class="script-line"><span class="character">INT:</span> YOUR TEAM CHATROOM — PRESENT</p>
+              <p class="script-line"><span class="action">The recruiter reviews the portfolio metrics. Standard code options have failed. They look for genuine machine learning capabilities.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">GARVIT</span></p>
+              <p class="script-line">"The code is compiled, the model validated. The decision matrix is simple. Let's greenlight Season 02 and construct stellar systems together."</p>
+              <p class="script-line"><span class="action">The "Greenlight" interface glows with a warm crimson, awaiting the final execution click.</span></p>
+              <hr class="divider" />
+              <p class="script-line"><span class="character">SYSTEM</span></p>
+              <p class="script-line">"[CONVERGENCE COMPLETE. READY FOR SEASON 02.]"</p>
+            `,
+            notes: `
+              <div class="note-item"><span class="label">Director's Target</span><span class="value accent">Optimal Convergence</span></div>
+              <div class="note-item"><span class="label">Cast &amp; Crew</span><span class="value">PyTorch, Docker, Production Architecture</span></div>
+              <div class="note-item"><span class="label">Challenge Overcome</span><span class="value">Recruiter bias toward API-wrappers</span></div>
+              <div class="note-item"><span class="label">Runtime</span><span class="value">35 minutes</span></div>
+              <div class="note-item"><span class="label">Match Score</span><span class="value gold">★ 99%</span></div>
+            `
           }
-        } else if (theme === "dark") {
-          root.classList.add("dark");
-          localStorage.setItem("theme", "dark");
-        } else {
-          root.classList.remove("dark");
-          localStorage.setItem("theme", "light");
-        }
-      }
+        };
 
-      // Listen for system theme changes if set to system
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", (e) => {
-          if (!localStorage.getItem("theme")) {
-            if (e.matches) {
-              document.documentElement.classList.add("dark");
+        // ============================================================
+        // CURSOR
+        // ============================================================
+        (function initCursor() {
+          const cursor = document.getElementById('netflix-cursor');
+          if (!cursor) return;
+
+          let cx = window.innerWidth / 2,
+            cy = window.innerHeight / 2;
+          let mx = cx,
+            my = cy;
+          let active = false;
+
+          if (window.innerWidth >= 1024) {
+            active = true;
+            cursor.style.display = 'flex';
+          }
+
+          document.addEventListener('mousemove', function (e) {
+            mx = e.clientX;
+            my = e.clientY;
+          }, { passive: true });
+
+          function tick() {
+            if (!active) { requestAnimationFrame(tick); return; }
+            cx += (mx - cx) * 0.16;
+            cy += (my - cy) * 0.16;
+            cursor.style.transform = 'translate3d(' + cx + 'px, ' + cy + 'px, 0)';
+            requestAnimationFrame(tick);
+          }
+          tick();
+
+          document.querySelectorAll('a, button, .episode-card, [onclick]').forEach(function (el) {
+            el.addEventListener('mouseenter', function () {
+              cursor.classList.add('expanded');
+            });
+            el.addEventListener('mouseleave', function () {
+              cursor.classList.remove('expanded');
+            });
+          });
+
+          // Handle window resize
+          window.addEventListener('resize', function () {
+            if (window.innerWidth >= 1024) {
+              active = true;
+              cursor.style.display = 'flex';
             } else {
-              document.documentElement.classList.remove("dark");
+              active = false;
+              cursor.style.display = 'none';
             }
+          });
+        })();
+
+        // ============================================================
+        // SCROLL PROGRESS
+        // ============================================================
+        (function initScrollProgress() {
+          const bar = document.getElementById('scroll-progress');
+          if (!bar) return;
+
+          window.addEventListener('scroll', function () {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            bar.style.width = progress + '%';
+          }, { passive: true });
+        })();
+
+        // ============================================================
+        // MODAL
+        // ============================================================
+        const modal = document.getElementById('screenplay-modal');
+
+        window.openModal = function (episodeId) {
+          const data = episodeData[episodeId];
+          if (!data) return;
+
+          document.getElementById('modal-episode-badge').textContent = data.badge;
+          document.getElementById('modal-episode-title').textContent = data.title;
+          document.getElementById('modal-script-content').innerHTML = data.script;
+          document.getElementById('modal-notes-content').innerHTML = data.notes;
+          document.getElementById('modal-github-link').href = data.github;
+
+          modal.classList.add('active');
+          document.body.classList.add('modal-open');
+
+          // Calculate scrollbar width to prevent layout shift
+          const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+          document.body.style.paddingRight = scrollbarWidth + 'px';
+
+          if (typeof confetti !== 'undefined') {
+            confetti({
+              particleCount: 25,
+              spread: 35,
+              colors: ['#E50914', '#F5C518', '#FFFFFF'],
+              origin: { y: 0.6 }
+            });
+          }
+
+          showToast('NOW PLAYING', data.badge + ' — ' + data.title);
+        };
+
+        window.closeModal = function () {
+          modal.classList.remove('active');
+          document.body.classList.remove('modal-open');
+          document.body.style.paddingRight = '';
+        };
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
           }
         });
 
-      // 1. Live Training Log Generator (Optimized for performance)
-      const logsContainer = document.getElementById("bg-training-logs");
-      let epoch = 1;
-      let logTimeout;
-
-      function generateLog() {
-        // Pause animation if user is not on tab to save CPU on mobile
-        if (document.hidden || !logsContainer || window.innerWidth < 768) {
-          logTimeout = setTimeout(generateLog, 2000);
-          return;
-        }
-
-        const loss = (Math.random() * 0.5 + 0.01).toFixed(4);
-        const valLoss = (parseFloat(loss) + Math.random() * 0.05).toFixed(4);
-        const time = Math.floor(Math.random() * 120 + 20);
-
-        const logLine = document.createElement("div");
-        logLine.className = "whitespace-nowrap transition-all duration-300";
-        logLine.innerText = `[INFO] Epoch ${epoch.toString().padStart(4, "0")}/5000 | loss: ${loss} - val_loss: ${valLoss} - time: ${time}ms - lr: 1e-4`;
-
-        if (Math.random() > 0.8) {
-          logLine.classList.add("text-accent", "text-glow", "font-bold");
-          logLine.innerText += " --> [VAL_LOSS DECREASED, SAVING TENSORS]";
-        }
-
-        logsContainer.appendChild(logLine);
-
-        if (logsContainer.children.length > 15) {
-          logsContainer.removeChild(logsContainer.firstChild);
-        }
-
-        epoch++;
-        logTimeout = setTimeout(generateLog, Math.random() * 1000 + 400);
-      }
-
-      // Start logs with slight delay
-      setTimeout(generateLog, 1500);
-
-      // 2. Dynamic Timestamps
-      document.getElementById("dynamic-date").innerText =
-        new Date().toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-          hour: "2-digit",
-          minute: "2-digit",
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
         });
 
-      // 3. Download Resume (Placeholder action)
-      function downloadResume() {
-        alert("Action: Download Garvit_Joshi_MLE_Resume.pdf");
-      }
+        // ============================================================
+        // TOAST
+        // ============================================================
+        let toastTimeout;
 
-      // 4. Interactive Terminal Logic
-      const terminalOutput = document.getElementById("terminal-output");
-      const terminalInput = document.getElementById("terminal-input");
+        window.showToast = function (title, message) {
+          const container = document.getElementById('toast-container');
+          if (!container) return;
 
-      const knowledgeBase = [
-        {
-          keys: ["imbalanced", "smote", "class"],
-          response:
-            "For imbalanced datasets, I rely on techniques like SMOTE for oversampling, and apply focal loss or class weights during training rather than standard cross-entropy.",
-        },
-        {
-          keys: ["vision", "cv", "object", "image"],
-          response:
-            "In Computer Vision, I've built Defect Detection pipelines using CNNs/PyTorch. A major challenge is augmentation strategy and thresholding NMS to ensure high mAP without tanking FPS.",
-        },
-        {
-          keys: ["consensus", "aegis", "hallucination", "llm"],
-          response:
-            "Aegis Council is my solution to LLM hallucinations. By querying models at varied temperatures and enforcing Pydantic schemas, I create a deterministic consensus gate.",
-        },
-        {
-          keys: ["hire", "work", "job", "role"],
-          response:
-            "I'm looking for Machine Learning Engineer roles to build and scale predictive models. Initialize contact at garvitjoshi46@gmail.com.",
-        },
-        {
-          keys: ["stack", "tech", "tools"],
-          response:
-            "Core ML stack: PyTorch, XGBoost, Scikit-Learn. I also write backend code in FastAPI to serve models, and containerize them using Docker.",
-        },
-        {
-          keys: ["metric", "accuracy", "evaluate"],
-          response:
-            "Accuracy is often a trap. Depending on the domain, I focus on Recall (e.g. healthcare), Precision (finance), or mAP (object detection).",
-        },
-      ];
+          const toast = document.createElement('div');
+          toast.className = 'toast-item';
+          toast.innerHTML = `
+            <span class="toast-icon">▶</span>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:700;font-size:10px;color:var(--text-primary);letter-spacing:0.5px;">${title}</div>
+              <div style="font-size:10px;color:var(--text-secondary);font-weight:400;margin-top:2px;">${message}</div>
+            </div>
+            <button class="toast-close" onclick="this.closest('.toast-item').remove()" aria-label="Dismiss">✕</button>
+          `;
 
-      function handleTerminal(e) {
-        e.preventDefault();
-        const query = terminalInput.value.trim();
-        if (!query) return;
+          container.appendChild(toast);
 
-        addTerminalLine(`❯ ${query}`, "text-content font-bold");
-        terminalInput.value = "";
+          clearTimeout(toastTimeout);
+          toastTimeout = setTimeout(function () {
+            if (toast.parentElement) {
+              toast.style.opacity = '0';
+              toast.style.transform = 'translateX(20px)';
+              setTimeout(function () {
+                if (toast.parentElement) toast.remove();
+              }, 300);
+            }
+          }, 4000);
+        };
 
-        const thinkId = addTerminalLine(
-          "Running inference...",
-          "text-muted animate-pulse",
-        );
+        // ============================================================
+        // LIGHTS TOGGLE (Bright Light Mode)
+        // ============================================================
+        let lightsOn = false;
 
-        setTimeout(() => {
-          document.getElementById(thinkId).remove();
+        window.toggleLights = function () {
+          const html = document.documentElement;
+          const label = document.getElementById('lights-label');
 
-          let response =
-            "I'm an ML agent. Ask about 'imbalanced data', 'vision', 'consensus/LLMs', or my 'stack'.";
-          const queryLower = query.toLowerCase();
+          if (lightsOn) {
+            // Go dark
+            html.classList.add('dark');
+            html.classList.remove('light');
+            label.textContent = 'LIGHTS OFF';
+            showToast('🎬 CINEMA MODE', 'Dark theater restored. Netflix noir active.');
+            lightsOn = false;
+          } else {
+            // Go bright
+            html.classList.remove('dark');
+            html.classList.add('light');
+            label.textContent = 'LIGHTS ON';
+            showToast('☀️ CINEMA LIGHTS', 'Bright mode activated. Warm cream & charcoal palette.');
+            lightsOn = true;
 
-          for (let item of knowledgeBase) {
-            if (item.keys.some((key) => queryLower.includes(key))) {
-              response = item.response;
-              break;
+            // Confetti celebration for turning on the lights
+            if (typeof confetti !== 'undefined') {
+              confetti({
+                particleCount: 40,
+                spread: 50,
+                colors: ['#F5C518', '#FAFAF8', '#E50914'],
+                origin: { y: 0.3 }
+              });
             }
           }
+        };
 
-          addTerminalLine(response, "text-accent text-glow font-medium");
-          terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        }, 600);
-      }
+        // ============================================================
+        // GREENLIGHT ACTION
+        // ============================================================
+        window.greenlightAction = function () {
+          if (typeof confetti !== 'undefined') {
+            confetti({
+              particleCount: 150,
+              spread: 80,
+              colors: ['#E50914', '#F5C518', '#FFFFFF', '#10B981'],
+              origin: { y: 0.5 }
+            });
+          }
+          showToast('🚀 GREENLIT!', 'Season 02 approved. Redirecting to executive producer.');
+          setTimeout(function () {
+            window.location.href = 'mailto:garvitjoshi46@gmail.com?subject=Greenlighting Season 02 — ML Collaboration';
+          }, 1200);
+        };
 
-      function addTerminalLine(text, className) {
-        const id = "line-" + Date.now();
-        const p = document.createElement("p");
-        p.id = id;
-        p.className = `mt-1.5 ${className} leading-relaxed`;
-        p.innerText = text;
-        terminalOutput.appendChild(p);
-        terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        return id;
-      }
-    </script>
-  </body>
+        // ============================================================
+        // KEYBOARD NAVIGATION: Arrow keys to scroll episodes
+        // ============================================================
+        (function initKeyboardNav() {
+          const row = document.getElementById('episode-row');
+          if (!row) return;
+
+          document.addEventListener('keydown', function (e) {
+            if (modal.classList.contains('active')) return;
+            if (e.key === 'ArrowRight') {
+              row.scrollBy({ left: 280, behavior: 'smooth' });
+              e.preventDefault();
+            } else if (e.key === 'ArrowLeft') {
+              row.scrollBy({ left: -280, behavior: 'smooth' });
+              e.preventDefault();
+            }
+          });
+        })();
+
+        // ============================================================
+        // TOUCH / SWIPE SUPPORT FOR EPISODE ROW
+        // ============================================================
+        (function initTouchScroll() {
+          const row = document.getElementById('episode-row');
+          if (!row) return;
+
+          let startX = 0;
+          let startScroll = 0;
+          let isSwiping = false;
+
+          row.addEventListener('touchstart', function (e) {
+            startX = e.touches[0].pageX;
+            startScroll = row.scrollLeft;
+            isSwiping = true;
+          }, { passive: true });
+
+          row.addEventListener('touchmove', function (e) {
+            if (!isSwiping) return;
+            const deltaX = e.touches[0].pageX - startX;
+            row.scrollLeft = startScroll - deltaX;
+          }, { passive: true });
+
+          row.addEventListener('touchend', function () {
+            isSwiping = false;
+          }, { passive: true });
+        })();
+
+        // ============================================================
+        // INITIAL TOAST
+        // ============================================================
+        setTimeout(function () {
+          showToast('SERIES PREMIERE', 'Season 01 loaded. Ready to binge.');
+        }, 800);
+
+        // ============================================================
+        // HANDLE RESIZE FOR MODAL PADDING
+        // ============================================================
+        window.addEventListener('resize', function () {
+          if (modal.classList.contains('active')) {
+            const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+            document.body.style.paddingRight = scrollbarWidth + 'px';
+          }
+        });
+
+        // ============================================================
+        // DARK MODE DETECTION FOR INITIAL STATE
+        // ============================================================
+        // If system prefers light, we respect it but default to dark
+        // The user can toggle with the button
+
+      })();
+  </script>
+
+</body>
+
 </html>
