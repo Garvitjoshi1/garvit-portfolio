@@ -1,343 +1,150 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark-theme">
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Garvit Joshi · ML Portfolio</title>
-  <script src="https://cdn.tailwindcss.com">
+
+  <!-- SEO & Meta Tags -->
+  <title>Garvit Joshi | Machine Learning Engineer</title>
+  <meta name="description"
+    content="Portfolio of Garvit Joshi, a Machine Learning Engineer focused on computer vision, applied AI, and production-oriented engineering." />
+  <link rel="canonical" href="https://garvitjoshi.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Garvit Joshi | ML Engineer" />
+  <meta property="og:description"
+    content="Machine Learning Engineer specializing in computer vision and applied AI systems." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://garvitjoshi.com/" />
+  <meta property="og:image" content="https://garvitjoshi.com/og-image.jpg" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Garvit Joshi",
+      "jobTitle": "Machine Learning Engineer",
+      "url": "https://garvitjoshi.com/",
+      "sameAs": [
+        "https://linkedin.com/in/garvitjoshi",
+        "https://github.com/Garvitjoshi1"
+      ]
+    }
   </script>
+
+  <!-- Typography: Manrope (Display), Inter (Body), IBM Plex Mono (Meta) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&family=Manrope:wght@500;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Fallback for no-js -->
+  <noscript>
+    <style>
+      .reveal {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </noscript>
+
+  <!-- Tailwind CSS & Lucide Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Prevent Theme Flash -->
+  <script>
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
+
+  <!-- Tailwind Config mapped to CSS Variables -->
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            darkBg: '#0a0c0e',
-            darkCard: '#111417',
-            darkBorder: '#1e2228',
-            primary: '#a78bfa',
-            primaryDark: '#8b5cf6',
-            accent: '#f472b6',
-            textPrimary: '#f1f5f9',
-            textSecondary: '#94a3b8',
+            bg: 'var(--background)',
+            surface: 'var(--surface)',
+            elevated: 'var(--elevated)',
+            primary: 'var(--primary)',
+            secondary: 'var(--secondary)',
+            accent: 'var(--accent)',
+            border: 'var(--border)',
           },
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
-          animation: {
-            'float': 'float 6s ease-in-out infinite',
-            'pulse-ring': 'pulseRing 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            'shimmer': 'shimmer 3s linear infinite',
-            'fade-in': 'fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'slide-up': 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'count-up': 'countUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+          fontFamily: {
+            display: ['Manrope', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['IBM Plex Mono', 'monospace'],
           },
-          keyframes: {
-            float: { '0%,100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-14px)' } },
-            pulseRing: {
-              '0%,100%': { transform: 'scale(1)', opacity: '0.8' }, '50%': {
-                transform: 'scale(1.08)',
-                opacity: '0.4'
-              }
-            },
-            shimmer: { '0%': { backgroundPosition: '-200% center' }, '100%': { backgroundPosition: '200% center' } },
-            fadeIn: {
-              '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': {
-                opacity: '1',
-                transform: 'translateY(0)'
-              }
-            },
-            slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(40px)' }, '100%': {
-                opacity: '1',
-                transform: 'translateY(0)'
-              }
-            },
-            countUp: {
-              '0%': { opacity: '0', transform: 'scale(0.8)' }, '100%': {
-                opacity: '1',
-                transform: 'scale(1)'
-              }
-            },
-          },
+          transitionTimingFunction: {
+            'reveal': 'cubic-bezier(0.16, 1, 0.3, 1)',
+          }
         },
       },
     }
   </script>
-  <script src="https://unpkg.com/lucide@latest">
-  </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
-    rel="stylesheet" />
 
   <style>
+    /* CSS Variable Theme System */
     :root {
-      --bg: #0a0c0e;
-      --card: #111417;
-      --border: #1e2228;
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --primary: #a78bfa;
-      --primary-dark: #8b5cf6;
-      --accent: #f472b6;
-      --glass-bg: rgba(17, 20, 23, 0.75);
-      --glass-border: rgba(30, 34, 40, 0.6);
+      --background: #F5F3EE;
+      --surface: #ECEAE3;
+      --elevated: #FFFFFF;
+      --primary: #20211F;
+      --secondary: #66665F;
+      --accent: #C65D35;
+      --border: #DAD8D0;
     }
 
-    .light-theme {
-      --bg: #f1f5f9;
-      --card: #ffffff;
-      --border: #d1d9e6;
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --primary: #7c3aed;
-      --primary-dark: #6d28d9;
-      --accent: #ec4899;
-      --glass-bg: rgba(255, 255, 255, 0.75);
-      --glass-border: rgba(209, 217, 230, 0.6);
+    .dark {
+      --background: #171816;
+      --surface: #22231F;
+      --elevated: #292A25;
+      --primary: #F0EFE9;
+      --secondary: #AAA99F;
+      --accent: #E17A50;
+      --border: #393A34;
     }
 
     body {
-      background: var(--bg);
-      color: var(--text-primary);
-      font-family: 'Inter', sans-serif;
-      transition: background 0.4s ease, color 0.4s ease;
-      overflow-x: hidden;
+      background-color: var(--background);
+      color: var(--primary);
+      transition: background-color 0.3s ease, color 0.3s ease;
+      -webkit-font-smoothing: antialiased;
     }
 
-    .glass {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      transition: background 0.4s ease, border-color 0.4s ease;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--primary) 40%, var(--accent) 80%, var(--primary) 100%);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 4s ease-in-out infinite;
-    }
-
-    .gradient-text-accent {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 50%, var(--primary) 100%);
-      background-size: 200% 200%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: shimmer 5s ease-in-out infinite;
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(100px);
-      pointer-events: none;
-      opacity: 0.12;
-      transition: opacity 0.4s ease;
-    }
-
-    .orb-1 {
-      width: 500px;
-      height: 500px;
-      background: #a78bfa;
-      top: -20%;
-      right: -10%;
-      animation: float 8s ease-in-out infinite;
-    }
-
-    .orb-2 {
-      width: 400px;
-      height: 400px;
-      background: #f472b6;
-      bottom: -20%;
-      left: -5%;
-      animation: float 10s ease-in-out infinite reverse;
-    }
-
-    .orb-3 {
-      width: 300px;
-      height: 300px;
-      background: #8b5cf6;
-      top: 40%;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: float 7s ease-in-out infinite 2s;
-    }
-
-    .grid-overlay {
-      background-image: linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-      position: absolute;
-      inset: 0;
-    }
-
+    /* Scrollbar */
     ::-webkit-scrollbar {
-      width: 5px;
+      width: 8px;
     }
 
     ::-webkit-scrollbar-track {
-      background: var(--bg);
+      background: var(--background);
+      border-left: 1px solid var(--border);
     }
 
     ::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 3px;
+      background: var(--secondary);
+      border-radius: 4px;
     }
 
     ::-webkit-scrollbar-thumb:hover {
       background: var(--primary);
     }
 
-    ::selection {
-      background: rgba(167, 139, 250, 0.3);
-      color: var(--primary);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: #fff;
-      padding: 0.75rem 1.75rem;
-      border-radius: 12px;
-      font-weight: 600;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 40px -12px rgba(167, 139, 250, 0.4);
-    }
-
-    .btn-secondary {
-      background: var(--glass-bg);
-      color: var(--text-primary);
-      padding: 0.75rem 1.75rem;
-      border-radius: 12px;
-      font-weight: 500;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      border: 1px solid var(--glass-border);
-      cursor: pointer;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--primary);
-    }
-
-    .nav-link {
-      position: relative;
-      color: var(--text-secondary);
-      transition: color 0.3s ease;
-      font-weight: 500;
-      font-size: 0.875rem;
-    }
-
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--primary);
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      border-radius: 2px;
-    }
-
-    .nav-link:hover {
-      color: var(--text-primary);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .terminal-cursor::after {
-      content: '|';
-      animation: blink 1s step-end infinite;
-      color: var(--primary);
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1;
-      }
-
-      50% {
-        opacity: 0;
-      }
-    }
-
-    .stat-number {
-      font-feature-settings: "tnum";
-      font-variant-numeric: tabular-nums;
-    }
-
-    .timeline-line {
-      position: absolute;
-      left: 19px;
-      top: 28px;
-      bottom: 28px;
-      width: 1.5px;
-      background: linear-gradient(to bottom, rgba(167, 139, 250, 0.25), rgba(167, 139, 250, 0.05));
-    }
-
-    .tag-pill {
-      display: inline-flex;
-      padding: 0.25rem 0.75rem;
-      border-radius: 9999px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      background: rgba(30, 34, 40, 0.5);
-      color: var(--text-secondary);
-      border: 1px solid rgba(30, 34, 40, 0.3);
-      transition: all 0.2s ease;
-    }
-
-    .tag-pill:hover {
-      border-color: var(--primary);
-      color: var(--text-primary);
-    }
-
-    .tab-btn {
-      padding: 0.5rem 1.25rem;
-      border-radius: 10px;
-      font-size: 0.8125rem;
-      font-weight: 500;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      color: var(--text-secondary);
-    }
-
-    .tab-btn:hover {
-      color: var(--text-primary);
-      background: rgba(30, 34, 40, 0.3);
-    }
-
-    .tab-btn.active {
-      background: rgba(167, 139, 250, 0.12);
-      color: var(--primary);
-      box-shadow: inset 0 0 0 1px rgba(167, 139, 250, 0.15);
-    }
-
+    /* Reveal Animation (Respects Reduced Motion) */
     .reveal {
       opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(15px);
+      transition: opacity 0.4s var(--reveal), transform 0.4s var(--reveal);
     }
 
     .reveal.visible {
@@ -345,960 +152,743 @@
       transform: translateY(0);
     }
 
-    .scroll-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
-      z-index: 100;
-      transition: width 0.1s linear;
-      width: 0%;
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        transition: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      *,
+      ::before,
+      ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
 
-    .result-bar {
-      height: 6px;
-      border-radius: 4px;
-      background: rgba(30, 34, 40, 0.5);
-      overflow: hidden;
-      position: relative;
+    /* Component Utilities */
+    .btn-primary {
+      background-color: var(--primary);
+      color: var(--background);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.25rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
     }
 
-    .result-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      width: 0%;
-      transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    .btn-primary:hover {
+      opacity: 0.9;
     }
 
-    .terminal-input {
-      background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text-primary);
-      font-family: monospace;
-      font-size: 0.75rem;
-      flex: 1;
+    .btn-outline {
+      background-color: transparent;
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.25rem;
+      border: 1px solid var(--border);
+      font-weight: 500;
+      transition: background-color 0.2s;
     }
 
-    .terminal-input::placeholder {
-      color: var(--text-secondary);
-      opacity: 0.5;
+    .btn-outline:hover {
+      background-color: var(--surface);
+    }
+
+    .nav-link {
+      font-weight: 500;
+      color: var(--secondary);
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover,
+    .nav-link:focus-visible {
+      color: var(--primary);
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+      border-radius: 2px;
     }
 
     .input-field {
       width: 100%;
-      background: rgba(17, 20, 23, 0.5);
+      background-color: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 0.85rem 1rem;
-      color: var(--text-primary);
-      font-size: 0.875rem;
-      transition: all 0.3s ease;
+      color: var(--primary);
+      padding: 0.875rem 1rem;
+      border-radius: 0.25rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .input-field:focus {
       outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.1);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent);
     }
 
-    .input-field::placeholder {
-      color: var(--text-secondary);
-      opacity: 0.5;
-    }
-
-    .input-label {
+    .label {
       display: block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-secondary);
-      margin-bottom: 0.4rem;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
     }
 
-    .contact-icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-    }
-
-    .contact-icon-box:hover {
-      border-color: var(--primary);
-      transform: scale(1.05);
-    }
-
-    /* --- Profile image style --- */
-    .profile-img {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--primary);
-      box-shadow: 0 0 40px rgba(167, 139, 250, 0.3);
-      transition: all 0.4s ease;
-    }
-
-    .profile-img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 60px rgba(167, 139, 250, 0.5);
-    }
-
-    @media (max-width: 640px) {
-
-      .orb-1,
-      .orb-2,
-      .orb-3 {
-        opacity: 0.05;
-        filter: blur(100px);
-      }
-
-      .profile-img {
-        width: 90px;
-        height: 90px;
-      }
+    .tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      color: var(--secondary);
     }
   </style>
 </head>
 
-<body>
+<body class="font-sans antialiased">
 
-  <div class="scroll-progress" id="scrollProgress"></div>
-
-  <!-- ===== NAV ===== -->
-  <nav class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-4 transition-all duration-300" id="navbar">
-    <div class="max-w-6xl mx-auto flex items-center justify-between">
-      <a href="#" class="text-xl font-bold tracking-tight text-primary flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-primary animate-pulse-ring"></span>
+  <!-- Navigation -->
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 bg-bg/90 backdrop-blur-md border-b border-border transition-all duration-300"
+    id="navbar">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#"
+        class="font-display font-bold text-xl text-primary flex items-center gap-2 focus-visible:outline-accent">
         Garvit Joshi
       </a>
-      <div class="hidden md:flex items-center gap-6">
+
+      <!-- Desktop Nav -->
+      <div class="hidden md:flex items-center gap-8">
         <a href="#work" class="nav-link">Work</a>
         <a href="#expertise" class="nav-link">Expertise</a>
-        <a href="#journey" class="nav-link">Journey</a>
-        <a href="#fun" class="nav-link">Fun</a>
-        <button id="themeToggle" class="text-textSecondary hover:text-primary transition" aria-label="Toggle theme">
-          <i data-lucide="moon" id="themeIcon" class="w-5 h-5"></i>
-        </button>
-        <a href="#contact" class="btn-primary text-sm py-2 px-5">
-          <i data-lucide="sparkles" class="w-4 h-4"></i> Connect
-        </a>
-        <a href="#" target="_blank" class="text-textSecondary hover:text-primary transition"><i data-lucide="linkedin"
-            class="w-4 h-4"></i></a>
-        <a href="#" target="_blank" class="text-textSecondary hover:text-primary transition"><i data-lucide="github"
-            class="w-4 h-4"></i></a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contact</a>
+
+        <div class="flex items-center gap-4 border-l border-border pl-8">
+          <a href="/Garvit_Resume.pdf" target="_blank" rel="noopener noreferrer"
+            class="nav-link font-mono text-sm flex items-center gap-1" title="Download Résumé">
+            <i data-lucide="file-text" class="w-4 h-4"></i> Résumé
+          </a>
+          <button id="themeToggle"
+            class="text-secondary hover:text-primary transition-colors focus-visible:outline-accent p-1 rounded"
+            aria-label="Toggle Dark Mode">
+            <i data-lucide="moon" id="themeIcon" class="w-5 h-5"></i>
+          </button>
+        </div>
       </div>
-      <div class="flex items-center gap-3 md:hidden">
-        <button id="themeToggleMobile" class="text-textSecondary hover:text-primary transition">
+
+      <!-- Mobile Toggle -->
+      <div class="md:hidden flex items-center gap-4">
+        <button id="themeToggleMobile" class="text-secondary hover:text-primary transition-colors p-1"
+          aria-label="Toggle Dark Mode">
           <i data-lucide="moon" id="themeIconMobile" class="w-5 h-5"></i>
         </button>
-        <button id="mobileMenuBtn" class="text-textSecondary hover:text-primary transition">
+        <button id="mobileMenuBtn" class="text-primary p-1" aria-expanded="false" aria-controls="mobileMenu"
+          aria-label="Open Navigation">
           <i data-lucide="menu" class="w-6 h-6"></i>
         </button>
       </div>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden mt-4 glass rounded-2xl p-4 space-y-3 text-sm">
-      <a href="#work" class="block text-textSecondary hover:text-primary transition py-1.5">Work</a>
-      <a href="#expertise" class="block text-textSecondary hover:text-primary transition py-1.5">Expertise</a>
-      <a href="#journey" class="block text-textSecondary hover:text-primary transition py-1.5">Journey</a>
-      <a href="#fun" class="block text-textSecondary hover:text-primary transition py-1.5">Fun</a>
-      <a href="#contact" class="block text-textSecondary hover:text-primary transition py-1.5">Contact</a>
-      <div class="flex gap-4 pt-2 border-t border-border/40">
-        <a href="#" class="text-textSecondary hover:text-primary transition"><i data-lucide="linkedin"
-            class="w-5 h-5"></i></a>
-        <a href="#" class="text-textSecondary hover:text-primary transition"><i data-lucide="github"
-            class="w-5 h-5"></i></a>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-elevated border-b border-border px-6 py-6 space-y-6 shadow-lg">
+      <a href="#work" class="block nav-link mobile-link">Work</a>
+      <a href="#expertise" class="block nav-link mobile-link">Expertise</a>
+      <a href="#experience" class="block nav-link mobile-link">Experience</a>
+      <a href="#about" class="block nav-link mobile-link">About</a>
+      <a href="#contact" class="block nav-link mobile-link">Contact</a>
+      <div class="pt-4 border-t border-border">
+        <a href="/Garvit_Resume.pdf" target="_blank" rel="noopener noreferrer"
+          class="flex items-center gap-2 nav-link mobile-link">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Download Résumé
+        </a>
       </div>
     </div>
   </nav>
 
-  <!-- ===== HERO ===== -->
-  <section id="hero" class="relative min-h-screen flex items-center overflow-hidden pt-20">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-    <div class="grid-overlay"></div>
+  <!-- Hero Section -->
+  <main>
+    <section class="pt-32 md:pt-48 pb-16 md:pb-24 border-b border-border">
+      <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
 
-    <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full py-12 md:py-20">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
-        <div class="lg:col-span-7 space-y-6">
-          <!-- Profile image + badge row -->
-          <div class="flex items-center gap-4 flex-wrap">
-            <!-- Replace src with your own image URL -->
-            <img
-              src="Linkedin.png"
-              alt="Garvit Joshi" class="profile-img" />
-            <div
-              class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass text-xs font-medium text-primary border border-primary/10">
-              <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-              Open for opportunities · Coffee-powered
-            </div>
-          </div>
-
-          <div class="space-y-2">
-            <p class="text-sm font-mono text-textSecondary tracking-widest uppercase">ML Engineer · Systems</p>
-            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
-              <span class="gradient-text">Garvit Joshi</span>
-            </h1>
-            <p class="text-xl sm:text-2xl text-textSecondary font-light mt-2 flex items-center gap-2">
-              <span>AI that actually works</span>
-              <i data-lucide="sparkles" class="w-5 h-5 text-primary animate-wiggle"
-                style="animation: wiggle 0.5s ease-in-out infinite;"></i>
-            </p>
-          </div>
-
-          <p class="text-textSecondary max-w-lg leading-relaxed text-sm sm:text-base">
-            I build intelligent systems that bridge math and reality — from factory floors to clinical
-            trials. Also, I can debug your PyTorch model <span class="text-primary">while</span> making coffee.
+        <!-- Left: Copy -->
+        <div class="md:col-span-8 space-y-6">
+          <p class="font-mono text-sm text-secondary">Machine Learning Engineer · Applied AI</p>
+          <h1 class="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary leading-[1.1]">
+            Garvit Joshi
+          </h1>
+          <p class="text-lg md:text-xl text-secondary max-w-2xl leading-relaxed">
+            I build machine learning systems, with a focus on computer vision, applied AI, and production-oriented
+            engineering.
           </p>
 
-          <div class="grid grid-cols-3 gap-3 pt-2">
-            <div class="glass rounded-2xl px-4 py-3.5 border border-border/40">
-              <p class="text-xs uppercase tracking-wider text-textSecondary font-medium">Selection</p>
-              <p class="text-xl font-bold text-primary stat-number counter" data-target="5">0</p>
-              <p class="text-[11px] text-textSecondary">Amazon ML Scholar · Top %</p>
-            </div>
-            <div class="glass rounded-2xl px-4 py-3.5 border border-border/40">
-              <p class="text-xs uppercase tracking-wider text-textSecondary font-medium">Accuracy</p>
-              <p class="text-xl font-bold text-primary stat-number counter" data-target="92">0</p>
-              <p class="text-[11px] text-textSecondary">mAP · no sweat</p>
-            </div>
-            <div class="glass rounded-2xl px-4 py-3.5 border border-border/40">
-              <p class="text-xs uppercase tracking-wider text-textSecondary font-medium">Speed</p>
-              <p class="text-xl font-bold text-primary stat-number counter" data-target="16">0</p>
-              <p class="text-[11px] text-textSecondary">ms · faster than your coffee</p>
-            </div>
+          <div class="flex flex-wrap items-center gap-4 pt-4">
+            <a href="#work" class="btn-primary">
+              Explore Selected Work
+            </a>
+            <a href="/Garvit_Resume.pdf" target="_blank" rel="noopener noreferrer" class="btn-outline">
+              <i data-lucide="download" class="w-4 h-4"></i> Download Résumé
+            </a>
           </div>
 
-          <div class="flex flex-wrap gap-3 pt-2">
-            <a href="#work" class="btn-primary"><i data-lucide="arrow-right" class="w-4 h-4"></i> See my work</a>
-            <a href="#contact" class="btn-secondary"><i data-lucide="mail" class="w-4 h-4"></i> Get in touch</a>
-          </div>
-          <div class="flex gap-4 pt-2">
-            <a href="#" target="_blank" class="text-textSecondary hover:text-primary transition"><i
-                data-lucide="linkedin" class="w-5 h-5"></i></a>
-            <a href="#" target="_blank" class="text-textSecondary hover:text-primary transition"><i data-lucide="github"
-                class="w-5 h-5"></i></a>
-          </div>
-        </div>
-
-        <!-- Terminal -->
-        <div class="lg:col-span-5 flex justify-center">
-          <div class="w-full max-w-sm glass rounded-2xl border border-border/50 p-5 space-y-4 shadow-2xl relative">
-            <div class="flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-full bg-rose-500/60"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
-              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500/60"></span>
-              <span class="text-[10px] text-textSecondary font-mono ml-2">~ /garvit</span>
-              <span class="ml-auto text-[10px] text-textSecondary/50">v3.0</span>
-            </div>
-            <div id="terminalOutput" class="space-y-1.5 font-mono text-xs min-h-[160px]">
-              <p><span class="text-textSecondary">➜</span> <span class="text-primary">whoami</span></p>
-              <p class="text-primary pl-4">garvit · ML engineer · caffeine_degree: high</p>
-              <p><span class="text-textSecondary">➜</span> <span class="text-primary">superpowers</span></p>
-              <p class="text-primary pl-4">CV · Tabular · LLM · making AI explainable</p>
-              <p><span class="text-textSecondary">➜</span> <span class="text-primary">status</span></p>
-              <p class="text-primary pl-4 animate-pulse">● open to collab · currently sipping tea</p>
-              <div class="flex items-center gap-2 mt-1">
-                <span class="text-textSecondary">➜</span>
-                <input id="terminalInput" type="text" placeholder="type a command..." class="terminal-input"
-                  autofocus />
-                <span class="terminal-cursor"></span>
-              </div>
-              <p class="text-[10px] text-textSecondary/40 mt-1">try: help, projects, skills, joke</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div
-      class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-textSecondary/30 text-xs font-mono animate-bounce">
-      <span>↓ scroll for magic ↓</span>
-    </div>
-  </section>
-
-  <!-- ===== WORK / PROJECTS ===== -->
-  <section id="work" class="py-20 md:py-28 relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-
-      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
-        <p class="text-xs font-mono text-primary tracking-widest uppercase">Case Studies</p>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-          <span class="gradient-text-accent">Systems I've shipped</span>
-        </h2>
-        <p class="text-textSecondary text-sm">Each one solves a real problem — with measurable impact.</p>
-      </div>
-
-      <div
-        class="flex flex-wrap justify-center gap-1.5 p-1.5 glass rounded-2xl border border-border/40 max-w-md mx-auto mb-10">
-        <button onclick="switchTab('defect')" id="tab-btn-defect" class="tab-btn active">
-          <i data-lucide="scan" class="w-3.5 h-3.5 inline mr-1.5"></i> Vision
-        </button>
-        <button onclick="switchTab('neuro')" id="tab-btn-neuro" class="tab-btn">
-          <i data-lucide="heart-pulse" class="w-3.5 h-3.5 inline mr-1.5"></i> Clinical
-        </button>
-        <button onclick="switchTab('aegis')" id="tab-btn-aegis" class="tab-btn">
-          <i data-lucide="bot" class="w-3.5 h-3.5 inline mr-1.5"></i> LLM
-        </button>
-      </div>
-
-      <div id="project-viewer" class="min-h-[440px] transition-all duration-500"></div>
-
-      <!-- Results showcase bar -->
-      <div class="mt-12 glass rounded-2xl p-6 border border-border/40">
-        <p class="text-xs font-mono text-primary tracking-widest uppercase mb-4">Performance metrics</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-textSecondary">Detection mAP</span>
-              <span class="text-primary font-bold">0.92</span>
-            </div>
-            <div class="result-bar">
-              <div class="result-bar-fill" style="width:92%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-textSecondary">Inference latency (ms)</span>
-              <span class="text-primary font-bold">16</span>
-            </div>
-            <div class="result-bar">
-              <div class="result-bar-fill" style="width:84%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="flex justify-between text-sm mb-1">
-              <span class="text-textSecondary">Hallucination reduction</span>
-              <span class="text-primary font-bold">18%</span>
-            </div>
-            <div class="result-bar">
-              <div class="result-bar-fill" style="width:78%"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ===== EXPERTISE ===== -->
-  <section id="expertise" class="py-20 md:py-28 border-t border-border/40 relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-        <div class="lg:col-span-4 space-y-4 sticky top-28">
-          <p class="text-xs font-mono text-primary tracking-widest uppercase">Toolkit</p>
-          <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-            <span class="gradient-text-accent">Tech stack</span>
-          </h2>
-          <p class="text-textSecondary text-sm">Full-stack ML: from data wrangling to edge deployment.</p>
-          <div class="glass rounded-2xl p-5 border border-border/40 space-y-2 text-sm text-textSecondary">
-            <p class="text-primary font-medium text-xs uppercase tracking-wider">Edge &amp; constraints</p>
-            <p>• MicroPython on BBC micro:bit</p>
-            <p>• Docker + FastAPI microservices</p>
-            <p>• ONNX Runtime · FP16 quantization</p>
-            <p class="mt-2 text-primary/60 text-[10px]">also: I can fix a printer without crying</p>
-          </div>
-        </div>
-        <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="glass rounded-2xl p-5 border border-border/40 hover:border-primary/20 transition">
-            <div class="flex items-center gap-2 text-primary mb-3">
-              <i data-lucide="code" class="w-4 h-4"></i>
-              <span class="text-xs font-semibold text-textSecondary uppercase tracking-wider">Languages</span>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="tag-pill">Python</span><span class="tag-pill">SQL</span>
-              <span class="tag-pill">MicroPython</span><span class="tag-pill">C++ (embedded)</span>
-            </div>
-          </div>
-          <div class="glass rounded-2xl p-5 border border-border/40 hover:border-primary/20 transition">
-            <div class="flex items-center gap-2 text-primary mb-3">
-              <i data-lucide="cpu" class="w-4 h-4"></i>
-              <span class="text-xs font-semibold text-textSecondary uppercase tracking-wider">ML &amp; DL</span>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="tag-pill">PyTorch</span><span class="tag-pill">TensorFlow</span>
-              <span class="tag-pill">XGBoost</span><span class="tag-pill">Scikit-learn</span>
-              <span class="tag-pill">SMOTE</span><span class="tag-pill">Bayesian Opt.</span>
-            </div>
-          </div>
-          <div class="glass rounded-2xl p-5 border border-border/40 hover:border-primary/20 transition">
-            <div class="flex items-center gap-2 text-primary mb-3">
-              <i data-lucide="eye" class="w-4 h-4"></i>
-              <span class="text-xs font-semibold text-textSecondary uppercase tracking-wider">Computer Vision</span>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="tag-pill">YOLOv8</span><span class="tag-pill">OpenCV</span>
-              <span class="tag-pill">CLAHE</span><span class="tag-pill">Object Detection</span>
-              <span class="tag-pill">Image Aug.</span>
-            </div>
-          </div>
-          <div class="glass rounded-2xl p-5 border border-border/40 hover:border-primary/20 transition">
-            <div class="flex items-center gap-2 text-primary mb-3">
-              <i data-lucide="server" class="w-4 h-4"></i>
-              <span class="text-xs font-semibold text-textSecondary uppercase tracking-wider">Deployment</span>
-            </div>
-            <div class="flex flex-wrap gap-1.5">
-              <span class="tag-pill">FastAPI</span><span class="tag-pill">Docker</span>
-              <span class="tag-pill">ONNX Runtime</span><span class="tag-pill">Git</span>
-              <span class="tag-pill">Uvicorn</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== JOURNEY ===== -->
-  <section id="journey" class="py-20 md:py-28 border-t border-border/40 relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
-        <p class="text-xs font-mono text-primary tracking-widest uppercase">Timeline</p>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-          <span class="gradient-text-accent">My path</span>
-        </h2>
-        <p class="text-textSecondary text-sm">Not just a resume — a story of curiosity and impact.</p>
-      </div>
-      <div class="max-w-3xl mx-auto space-y-5 relative pl-6 sm:pl-10">
-        <div class="timeline-line"></div>
-        <div class="relative pl-8 sm:pl-10 reveal">
-          <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-primary/20 border-2 border-primary/60"></div>
-          <div class="glass rounded-2xl p-5 sm:p-6 border border-border/40 hover:border-primary/20 transition">
-            <div class="flex flex-wrap items-start gap-3">
-              <span class="text-xs font-mono text-primary font-semibold whitespace-nowrap">Oct 2024 – May 2025</span>
-              <div class="flex-1 min-w-0">
-                <h3 class="text-base font-bold text-primary">Technical Educator (Robotics &amp; STEM)</h3>
-                <p class="text-sm text-textSecondary">Moonpreneur · <i data-lucide="graduation-cap"
-                    class="inline w-3.5 h-3.5 text-primary/70"></i></p>
-                <ul class="mt-2 space-y-1 text-sm text-textSecondary list-disc list-inside">
-                  <li>Mentored 60+ students in micro-controllers and MicroPython</li>
-                  <li>Delivered 15+ hands-on hardware sessions</li>
-                  <li>Managed 6 concurrent batches — yes, I can multitask</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="relative pl-8 sm:pl-10 reveal">
-          <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-primary/20 border-2 border-primary/60"></div>
-          <div class="glass rounded-2xl p-5 sm:p-6 border border-border/40 hover:border-primary/20 transition">
-            <div class="flex flex-wrap items-start gap-3">
-              <span class="text-xs font-mono text-primary font-semibold whitespace-nowrap">Aug 2021 – Jul 2025</span>
-              <div class="flex-1 min-w-0">
-                <h3 class="text-base font-bold text-primary">B.Tech · CSE (AI &amp; ML)</h3>
-                <p class="text-sm text-textSecondary">LPU · GPA 7.61/10 · <i data-lucide="book-open"
-                    class="inline w-3.5 h-3.5 text-primary/70"></i></p>
-                <ul class="mt-2 space-y-1 text-sm text-textSecondary list-disc list-inside">
-                  <li>Deep dive into Data Science, AI, and Computer Vision</li>
-                  <li>Consistent academic performance with applied research</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="relative pl-8 sm:pl-10 reveal">
-          <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-primary border-2 border-primary"></div>
           <div
-            class="glass rounded-2xl p-5 sm:p-6 border border-primary/20 shadow-lg shadow-primary/5 hover:border-primary/40 transition">
-            <div class="flex flex-wrap items-start gap-3">
-              <span class="text-xs font-mono text-primary font-semibold whitespace-nowrap">Selection</span>
-              <div class="flex-1 min-w-0">
-                <h3 class="text-base font-bold text-primary">Amazon ML Summer School Scholar</h3>
-                <p class="text-sm text-textSecondary">Amazon Science · <i data-lucide="award"
-                    class="inline w-3.5 h-3.5 text-primary/70"></i></p>
-                <ul class="mt-2 space-y-1 text-sm text-textSecondary list-disc list-inside">
-                  <li>Selected among <span class="text-primary font-semibold">top 5%</span> of 63,000+ applicants</li>
-                  <li>Advanced ML training from Amazon Science leads</li>
-                </ul>
+            class="pt-6 mt-6 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-4 font-mono text-xs text-secondary leading-relaxed">
+            <div><strong class="text-primary font-medium block">Location</strong> Based in India</div>
+            <div><strong class="text-primary font-medium block">Domain</strong> Machine Learning / Applied AI</div>
+            <div><strong class="text-primary font-medium block">Status</strong> Open to engineering opportunities</div>
+          </div>
+        </div>
+
+        <!-- Right: Portrait -->
+        <div class="md:col-span-4 mt-8 md:mt-0 max-w-sm mx-auto md:max-w-none">
+          <div class="aspect-[3/4] bg-surface border border-border rounded-lg overflow-hidden relative">
+            <!-- Replace with actual professional portrait -->
+            <img
+              src="Linkedin.png"
+              alt="Garvit Joshi Professional Portrait"
+              class="w-full h-full object-cover filter grayscale hover:grayscale-0 transition duration-500"
+              loading="lazy" />
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Technical Metadata Strip -->
+      <div class="max-w-6xl mx-auto px-6 mt-16 md:mt-24">
+        <div class="bg-surface border border-border rounded-lg p-4 md:p-6 flex flex-wrap gap-x-8 gap-y-4 text-sm">
+          <div class="flex items-center gap-2 text-secondary"><i data-lucide="focus" class="w-4 h-4 text-accent"></i>
+            <span class="font-mono text-xs uppercase">Primary Focus</span> <span
+              class="text-primary font-medium">Computer Vision</span></div>
+          <div class="flex items-center gap-2 text-secondary"><i data-lucide="terminal" class="w-4 h-4 text-accent"></i>
+            <span class="font-mono text-xs uppercase">Core Language</span> <span
+              class="text-primary font-medium">Python</span></div>
+          <div class="flex items-center gap-2 text-secondary"><i data-lucide="box" class="w-4 h-4 text-accent"></i>
+            <span class="font-mono text-xs uppercase">Framework</span> <span
+              class="text-primary font-medium">PyTorch</span></div>
+          <div class="flex items-center gap-2 text-secondary"><i data-lucide="cpu" class="w-4 h-4 text-accent"></i>
+            <span class="font-mono text-xs uppercase">Engineering</span> <span class="text-primary font-medium">Model
+              Development & Deployment</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="work" class="py-24 border-b border-border scroll-mt-20">
+      <div class="max-w-6xl mx-auto px-6">
+
+        <div class="mb-16">
+          <h2 class="font-display text-4xl font-bold text-primary">Selected Work</h2>
+          <p class="text-secondary mt-2">Prototypes, implementations, and applied AI systems.</p>
+        </div>
+
+        <div class="space-y-24">
+
+          <!-- Project 01: Featured -->
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start reveal">
+            <div class="lg:col-span-7">
+              <div class="aspect-video bg-surface border border-border rounded-lg overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=1200&q=80"
+                  alt="Industrial Defect Detection Output Screen" class="w-full h-full object-cover" loading="lazy" />
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ===== FUN SECTION ===== -->
-  <section id="fun" class="py-20 md:py-28 border-t border-border/40 relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="text-center max-w-2xl mx-auto space-y-3 mb-14">
-        <p class="text-xs font-mono text-primary tracking-widest uppercase">Fun zone</p>
-        <h2 class="text-3xl md:text-4xl font-bold tracking-tight">
-          <span class="gradient-text-accent">Beyond the code</span>
-        </h2>
-        <p class="text-textSecondary text-sm">Because AI engineers are humans too (mostly).</p>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div class="glass rounded-2xl p-6 border border-border/40 text-center hover:border-primary/20 transition">
-          <i data-lucide="coffee" class="w-10 h-10 text-primary mx-auto mb-3"></i>
-          <h3 class="text-lg font-bold text-primary">Coffee-to-code ratio</h3>
-          <p class="text-textSecondary text-sm mt-1">Optimized for maximum output — currently at 3:1</p>
-          <div class="mt-3"><span
-              class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">#caffeine_driven</span>
-          </div>
-        </div>
-        <div class="glass rounded-2xl p-6 border border-border/40 text-center hover:border-primary/20 transition">
-          <i data-lucide="brain" class="w-10 h-10 text-primary mx-auto mb-3"></i>
-          <h3 class="text-lg font-bold text-primary">Debugging mantra</h3>
-          <p class="text-textSecondary text-sm mt-1">“It worked on my machine” — but I'll make it work on yours too.</p>
-          <div class="mt-3"><span
-              class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">#ship_it</span>
-          </div>
-        </div>
-        <div class="glass rounded-2xl p-6 border border-border/40 text-center hover:border-primary/20 transition">
-          <i data-lucide="target" class="w-10 h-10 text-primary mx-auto mb-3"></i>
-          <h3 class="text-lg font-bold text-primary">Hidden talent</h3>
-          <p class="text-textSecondary text-sm mt-1">I can explain transformer attention <span
-              class="text-primary">without</span> using the word “self”.</p>
-          <div class="mt-3"><span
-              class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-mono">#attention_is_all_you_need</span>
-          </div>
-        </div>
-      </div>
-      <div class="mt-10 text-center">
-        <button id="funFactBtn" class="btn-secondary text-sm px-6 py-2.5">
-          <i data-lucide="shuffle" class="w-4 h-4"></i> Random fact
-        </button>
-        <div id="funFactDisplay"
-          class="mt-4 text-sm text-textSecondary/80 font-mono min-h-[2rem] transition-all duration-300">
-          Click the button — I promise it's not boring.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" class="py-20 md:py-28 border-t border-border/40 relative">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-
-        <!-- Left: info -->
-        <div class="lg:col-span-5 space-y-6 sticky top-28">
-          <div>
-            <p class="text-xs font-mono text-primary tracking-widest uppercase">Connect</p>
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mt-1">
-              <span class="gradient-text-accent">Let's build something</span>
-            </h2>
-            <p class="text-textSecondary text-sm mt-3 leading-relaxed">
-              Hiring, collaborating, or just curious? I'm all ears.
-              Drop me a message and I'll get back to you within 24 hours.
-            </p>
-          </div>
-
-          <div class="space-y-3">
-            <a href="mailto:garvitjoshi46@gmail.com"
-              class="flex items-center gap-3 text-textSecondary hover:text-primary transition group">
-              <span class="contact-icon-box group-hover:border-primary">
-                <i data-lucide="mail" class="w-4 h-4"></i>
-              </span>
-              <span>garvitjoshi46@gmail.com</span>
-            </a>
-            <a href="#" target="_blank"
-              class="flex items-center gap-3 text-textSecondary hover:text-primary transition group">
-              <span class="contact-icon-box group-hover:border-primary">
-                <i data-lucide="linkedin" class="w-4 h-4"></i>
-              </span>
-              <span>linkedin.com/in/garvitjoshi</span>
-            </a>
-            <a href="#" target="_blank"
-              class="flex items-center gap-3 text-textSecondary hover:text-primary transition group">
-              <span class="contact-icon-box group-hover:border-primary">
-                <i data-lucide="github" class="w-4 h-4"></i>
-              </span>
-              <span>github.com/garvitjoshi</span>
-            </a>
-          </div>
-
-          <div class="flex items-center gap-2 text-xs text-textSecondary/60 pt-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            Usually replies within 24h (unless I'm hiking)
-          </div>
-        </div>
-
-        <!-- Right: form -->
-        <div class="lg:col-span-7">
-          <div class="glass rounded-2xl border border-border/40 p-6 md:p-8 relative">
-
-            <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-5">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label class="input-label">Your name</label>
-                  <input id="form-name" type="text" required placeholder="e.g. Jane Lee" class="input-field" />
-                </div>
-                <div>
-                  <label class="input-label">Email</label>
-                  <input id="form-email" type="email" required placeholder="jane@company.com" class="input-field" />
-                </div>
-              </div>
+            <div class="lg:col-span-5 space-y-6">
               <div>
-                <label class="input-label">Message</label>
-                <textarea id="form-message" required rows="4" placeholder="Tell me about your project, role, or idea…"
-                  class="input-field resize-none"></textarea>
+                <div class="flex items-center gap-3 mb-3">
+                  <span class="font-mono text-xs font-medium px-2 py-1 bg-primary text-background rounded-sm">01</span>
+                  <span class="font-mono text-xs text-accent font-medium uppercase tracking-wide">Computer Vision</span>
+                  <span class="font-mono text-xs text-secondary border-l border-border pl-3">Status: Prototype</span>
+                </div>
+                <h3 class="font-display text-2xl font-bold text-primary mb-2">Industrial Defect Detection</h3>
+                <p class="text-secondary leading-relaxed">
+                  Automated metal surface defect detection pipeline designed to transition manual visual inspection to
+                  an AI-driven vision system.
+                </p>
               </div>
-              <button type="submit" class="btn-primary w-full justify-center text-sm py-3">
-                <i data-lucide="send" class="w-4 h-4"></i> Send message
+
+              <div class="space-y-4 text-sm text-primary">
+                <div>
+                  <strong class="block text-secondary font-mono text-xs mb-1">Architecture & Implementation</strong>
+                  <p>Developed using YOLOv8s. Included custom preprocessing and mosaic augmentation on a specific
+                    industrial dataset.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                  <div class="bg-surface p-3 rounded border border-border">
+                    <span class="block text-secondary font-mono text-[10px] uppercase mb-1">Smoke Test mAP50</span>
+                    <span class="font-display font-bold text-lg">0.589</span>
+                  </div>
+                  <div class="bg-surface p-3 rounded border border-border">
+                    <span class="block text-secondary font-mono text-[10px] uppercase mb-1">Smoke Test mAP50-95</span>
+                    <span class="font-display font-bold text-lg">0.264</span>
+                  </div>
+                </div>
+                <div>
+                  <strong class="block text-secondary font-mono text-xs mb-1">Next Steps & Limitations</strong>
+                  <p>Current results reflect a two-epoch baseline test. Future phases require extended training,
+                    hyperparameter tuning, and hardware integration.</p>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap gap-2 pt-2">
+                <span class="tag">YOLOv8</span><span class="tag">Python</span><span class="tag">OpenCV</span>
+              </div>
+
+              <div class="pt-4 border-t border-border">
+                <a href="https://github.com/Garvitjoshi1/industrial-defect-detection" target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors">
+                  <i data-lucide="github" class="w-4 h-4"></i> View Repository
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 02: Supporting -->
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start reveal">
+            <div class="lg:col-span-4 lg:col-start-1 order-2 lg:order-1">
+              <div class="space-y-5">
+                <div>
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class="font-mono text-xs font-medium text-secondary">02</span>
+                    <span class="font-mono text-xs text-secondary uppercase tracking-wide">Applied ML / Tabular</span>
+                  </div>
+                  <h3 class="font-display text-xl font-bold text-primary mb-2">NeuroGuard</h3>
+                  <p class="text-sm text-secondary leading-relaxed">
+                    Interpretable machine learning models for stroke risk prediction in patients with newly diagnosed
+                    atrial fibrillation.
+                  </p>
+                </div>
+
+                <div class="space-y-3 text-sm text-primary">
+                  <p><strong class="text-secondary">Problem:</strong> Clinical datasets heavily skew toward negative
+                    cases. Addressed extreme class imbalance using SMOTE for synthetic minority oversampling.</p>
+                  <p><strong class="text-secondary">Approach:</strong> Feature engineering on patient health records
+                    followed by evaluation of multiple classifiers, culminating in an optimized XGBoost pipeline.</p>
+                  <p class="text-xs text-secondary italic">Note: This is a research implementation, not a cleared
+                    clinical diagnostic tool.</p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">XGBoost</span><span class="tag">SMOTE</span><span class="tag">Scikit-learn</span>
+                </div>
+
+                <a href="https://github.com/Garvitjoshi1/NeuroGuard" target="_blank" rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors mt-2">
+                  <i data-lucide="github" class="w-4 h-4"></i> View Repository
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-8 order-1 lg:order-2">
+              <div
+                class="aspect-[21/9] bg-surface border border-border rounded-lg overflow-hidden relative flex items-center justify-center text-secondary/50">
+                <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"
+                  alt="NeuroGuard Architecture and Visuals" class="w-full h-full object-cover" loading="lazy" />
+              </div>
+            </div>
+          </article>
+
+          <!-- Project 03: Supporting -->
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start reveal">
+            <div class="lg:col-span-4 lg:col-start-1 order-2 lg:order-1">
+              <div class="space-y-5">
+                <div>
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class="font-mono text-xs font-medium text-secondary">03</span>
+                    <span class="font-mono text-xs text-secondary uppercase tracking-wide">Computer Vision</span>
+                  </div>
+                  <h3 class="font-display text-xl font-bold text-primary mb-2">Violence Detection System</h3>
+                  <p class="text-sm text-secondary leading-relaxed">
+                    A computer vision pipeline analyzing video frames to classify violent versus non-violent
+                    interactions in monitored environments.
+                  </p>
+                </div>
+
+                <div class="space-y-3 text-sm text-primary">
+                  <p><strong class="text-secondary">Implementation:</strong> Processed temporal frame sequences using
+                    spatial feature extraction to identify aggressive physical actions.</p>
+                  <p><strong class="text-secondary">Engineering:</strong> Managed dataset preprocessing, model training
+                    loops, and validation to ensure generalization across varying lighting and camera angles.</p>
+                </div>
+
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag">PyTorch</span><span class="tag">OpenCV</span><span class="tag">Video
+                    Analytics</span>
+                </div>
+
+                <a href="https://github.com/Garvitjoshi1/violence-detection" target="_blank" rel="noopener noreferrer"
+                  class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-accent transition-colors mt-2">
+                  <i data-lucide="github" class="w-4 h-4"></i> View Repository
+                </a>
+              </div>
+            </div>
+
+            <div class="lg:col-span-8 order-1 lg:order-2">
+              <div
+                class="aspect-[21/9] bg-surface border border-border rounded-lg overflow-hidden relative flex items-center justify-center text-secondary/50">
+                <img src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1200&q=80"
+                  alt="Violence Detection Inference Frame" class="w-full h-full object-cover" loading="lazy" />
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="py-24 border-b border-border bg-surface/30 scroll-mt-20">
+      <div class="max-w-6xl mx-auto px-6">
+
+        <div class="mb-16">
+          <h2 class="font-display text-4xl font-bold text-primary">Technical Expertise</h2>
+          <p class="text-secondary mt-2">Tools, frameworks, and engineering competencies.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <!-- Category 1 -->
+          <div class="bg-elevated border border-border p-6 rounded-lg reveal">
+            <i data-lucide="code-2" class="w-6 h-6 text-accent mb-4"></i>
+            <h3 class="font-bold text-primary mb-4">Programming</h3>
+            <ul class="space-y-3 font-mono text-sm text-secondary">
+              <li>Python</li>
+              <li>SQL</li>
+              <li>MicroPython</li>
+              <!-- Keep Node.js only if proficiency is demonstrated -->
+              <!-- <li>Node.js</li> -->
+            </ul>
+          </div>
+
+          <!-- Category 2 -->
+          <div class="bg-elevated border border-border p-6 rounded-lg reveal">
+            <i data-lucide="cpu" class="w-6 h-6 text-accent mb-4"></i>
+            <h3 class="font-bold text-primary mb-4">ML Core</h3>
+            <ul class="space-y-3 font-mono text-sm text-secondary">
+              <li>PyTorch</li>
+              <li>Scikit-learn</li>
+              <li>XGBoost</li>
+              <li>SMOTE (Technique)</li>
+            </ul>
+          </div>
+
+          <!-- Category 3 -->
+          <div class="bg-elevated border border-border p-6 rounded-lg reveal">
+            <i data-lucide="eye" class="w-6 h-6 text-accent mb-4"></i>
+            <h3 class="font-bold text-primary mb-4">Computer Vision</h3>
+            <ul class="space-y-3 font-mono text-sm text-secondary">
+              <li>YOLO / Ultralytics</li>
+              <li>OpenCV</li>
+              <li>Torchvision</li>
+            </ul>
+          </div>
+
+          <!-- Category 4 -->
+          <div class="bg-elevated border border-border p-6 rounded-lg reveal">
+            <i data-lucide="database" class="w-6 h-6 text-accent mb-4"></i>
+            <h3 class="font-bold text-primary mb-4">Data & Engineering</h3>
+            <ul class="space-y-3 font-mono text-sm text-secondary">
+              <li>Git & Version Control</li>
+              <li>PostgreSQL</li>
+              <li>Docker Containerization</li>
+              <li>FastAPI</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="py-24 border-b border-border scroll-mt-20">
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="font-display text-4xl font-bold text-primary mb-12">Experience & Education</h2>
+
+        <div class="space-y-12">
+
+          <!-- Experience 2 -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 reveal border-t border-border pt-12">
+            <div class="md:col-span-1 pt-1 text-secondary font-mono text-sm">
+              Oct 2024 – May 2025
+            </div>
+            <div class="md:col-span-3">
+              <h3 class="text-xl font-bold text-primary">Technical Educator — Robotics</h3>
+              <div class="text-secondary font-medium mb-4">Moonpreneur</div>
+              <ul class="space-y-2 text-primary list-disc list-outside ml-4">
+                <li>Mentored students in hardware programming using MicroPython and BBC micro:bit.</li>
+                <li>Conducted practical robotics and programming sessions, managing concurrent student cohorts.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 reveal border-t border-border pt-12">
+            <div class="md:col-span-1 pt-1 text-secondary font-mono text-sm">
+              Aug 2021 – Jul 2025
+            </div>
+            <div class="md:col-span-3">
+              <h3 class="text-xl font-bold text-primary">B.Tech — Computer Science and Engineering (Data Science)</h3>
+              <div class="text-secondary font-medium mb-2">Lovely Professional University</div>
+              <p class="text-primary font-mono text-sm">CGPA: 7.61</p>
+            </div>
+          </div>
+
+          <!-- Award / Achievement -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 reveal border-t border-border pt-12">
+            <div class="md:col-span-1 pt-1 text-secondary font-mono text-sm">
+              Achievement
+            </div>
+            <div class="md:col-span-3">
+              <h3 class="text-xl font-bold text-primary">Amazon ML Summer School Scholar</h3>
+              <div class="text-secondary font-medium mb-2">Amazon Science</div>
+              <p class="text-primary text-sm">Selected to receive advanced machine learning training directly from
+                Amazon Science leads.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 border-b border-border bg-surface/30 scroll-mt-20">
+      <div class="max-w-3xl mx-auto px-6 space-y-6 reveal">
+        <h2 class="font-display text-4xl font-bold text-primary mb-6">About</h2>
+        <p class="text-lg text-primary leading-relaxed">
+          I am a computer science graduate focused on building practical machine learning systems. My interests lie in
+          computer vision, applied machine learning and the engineering required to make models useful beyond
+          experimentation.
+        </p>
+        <p class="text-lg text-primary leading-relaxed">
+          I enjoy understanding the entire pipeline — from datasets and preprocessing to model evaluation, APIs, and
+          deployment workflows.
+        </p>
+
+        <div class="pt-6 flex flex-wrap gap-6">
+          <a href="https://github.com/Garvitjoshi1" target="_blank" rel="noopener noreferrer"
+            class="flex items-center gap-2 text-secondary hover:text-accent font-medium transition-colors">
+            <i data-lucide="github" class="w-5 h-5"></i> garvitjoshi1
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 scroll-mt-20">
+      <div class="max-w-4xl mx-auto px-6">
+
+        <div class="text-center mb-12 reveal">
+          <h2 class="font-display text-4xl font-bold text-primary mb-4">Let's Connect</h2>
+          <p class="text-secondary">Open to relevant engineering opportunities, collaborations, or technical
+            discussions.</p>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-12 bg-elevated border border-border rounded-lg p-8 md:p-12 shadow-sm reveal">
+
+          <!-- Socials / Direct Links -->
+          <div class="space-y-8 border-b md:border-b-0 md:border-r border-border pb-8 md:pb-0 md:pr-8">
+            <div>
+              <h3 class="font-bold text-primary mb-4">Direct Contact</h3>
+              <a href="mailto:garvitjoshi46@gmail.com"
+                class="flex items-center gap-3 text-secondary hover:text-accent transition-colors mb-3">
+                <i data-lucide="mail" class="w-5 h-5"></i> garvitjoshi46@gmail.com
+              </a>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-primary mb-4">Profiles</h3>
+              <a href="https://linkedin.com/in/garvitjoshi" target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-3 text-secondary hover:text-accent transition-colors mb-3">
+                <i data-lucide="linkedin" class="w-5 h-5"></i> linkedin.com/in/garvitjoshi
+              </a>
+              <a href="https://github.com/Garvitjoshi1" target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-3 text-secondary hover:text-accent transition-colors">
+                <i data-lucide="github" class="w-5 h-5"></i> github.com/Garvitjoshi1
+              </a>
+            </div>
+          </div>
+
+          <!-- Contact Form (Configured for Formspree) -->
+          <div>
+            <form action="https://formspree.io/f/xbjnqweo" method="POST" class="space-y-5">
+              <div>
+                <label for="name" class="label">Name</label>
+                <input type="text" id="name" name="name" required class="input-field" placeholder="Jane Doe" />
+              </div>
+
+              <div>
+                <label for="email" class="label">Email</label>
+                <input type="email" id="email" name="_replyto" required class="input-field"
+                  placeholder="jane@example.com" />
+              </div>
+
+              <div>
+                <label for="message" class="label">Message</label>
+                <textarea id="message" name="message" rows="4" required class="input-field resize-none"
+                  placeholder="Hello..."></textarea>
+              </div>
+
+              <button type="submit" class="btn-primary w-full justify-center">
+                Send Message
               </button>
             </form>
-
-            <div id="contact-success"
-              class="hidden absolute inset-0 glass rounded-2xl flex flex-col items-center justify-center text-center p-8">
-              <div
-                class="w-14 h-14 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mb-4">
-                <i data-lucide="check-circle" class="w-7 h-7 text-primary"></i>
-              </div>
-              <h3 class="text-xl font-bold text-primary">Message sent!</h3>
-              <p class="text-textSecondary text-sm mt-1">I'll get back to you — probably before your next coffee break.
-              </p>
-            </div>
-
           </div>
+
         </div>
-
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="border-t border-border/40 py-8">
+  <!-- Footer -->
+  <footer class="bg-surface border-t border-border py-8">
     <div
-      class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-textSecondary">
-      <div class="flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-        <span>Open for opportunities</span>
-      </div>
-      <span>© 2026 Garvit Joshi · Built with <i data-lucide="heart" class="inline w-4 h-4 text-primary"></i> &amp; lots
-        of <i data-lucide="coffee" class="inline w-4 h-4 text-primary"></i></span>
-      <div class="flex items-center gap-3">
-        <a href="#" target="_blank" class="hover:text-primary transition"><i data-lucide="linkedin"
+      class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-secondary font-mono">
+      <div>&copy; 2026 Garvit Joshi. All rights reserved.</div>
+      <div class="flex items-center gap-4">
+        <a href="https://github.com/Garvitjoshi1" target="_blank" rel="noopener noreferrer"
+          class="hover:text-primary transition-colors" aria-label="GitHub"><i data-lucide="github"
             class="w-4 h-4"></i></a>
-        <a href="#" target="_blank" class="hover:text-primary transition"><i data-lucide="github"
-            class="w-4 h-4"></i></a>
-        <a href="mailto:garvitjoshi46@gmail.com" class="hover:text-primary transition"><i data-lucide="mail"
+        <a href="https://linkedin.com/in/garvitjoshi" target="_blank" rel="noopener noreferrer"
+          class="hover:text-primary transition-colors" aria-label="LinkedIn"><i data-lucide="linkedin"
             class="w-4 h-4"></i></a>
       </div>
     </div>
   </footer>
 
-
-  <!-- ===== SCRIPTS ===== -->
+  <!-- Scripts -->
   <script>
+    // Initialize Icons
     lucide.createIcons();
 
-    // ---- Theme toggle ----
+    // Theme Management
     const themeToggle = document.getElementById('themeToggle');
     const themeToggleMobile = document.getElementById('themeToggleMobile');
     const themeIcon = document.getElementById('themeIcon');
     const themeIconMobile = document.getElementById('themeIconMobile');
     const html = document.documentElement;
 
-    function toggleTheme() {
-      const isDark = html.classList.contains('dark-theme');
-      html.classList.toggle('dark-theme');
-      html.classList.toggle('light-theme');
-      const icon = isDark ? 'sun' : 'moon';
-      themeIcon.setAttribute('data-lucide', icon);
-      themeIconMobile.setAttribute('data-lucide', icon);
+    function updateIcons(isDark) {
+      const iconName = isDark ? 'sun' : 'moon';
+      themeIcon.setAttribute('data-lucide', iconName);
+      themeIconMobile.setAttribute('data-lucide', iconName);
       lucide.createIcons();
-      localStorage.setItem('theme', isDark ? 'light' : 'dark');
     }
+
+    // Set initial icon based on applied class
+    updateIcons(html.classList.contains('dark'));
+
+    function toggleTheme() {
+      const currentTheme = localStorage.getItem('theme');
+      if (currentTheme === 'light') {
+        // Switch to dark
+        localStorage.setItem('theme', 'dark');
+        html.classList.add('dark');
+        updateIcons(true);
+      } else if (currentTheme === 'dark') {
+        // Switch to system
+        localStorage.removeItem('theme');
+        const isSystemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        isSystemDark ? html.classList.add('dark') : html.classList.remove('dark');
+        updateIcons(isSystemDark);
+      } else {
+        // Currently system, switch to light
+        localStorage.setItem('theme', 'light');
+        html.classList.remove('dark');
+        updateIcons(false);
+      }
+    }
+
     themeToggle.addEventListener('click', toggleTheme);
     themeToggleMobile.addEventListener('click', toggleTheme);
-    if (localStorage.getItem('theme') === 'light') {
-      html.classList.remove('dark-theme');
-      html.classList.add('light-theme');
-      themeIcon.setAttribute('data-lucide', 'sun');
-      themeIconMobile.setAttribute('data-lucide', 'sun');
-      lucide.createIcons();
+
+    // Listen for OS theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+      if (!localStorage.getItem('theme')) {
+        const isDark = e.matches;
+        isDark ? html.classList.add('dark') : html.classList.remove('dark');
+        updateIcons(isDark);
+      }
+    });
+
+    // Mobile Menu Management (Accessible)
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+
+    function toggleMobileMenu() {
+      const isExpanded = mobileMenuBtn.getAttribute('aria-expanded') === 'true';
+      mobileMenuBtn.setAttribute('aria-expanded', !isExpanded);
+      mobileMenu.classList.toggle('hidden');
     }
 
-    // ---- Mobile menu ----
-    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+    // Close menu when a link is clicked
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+      });
     });
 
-    // ---- Scroll progress ----
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      document.getElementById('scrollProgress').style.width = docHeight > 0 ? (scrollTop / docHeight) * 100 + '%' : '0%';
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        mobileMenuBtn.focus();
+      }
     });
 
-    // ---- Navbar glass ----
+    // Scroll Reveal Animation (using Intersection Observer)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target); // Only animate once
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+      });
+    } else {
+      // Fallback for reduced motion or no IntersectionObserver support
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('visible');
+      });
+    }
+
+    // Navbar Shadow on Scroll
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-      navbar.classList.toggle('glass', window.scrollY > 50);
-      navbar.classList.toggle('border-b', window.scrollY > 50);
-      navbar.classList.toggle('border-border/40', window.scrollY > 50);
-    });
-
-    // ---- Reveal animations ----
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 120);
-        }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    // ---- Counter animation ----
-    const counters = document.querySelectorAll('.counter');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = parseInt(el.dataset.target);
-          let current = 0;
-          const increment = target / 40;
-          const interval = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              el.textContent = target + (el.dataset.target === '5' ? '%' : '');
-              clearInterval(interval);
-            } else {
-              el.textContent = Math.floor(current) + (el.dataset.target === '5' ? '%' : '');
-            }
-          }, 30);
-          counterObserver.unobserve(el);
-        }
-      });
-    }, { threshold: 0.3 });
-    counters.forEach(el => counterObserver.observe(el));
-
-    // ---- Terminal ----
-    const terminalInput = document.getElementById('terminalInput');
-    const terminalOutput = document.getElementById('terminalOutput');
-
-    function terminalPrint(text, className = 'text-primary') {
-      const p = document.createElement('p');
-      p.className = className + ' pl-4';
-      p.textContent = text;
-      terminalOutput.insertBefore(p, terminalOutput.lastElementChild);
-      terminalOutput.scrollTop = terminalOutput.scrollHeight;
-    }
-
-    terminalInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const cmd = terminalInput.value.trim().toLowerCase();
-        terminalInput.value = '';
-        const prompt = document.createElement('p');
-        prompt.innerHTML = `<span class="text-textSecondary">➜</span> <span class="text-primary">${cmd}</span>`;
-        terminalOutput.insertBefore(prompt, terminalOutput.lastElementChild);
-
-        const responses = {
-          'help': 'Available: whoami, projects, skills, joke, status, clear',
-          'whoami': 'garvit · ML engineer · I make AI work in the real world',
-          'projects': 'Defect Detection · Stroke Risk · Aegis Council (LLM)',
-          'skills': 'CV (YOLO, OpenCV) · Tabular (XGBoost, SMOTE) · LLM (RAG, consensus)',
-          'joke': 'Why did the neural network cross the road? To get to the other side of the gradient.',
-          'status': 'Currently: sipping tea · open to collab · coding with ❤️',
-          'clear': () => {
-            while (terminalOutput.children.length > 6) terminalOutput.removeChild(terminalOutput
-              .firstChild); return null;
-          }
-        };
-        if (cmd === 'clear') { responses.clear(); return; }
-        const reply = responses[cmd] || `Command not found: "${cmd}". Try "help".`;
-        if (reply) terminalPrint(reply);
+      if (window.scrollY > 20) {
+        navbar.classList.add('shadow-sm');
+      } else {
+        navbar.classList.remove('shadow-sm');
       }
-    });
-
-    // ---- Project data ----
-    const PROJECTS = {
-      defect: {
-        title: 'Industrial Defect Detection',
-        tagline: 'High-speed vision system for assembly-line quality control',
-        category: 'Computer Vision',
-        icon: 'scan',
-        metrics: [
-          { label: 'Accuracy', value: '0.92 mAP' },
-          { label: 'Speed', value: '16 ms' },
-          { label: 'Speedup', value: '2.0×' }
-        ],
-        problem: 'Factory floors suffer from lighting variations and tiny surface flaws that confuse standard CV models, causing false alarms and production delays.',
-        solution: 'Built a lightweight YOLOv8s pipeline with CLAHE illumination correction and ONNX FP16 quantization — delivering reliable, low-latency inspection on edge hardware.',
-        steps: ['Camera feed (60 FPS) ingestion', 'CLAHE lighting normalization', 'YOLOv8s anchor-free detection',
-          'ONNX FP16 quantized inference', 'Bounding box + classification output'
-        ],
-        tags: ['YOLOv8', 'OpenCV', 'ONNX', 'FP16']
-      },
-      neuro: {
-        title: 'Stroke Risk Predictor',
-        tagline: 'Explainable ML for early cerebrovascular risk assessment',
-        category: 'Clinical ML',
-        icon: 'heart-pulse',
-        metrics: [
-          { label: 'F1 Score', value: '0.87' },
-          { label: 'Recall boost', value: '+12%' },
-          { label: 'Response', value: '< 18 ms' }
-        ],
-        problem: 'Stroke risk datasets are heavily imbalanced (under 5% positive cases), so models often play it safe and miss high-risk patients.',
-        solution: 'Applied SMOTE to synthetically balance the minority class, then used XGBoost with 5-fold cross-validation. Served via FastAPI for sub-18ms predictions.',
-        steps: ['Ingest 15+ clinical features', 'SMOTE oversampling (1:1 balance)',
-          'Grid-optimized XGBoost model', 'FastAPI async wrapper', 'Sub-18ms inference response'
-        ],
-        tags: ['XGBoost', 'SMOTE', 'FastAPI', 'Scikit-learn']
-      },
-      aegis: {
-        title: 'Aegis Council',
-        tagline: 'Multi-model LLM consensus & routing system',
-        category: 'LLM Systems',
-        icon: 'bot',
-        metrics: [
-          { label: 'Hallucination red.', value: '−18%' },
-          { label: 'Models', value: '4+' },
-          { label: 'Response', value: '1.2 s' }
-        ],
-        problem: 'Single LLMs often hallucinate or produce inconsistent reasoning, especially in open-ended clinical or technical queries.',
-        solution: 'Orchestrated parallel queries across 4+ open-source models (LLaMA, Mistral, etc.) and applied semantic similarity voting to filter outliers and boost factual consistency.',
-        steps: ['Query ingestion & routing', 'Parallel model dispatch', 'Semantic similarity scoring',
-          'Consensus voting engine', 'Outlier rejection & final output'
-        ],
-        tags: ['LLaMA', 'Mistral', 'Sentence Transformers', 'FastAPI']
-      }
-    };
-
-    function switchTab(tabId) {
-      ['defect', 'neuro', 'aegis'].forEach(id => {
-        document.getElementById(`tab-btn-${id}`).classList.toggle('active', id === tabId);
-      });
-      const p = PROJECTS[tabId];
-      const viewer = document.getElementById('project-viewer');
-      viewer.innerHTML = `
-                        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 animate-fade-in">
-                            <div class="lg:col-span-2 glass rounded-2xl border border-border/40 p-6 space-y-5">
-                                <div>
-                                    <span class="text-xs font-mono text-primary uppercase tracking-wider flex items-center gap-1.5">
-                                        <i data-lucide="${p.icon}" class="w-3.5 h-3.5"></i> ${p.category}
-                                    </span>
-                                    <h3 class="text-xl font-bold text-primary mt-1">${p.title}</h3>
-                                    <p class="text-sm text-textSecondary italic">“${p.tagline}”</p>
-                                </div>
-                                <div class="grid grid-cols-3 gap-2">
-                                    ${p.metrics.map(m => `
-                                        <div class="glass-light rounded-xl p-2.5 border border-border/20">
-                                            <p class="text-[10px] font-medium text-textSecondary uppercase tracking-wider">${m.label}</p>
-                                            <p class="text-base font-bold text-primary">${m.value}</p>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                                <div class="space-y-3 text-sm">
-                                    <div>
-                                        <p class="text-xs font-semibold text-rose-400/80 uppercase tracking-wider flex items-center gap-1.5">
-                                            <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Challenge
-                                        </p>
-                                        <p class="text-textSecondary text-sm mt-0.5 leading-relaxed">${p.problem}</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-1.5">
-                                            <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> Approach
-                                        </p>
-                                        <p class="text-textSecondary text-sm mt-0.5 leading-relaxed">${p.solution}</p>
-                                    </div>
-                                </div>
-                                <div class="pt-3 border-t border-border/40 flex flex-wrap items-center justify-between gap-2">
-                                    <div class="flex flex-wrap gap-1.5">${p.tags.map(t => `<span class="tag-pill">${t}</span>`).join('')}</div>
-                                    <a href="#" class="text-xs font-medium text-primary hover:text-primary/80 transition flex items-center gap-1">
-                                        <i data-lucide="github" class="w-3.5 h-3.5"></i> Source
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="lg:col-span-3 glass rounded-2xl border border-border/40 p-6 space-y-4">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-xs font-semibold text-textSecondary uppercase tracking-wider flex items-center gap-1.5">
-                                        <i data-lucide="layers" class="w-4 h-4 text-primary"></i> Pipeline
-                                    </p>
-                                    <span class="text-[10px] text-textSecondary/60 font-mono">end-to-end</span>
-                                </div>
-                                <div class="space-y-2.5">
-                                    ${p.steps.map((s, i) => `
-                                        <div class="flex items-center gap-4 p-3 rounded-xl glass border border-border/30">
-                                            <span class="w-7 h-7 rounded-full bg-primary/10 text-primary flex items-center justify-center text-xs font-bold shrink-0">${i + 1}</span>
-                                            <span class="text-sm text-textSecondary">${s}</span>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                                <div class="pt-3 border-t border-border/40 flex items-center justify-between text-xs text-textSecondary/60">
-                                    <span>Optimized for low-latency</span>
-                                    <span class="glass-light px-2.5 py-0.5 rounded-full text-primary text-[10px] font-mono">FP16</span>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-      lucide.createIcons();
-    }
-    switchTab('defect');
-
-    // ---- Fun facts ----
-    const funFacts = [
-      "I once trained a model on a Raspberry Pi while camping — it worked.",
-      "My code runs faster than my espresso machine (and that's saying something).",
-      "I can explain backpropagation using only memes.",
-      "I have containerized more things than I have packed for vacations.",
-      "My mAP is higher than my accuracy in darts.",
-      "I think in tensors. Send help.",
-      "The best model is the one that actually ships."
-    ];
-    document.getElementById('funFactBtn').addEventListener('click', function () {
-      const display = document.getElementById('funFactDisplay');
-      const fact = funFacts[Math.floor(Math.random() * funFacts.length)];
-      display.textContent = fact;
-      display.classList.add('text-primary');
-      setTimeout(() => display.classList.remove('text-primary'), 2000);
-    });
-
-    // ---- Form ----
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      const success = document.getElementById('contact-success');
-      success.classList.remove('hidden');
-      setTimeout(() => {
-        success.classList.add('hidden');
-        document.getElementById('contact-form').reset();
-      }, 4000);
-    }
-
-    // ---- Smooth scroll ----
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (href === '#') return;
-        e.preventDefault();
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          document.getElementById('mobileMenu').classList.add('hidden');
-        }
-      });
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') document.getElementById('mobileMenu').classList.add('hidden');
-    });
-
-    // ---- Terminal easter egg: click on terminal ----
-    document.querySelector('.glass.rounded-2xl.border.border-border\\/50.p-5')?.addEventListener('click', function (e) {
-      if (e.target.closest('input')) return;
-      const lastP = this.querySelector('.terminal-cursor')?.closest('.flex');
-      if (lastP) {
-        const cmd = lastP.querySelector('input');
-        if (cmd) cmd.focus();
-      }
-    });
+    }, { passive: true });
   </script>
-
 </body>
 
 </html>
